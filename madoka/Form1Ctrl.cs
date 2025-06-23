@@ -12,7 +12,7 @@ namespace madoka
 	{
 		private void Initialize()
 		{
-			ctrl.DataSetCtrl dataSet = new ctrl.DataSetCtrl(this.dataSet);
+			ctrl.DataSetCtrl dataSet = new ctrl.DataSetCtrl(this.dataSet1);
 			_model.rootDirID = dataSet.Init();
 		}
 
@@ -69,6 +69,7 @@ namespace madoka
 		/* ------------------------------------------ *
 		 * DataGridView
 		 * ------------------------------------------ */
+		 /*
 		private DataGridViewRow[] GetDataGridViewRow(TreeNode selectTreeNode)
 		{
 			switch (selectTreeNode.Tag)
@@ -82,6 +83,6 @@ namespace madoka
 		private IEnumerable<Directory> EnumerateDirectories(Directory d)
 		{
 
-		}
+		}*/
 	}
 }

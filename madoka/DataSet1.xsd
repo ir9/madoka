@@ -12,7 +12,7 @@
   <xs:element name="DataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet" msprop:Generator_UserDSName="DataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Tag" msprop:Generator_TableClassName="TagDataTable" msprop:Generator_TableVarName="tableTag" msprop:Generator_RowChangedName="TagRowChanged" msprop:Generator_TablePropName="Tag" msprop:Generator_RowDeletingName="TagRowDeleting" msprop:Generator_RowChangingName="TagRowChanging" msprop:Generator_RowEvHandlerName="TagRowChangeEventHandler" msprop:Generator_RowDeletedName="TagRowDeleted" msprop:Generator_RowClassName="TagRow" msprop:Generator_UserTableName="Tag" msprop:Generator_RowEvArgName="TagRowChangeEvent">
+        <xs:element name="Tag" msprop:Generator_TableClassName="TagDataTable" msprop:Generator_TableVarName="tableTag" msprop:Generator_TablePropName="Tag" msprop:Generator_RowDeletingName="TagRowDeleting" msprop:Generator_RowChangingName="TagRowChanging" msprop:Generator_RowEvHandlerName="TagRowChangeEventHandler" msprop:Generator_RowDeletedName="TagRowDeleted" msprop:Generator_UserTableName="Tag" msprop:Generator_RowChangedName="TagRowChanged" msprop:Generator_RowEvArgName="TagRowChangeEvent" msprop:Generator_RowClassName="TagRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
@@ -21,11 +21,11 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="DirectoryTable" msprop:Generator_TableClassName="DirectoryTableDataTable" msprop:Generator_TableVarName="tableDirectoryTable" msprop:Generator_TablePropName="DirectoryTable" msprop:Generator_RowDeletingName="DirectoryTableRowDeleting" msprop:Generator_RowChangingName="DirectoryTableRowChanging" msprop:Generator_RowEvHandlerName="DirectoryTableRowChangeEventHandler" msprop:Generator_RowDeletedName="DirectoryTableRowDeleted" msprop:Generator_UserTableName="DirectoryTable" msprop:Generator_RowChangedName="DirectoryTableRowChanged" msprop:Generator_RowEvArgName="DirectoryTableRowChangeEvent" msprop:Generator_RowClassName="DirectoryTableRow">
+        <xs:element name="DirectoryTable" msprop:Generator_TableClassName="DirectoryTableDataTable" msprop:Generator_TableVarName="tableDirectoryTable" msprop:Generator_RowChangedName="DirectoryTableRowChanged" msprop:Generator_TablePropName="DirectoryTable" msprop:Generator_RowDeletingName="DirectoryTableRowDeleting" msprop:Generator_RowChangingName="DirectoryTableRowChanging" msprop:Generator_RowEvHandlerName="DirectoryTableRowChangeEventHandler" msprop:Generator_RowDeletedName="DirectoryTableRowDeleted" msprop:Generator_RowClassName="DirectoryTableRow" msprop:Generator_UserTableName="DirectoryTable" msprop:Generator_RowEvArgName="DirectoryTableRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
-              <xs:element name="directory" msdata:DataType="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columndirectory" msprop:Generator_ColumnPropNameInRow="directory" msprop:Generator_ColumnPropNameInTable="directoryColumn" msprop:Generator_UserColumnName="directory" type="xs:anyType" />
+              <xs:element name="directory" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columndirectory" msprop:Generator_ColumnPropNameInRow="directory" msprop:Generator_ColumnPropNameInTable="directoryColumn" msprop:Generator_UserColumnName="directory" type="xs:anyType" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

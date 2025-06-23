@@ -12,7 +12,7 @@ namespace madoka.ctrl
 	{
 		private readonly ModelMy _model;
 
-		public IOCtrl(ModelMy model, DataSet dataSet)
+		public IOCtrl(ModelMy model, DataSet1 dataSet)
 		{
 			_model = model;
 		}
@@ -25,10 +25,10 @@ namespace madoka.ctrl
 		private readonly List<TreeModelPair> _relationList = new List<TreeModelPair>();
 
 		private readonly ModelMy _model;
-		private readonly DataSet _dataSet;
+		private readonly DataSet1 _dataSet;
 		private readonly Dictionary<string, NodeID> _path2dirID;
 
-		private EnumDir(ModelMy model, DataSet dataSet)
+		private EnumDir(ModelMy model, DataSet1 dataSet)
 		{
 			_model   = model;
 			_dataSet = dataSet;
@@ -39,7 +39,7 @@ namespace madoka.ctrl
 			);
 		}
 
-		static public Task EnumeDirs(string path, ModelMy model, DataSet dataSet)
+		static public Task EnumeDirs(string path, ModelMy model, DataSet1 dataSet)
 		{
 			Task task = Task.Run(() =>
 			{

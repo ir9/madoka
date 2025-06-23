@@ -14,9 +14,9 @@ namespace madoka.ctrl
 
 	class DataSetCtrl
 	{
-		private readonly DataSet _dataSet;
+		private readonly DataSet1 _dataSet;
 
-		public DataSetCtrl(DataSet dataSet)
+		public DataSetCtrl(DataSet1 dataSet)
 		{
 			_dataSet = dataSet;
 		}
@@ -24,7 +24,7 @@ namespace madoka.ctrl
 		public int Init()
 		{
 			int rootNodeId = IDIssuer.DirectoryID;
-			DataSet.DirectoryTableRow root = _dataSet.DirectoryTable.AddDirectoryTableRow(
+			DataSet1.DirectoryTableRow root = _dataSet.DirectoryTable.AddDirectoryTableRow(
 				rootNodeId, new Directory(null, new System.IO.FileInfo[] { })
 			);
 			return rootNodeId;
