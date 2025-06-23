@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace madoka
 {
+	delegate void MainThradInvoker(Action func);
+
 	public partial class Form1 : Form
 	{
-		private Model _model = new Model();
-		private Queue<Task> _taskList = new Queue<Task>();
-		private CancellationTokenSource _cancelToken = new CancellationTokenSource();
+		private ModelMy _model = new ModelMy();
 
 		public Form1()
 		{
@@ -29,10 +29,8 @@ namespace madoka
 
 		private void Form1_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			_cancelToken.Cancel();
-			Task.WaitAll(_taskList.ToArray(), 10000);
-
-			_cancelToken.Dispose();
+			ctrl.TaskCtrl task = new ctrl.TaskCtrl(_model);
+			task.DisposeTask();
 		}
 
 		private void Form1_SizeChanged(object sender, EventArgs e)
@@ -62,23 +60,8 @@ namespace madoka
 			string[] fileList = (string[])e.Data.GetData(DataFormats.FileDrop);
 		}
 
-		private void AddTask(Task task)
+		private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
 		{
-			CleanTaskQueue();
-			_taskList.Enqueue(task);
-		}
-
-		private void CleanTaskQueue()
-		{
-			if (_taskList.Count > 0)
-			{   // remove completed tasks
-				Task prev = _taskList.Peek();
-				while (prev.IsCompleted)
-				{
-					_taskList.Dequeue();
-					prev = _taskList.Peek();
-				}
-			}
 		}
 	}
 }

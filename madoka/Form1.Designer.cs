@@ -29,8 +29,8 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Directory", 0, 0);
-			System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Tag", 2, 2);
+			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Directory", 0, 0);
+			System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Tag", 2, 2);
 			this.contextMenuFolder = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.menuFolderInstall = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -41,12 +41,18 @@
 			this.treeView1 = new System.Windows.Forms.TreeView();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+			this.dataGridView1 = new System.Windows.Forms.DataGridView();
+			this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataSet = new madoka.DataSet();
 			this.contextMenuFolder.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
+			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// contextMenuFolder
@@ -108,21 +114,22 @@
 			this.treeView1.ImageList = this.imageList1;
 			this.treeView1.Location = new System.Drawing.Point(0, 0);
 			this.treeView1.Name = "treeView1";
-			treeNode3.ContextMenuStrip = this.contextMenuFolder;
-			treeNode3.ImageIndex = 0;
-			treeNode3.Name = "DirectoryBase";
-			treeNode3.SelectedImageIndex = 0;
-			treeNode3.Text = "Directory";
-			treeNode4.ImageIndex = 2;
-			treeNode4.Name = "TagBase";
-			treeNode4.SelectedImageIndex = 2;
-			treeNode4.Text = "Tag";
+			treeNode1.ContextMenuStrip = this.contextMenuFolder;
+			treeNode1.ImageIndex = 0;
+			treeNode1.Name = "DirectoryBase";
+			treeNode1.SelectedImageIndex = 0;
+			treeNode1.Text = "Directory";
+			treeNode2.ImageIndex = 2;
+			treeNode2.Name = "TagBase";
+			treeNode2.SelectedImageIndex = 2;
+			treeNode2.Text = "Tag";
 			this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode4});
+            treeNode1,
+            treeNode2});
 			this.treeView1.SelectedImageIndex = 0;
 			this.treeView1.Size = new System.Drawing.Size(289, 422);
 			this.treeView1.TabIndex = 0;
+			this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
 			this.treeView1.DragDrop += new System.Windows.Forms.DragEventHandler(this.treeView1_DragDrop);
 			this.treeView1.DragEnter += new System.Windows.Forms.DragEventHandler(this.treeView1_DragEnter);
 			// 
@@ -135,6 +142,10 @@
 			// splitContainer1.Panel1
 			// 
 			this.splitContainer1.Panel1.Controls.Add(this.treeView1);
+			// 
+			// splitContainer1.Panel2
+			// 
+			this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
 			this.splitContainer1.Size = new System.Drawing.Size(794, 422);
 			this.splitContainer1.SplitterDistance = 289;
 			this.splitContainer1.TabIndex = 0;
@@ -154,6 +165,38 @@
 			this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 450);
 			this.tableLayoutPanel1.TabIndex = 2;
 			// 
+			// dataGridView1
+			// 
+			this.dataGridView1.AllowUserToAddRows = false;
+			this.dataGridView1.AllowUserToDeleteRows = false;
+			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.FileName});
+			this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+			this.dataGridView1.MultiSelect = false;
+			this.dataGridView1.Name = "dataGridView1";
+			this.dataGridView1.ReadOnly = true;
+			this.dataGridView1.RowHeadersVisible = false;
+			this.dataGridView1.RowTemplate.Height = 21;
+			this.dataGridView1.ShowCellErrors = false;
+			this.dataGridView1.ShowEditingIcon = false;
+			this.dataGridView1.ShowRowErrors = false;
+			this.dataGridView1.Size = new System.Drawing.Size(501, 422);
+			this.dataGridView1.TabIndex = 0;
+			// 
+			// FileName
+			// 
+			this.FileName.HeaderText = "FileName";
+			this.FileName.Name = "FileName";
+			this.FileName.ReadOnly = true;
+			this.FileName.Width = 498;
+			// 
+			// model
+			// 
+			this.dataSet.DataSetName = "DataSet";
+			this.dataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -169,10 +212,13 @@
 			this.statusStrip1.ResumeLayout(false);
 			this.statusStrip1.PerformLayout();
 			this.splitContainer1.Panel1.ResumeLayout(false);
+			this.splitContainer1.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
 			this.splitContainer1.ResumeLayout(false);
 			this.tableLayoutPanel1.ResumeLayout(false);
 			this.tableLayoutPanel1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataSet)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -188,6 +234,9 @@
 		private System.Windows.Forms.TreeView treeView1;
 		private System.Windows.Forms.SplitContainer splitContainer1;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+		private System.Windows.Forms.DataGridView dataGridView1;
+		private System.Windows.Forms.DataGridViewTextBoxColumn FileName;
+		private DataSet dataSet;
 	}
 }
 

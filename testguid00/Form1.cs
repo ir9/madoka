@@ -16,6 +16,7 @@ namespace testguid00
 		{
 			InitializeComponent();
 
+			/*
 			dataGridView1.Rows.Add(;
 			dataGridView1.BindingContext
 
@@ -23,6 +24,7 @@ namespace testguid00
 			row.Cells.Add(;
 			DataGridViewCell cell;
 			DataGridViewTextBoxCell
+			*/
 		}
 
 		private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

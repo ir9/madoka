@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace madoka
 {
-	static class C
+	static class K
 	{
 		static public readonly int[] IconIndexList = {
 			7, // drive
