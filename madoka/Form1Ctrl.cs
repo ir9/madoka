@@ -38,26 +38,17 @@ namespace madoka
 			}
 		}
 
-		/*
-		private void AddFontDirectory(string path)
+		private void LaunchScanFontDirectoryTask(string[] pathList)
 		{
-			TreeNode dirNode = treeView1.Nodes["Directory"];
-			Task task = Task.Run(() =>
-			{
-				DirectoryInfo rootDir = new DirectoryInfo(path);
-				TreeNode newNode = GetDirChildNode(rootDir);
-
-				this.Invoke(new Action(() =>
-				{
-					InsertNewNode(dirNode, newNode);
-					dirNode.ExpandAll();
-				}));
-			}, _cancelToken.Token);
-			AddTask(task);
+			Task<ctrl.ScanDirTaskResult> task = ctrl.ScanDirTask.EnumDirs(pathList, _model, dataSet1);
+			task?.ContinueWith((prevTask) => {
+			});
 		}
-		*/
 
+		private void RebuildTree()
+		{
 
+		}
 
 		private void InsertNewNode(TreeNode parent, TreeNode newItem)
 		{
@@ -69,20 +60,22 @@ namespace madoka
 		/* ------------------------------------------ *
 		 * DataGridView
 		 * ------------------------------------------ */
-		 /*
 		private DataGridViewRow[] GetDataGridViewRow(TreeNode selectTreeNode)
 		{
 			switch (selectTreeNode.Tag)
 			{
-			case Directory e:
-
-				break;
+			case Dir e: return EnumerateDirectories(e);
 			}
+
+			// null
+			return new DataGridViewRow[] { };
 		}
 
-		private IEnumerable<Directory> EnumerateDirectories(Directory d)
+		private DataGridViewRow[] EnumerateDirectories(Dir d)
 		{
 
-		}*/
+			d.ID;
+
+		}
 	}
 }

@@ -21,6 +21,12 @@ namespace madoka.ctrl
 			_model.taskList.Enqueue(task);
 		}
 
+		public void StartTask(Task task)
+		{
+			AddTask(task);
+			task.Start();
+		}
+
 		public void CleanTaskQueue()
 		{
 			Queue<Task> taskList = _model.taskList;

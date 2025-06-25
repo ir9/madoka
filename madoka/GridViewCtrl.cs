@@ -25,14 +25,14 @@ namespace madoka
 	{
 		static private readonly Padding TEXT_PADDING = new Padding { Left = 16 };
 
-		public DataGridViewRow[] CreateRows(Directory[] dirList)
+		public DataGridViewRow[] CreateRows(Dir[] dirList)
 		{
 			return _CreateRowsInternal(dirList).ToArray();
 		}
 
-		private IEnumerable<DataGridViewRow> _CreateRowsInternal(Directory[] dirList)
+		private IEnumerable<DataGridViewRow> _CreateRowsInternal(Dir[] dirList)
 		{
-			IEnumerable<DataGridViewRow> Convert(Directory d)
+			IEnumerable<DataGridViewRow> Convert(Dir d)
 			{
 				DataGridViewRow[] dir = { ConvertDirectory(d) };
 				var fontList = d.FontFileList.AsParallel().Select(ConvertFont);
@@ -55,7 +55,7 @@ namespace madoka
 			return row;
 		}
 
-		private DataGridViewRow ConvertDirectory(Directory d)
+		private DataGridViewRow ConvertDirectory(Dir d)
 		{
 			DataGridViewIconTextCell cell = new DataGridViewIconTextCell();
 			cell.Value = d.DirectoryInfo.Name;

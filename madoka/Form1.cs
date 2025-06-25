@@ -58,10 +58,25 @@ namespace madoka
 			if (!e.Data.GetDataPresent(DataFormats.FileDrop))
 				return;
 			string[] fileList = (string[])e.Data.GetData(DataFormats.FileDrop);
+			string[] dirList = fileList.Where((f) => Directory.Exists(f)).ToArray();
+
+			if (dirList.Length == 0)
+			{
+				var dirList2 = from f in fileList
+							   let dir = Directory.GetParent(f)
+							   select dir.FullName;
+				dirList = dirList2.Distinct().ToArray();
+			}
+
+			if (dirList.Length == 0)
+				return; // no-op
+
+			LaunchScanFontDirectoryTask(dirList);
 		}
 
 		private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
 		{
+
 		}
 	}
 }

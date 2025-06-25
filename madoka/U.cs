@@ -18,15 +18,17 @@ namespace madoka
 		}
 
 		public static readonly Regex RE_FONTFILE_EXT_CHECKER = new Regex(@"\.(fon|fnt|ttf|ttc|fot|otf|mmm|pfb|pfm)$", RegexOptions.IgnoreCase);
-		public static bool IsFontFile(FileInfo file)
+		public static bool IsFontFile(string path)
 		{
-			return RE_FONTFILE_EXT_CHECKER.IsMatch(file.Name);
+			return RE_FONTFILE_EXT_CHECKER.IsMatch(path);
 		}
 
+		/*
 		public static int ComputeInsertPosition(List<string> arr, string item)
 		{
 			int index = arr.BinarySearch(item);
 			return index >= 0 ? index : ~index;
 		}
+		*/
 	}
 }

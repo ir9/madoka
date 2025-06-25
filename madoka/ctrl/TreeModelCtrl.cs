@@ -8,7 +8,7 @@ namespace madoka.ctrl
 {
 	class TreeModelCtrl
 	{
-		private ModelMy _model;
+		private readonly ModelMy _model;
 
 		public TreeModelCtrl(ModelMy model)
 		{
@@ -25,6 +25,12 @@ namespace madoka.ctrl
 		public void AddDirRelation(IEnumerable<TreeModelPair> pairList)
 		{
 			_model.treeRelationModel.AddRange(pairList);
+			_model.treeRelationModel.Sort();
+		}
+
+		public bool Contain(TreeModelPair rv)
+		{
+			return _model.treeRelationModel.BinarySearch(rv) >= 0;
 		}
 
 		public int[] GetChildIndexes(int parent)

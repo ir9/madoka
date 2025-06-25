@@ -8,6 +8,7 @@ namespace madoka.ctrl
 {
 	using NodeID = Int32;
 
+	/*
 	class IOCtrl
 	{
 		private readonly ModelMy _model;
@@ -16,52 +17,104 @@ namespace madoka.ctrl
 		{
 			_model = model;
 		}
-
 	}
+	*/
 
-	class EnumDir
+	class ScanDirTaskResult
+	{
+		public ScanDirTaskResult(List<TableDirectoryRowCompati> recordList, List<TreeModelPair> relationList)
+		{
+			RecordList = recordList;
+			RelationList = relationList;
+		}
+
+		public List<TableDirectoryRowCompati> RecordList { get; private set; }
+		public List<TreeModelPair> RelationList { get; private set; }
+	};
+
+	class ScanDirTask
 	{
 		private readonly List<TableDirectoryRowCompati> _recordList = new List<TableDirectoryRowCompati>();
 		private readonly List<TreeModelPair> _relationList = new List<TreeModelPair>();
 
 		private readonly ModelMy _model;
 		private readonly DataSet1 _dataSet;
-		private readonly Dictionary<string, NodeID> _path2dirID;
+		private readonly Dictionary<string, NodeID> _path2dirIDTemp;
+		private readonly TreeModelCtrl _treeModelCtr;
 
-		private EnumDir(ModelMy model, DataSet1 dataSet)
+		private ScanDirTask(ModelMy model, DataSet1 dataSet)
 		{
 			_model   = model;
 			_dataSet = dataSet;
+			_treeModelCtr = new TreeModelCtrl(model);
 
-			_path2dirID = dataSet.DirectoryTable.ToDictionary(
-				(r) => ((Directory)r.directory).DirectoryInfo.FullName,
+			_path2dirIDTemp = dataSet.DirectoryTable.ToDictionary(
+				(r) => ((Dir)r.directory).DirectoryInfo.FullName,
 				(r) => r.id
 			);
 		}
 
-		static public Task EnumeDirs(string path, ModelMy model, DataSet1 dataSet)
+		static public Task<ScanDirTaskResult> EnumDirs(string[] pathList, ModelMy model, DataSet1 dataSet)
 		{
-			Task task = Task.Run(() =>
+			foreach (string path in pathList)
 			{
-				EnumDir enumDir = new EnumDir(model, dataSet);
-				enumDir.RegisterDir(path);
-			}, model.cancelToken.Token);
+				model.addFontDirectoryPathList.Enqueue(path);
+			}
 
-			TaskCtrl ctrl = new TaskCtrl(model);
-			ctrl.AddTask(task);
-			return task;
+			lock (model.addFontDirectoryPathList)
+			{
+				if (!model.addFontDirectoryTaskTerminateFlag)
+					return null;
+
+				model.addFontDirectoryTaskTerminateFlag = false;
+				Task<ScanDirTaskResult> task = new Task<ScanDirTaskResult>(
+					() =>
+					{
+						ScanDirTask enumDir = new ScanDirTask(model, dataSet);
+						ScanDirTaskResult result = enumDir.RegisterDirs();
+						return result;
+					},
+					model.cancelToken.Token
+				);
+
+				TaskCtrl ctrl = new TaskCtrl(model);
+				ctrl.StartTask(task);
+				return task;
+			}
 		}
 
-		private void RegisterDir(string path)
+		/// <summary>
+		/// commit
+		/// </summary>
+		private ScanDirTaskResult RegisterDirs()
 		{
-			DirectoryInfo root = new DirectoryInfo(path);
-			NodeID nodeID = RegisterDir(root);
+			ModelMy model = _model;
 
+			while (!model.cancelToken.IsCancellationRequested)
+			{
+				if (model.addFontDirectoryPathList.TryDequeue(out string path))
+				{
+					DirectoryInfo dir = new DirectoryInfo(path);
+					NodeID childNodeId = RegisterDir(dir);
+					if (childNodeId > 0)
+					{
+						_relationList.Add(new TreeModelPair() { parent = model.rootDirID, child = childNodeId });
+					}
+				}
+
+				model.addFontDirectoryTaskTerminateFlag = model.addFontDirectoryPathList.IsEmpty;
+				if (model.addFontDirectoryTaskTerminateFlag)
+					break;
+			}
+
+			// === commit ===
 			DataSetCtrl dataSetCtrl = new DataSetCtrl(_dataSet);
 			dataSetCtrl.RegsiterDirectory(_recordList);
 
 			TreeModelCtrl treeModelCtrl = new TreeModelCtrl(_model);
 			treeModelCtrl.AddDirRelation(_relationList);
+
+			return new ScanDirTaskResult(_recordList, _relationList);
 		}
 
 		private NodeID RegisterDir(DirectoryInfo currDir)
@@ -72,23 +125,25 @@ namespace madoka.ctrl
 				.Select(RegisterDir)
 				.Where((ret) => ret < 0)
 				.ToArray();
-			FileInfo[] fontList = currDir.GetFiles().Where(U.IsFontFile).ToArray();
+			FileInfo[] fontList = currDir.GetFiles().Where((f) => U.IsFontFile(f.Name)).ToArray();
 
 			if (childNodeIdList.Length == 0 && fontList.Length == 0)
 				return -1;
 
 			NodeID parentDirId;
-			if (!_path2dirID.TryGetValue(currDir.FullName, out parentDirId))
-			{	// not exist... -> pre-regsiter an new dir object
-				Directory newDir = new Directory(currDir, fontList);
+			if (!_path2dirIDTemp.TryGetValue(currDir.FullName, out parentDirId))
+			{   // not exist... -> pre-regsiter an new dir object
 				parentDirId = IDIssuer.DirectoryID;
+				Dir newDir = new Dir(parentDirId, currDir, fontList);
 				_recordList.Add(new TableDirectoryRowCompati() { id = parentDirId, dir = newDir });
-				_path2dirID.Add(currDir.FullName, parentDirId);
+				_path2dirIDTemp.Add(currDir.FullName, parentDirId);
 			}
 
-			_relationList.AddRange(childNodeIdList.Select(
-				(c) => new TreeModelPair() { parent = parentDirId, child = c })
-			);
+			var newPairList = from c in childNodeIdList
+							  let pair = new TreeModelPair() { parent = parentDirId, child = c }
+							  where !_treeModelCtr.Contain(pair)
+							  select pair;
+			_relationList.AddRange(newPairList);
 			return parentDirId;
 		}
 	}

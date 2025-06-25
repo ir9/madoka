@@ -9,7 +9,7 @@ namespace madoka.ctrl
 	struct TableDirectoryRowCompati
 	{
 		public int id;
-		public Directory dir;
+		public Dir dir;
 	};
 
 	class DataSetCtrl
@@ -25,7 +25,7 @@ namespace madoka.ctrl
 		{
 			int rootNodeId = IDIssuer.DirectoryID;
 			DataSet1.DirectoryTableRow root = _dataSet.DirectoryTable.AddDirectoryTableRow(
-				rootNodeId, new Directory(null, new System.IO.FileInfo[] { })
+				rootNodeId, new Dir(rootNodeId, null, new System.IO.FileInfo[] { })
 			);
 			return rootNodeId;
 		}

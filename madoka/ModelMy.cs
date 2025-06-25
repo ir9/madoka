@@ -1,12 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
-using System.Text;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace madoka
 {
+	class Dir
+	{
+		public Dir(int id, DirectoryInfo info, FileInfo[] fontList)
+		{
+			ID = id;
+			DirectoryInfo = info;
+			FontFileList = fontList;
+		}
+
+		public int ID { get; private set; }
+		public DirectoryInfo DirectoryInfo { get; private set; }
+		public FileInfo[] FontFileList { get; private set; }
+	}
+
 	struct TreeModelPair : IComparable<TreeModelPair>
 	{
 		public int parent;
@@ -33,6 +48,9 @@ namespace madoka
 	{
 		public Queue<Task> taskList = new Queue<Task>();
 		public CancellationTokenSource cancelToken = new CancellationTokenSource();
+
+		public bool addFontDirectoryTaskTerminateFlag = true;
+		public ConcurrentQueue<string> addFontDirectoryPathList = new ConcurrentQueue<string>();
 
 		public int rootDirID = 0;
 		public readonly List<TreeModelPair> treeRelationModel = new List<TreeModelPair>();
