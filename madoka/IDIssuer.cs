@@ -10,5 +10,8 @@ namespace madoka
 	{
 		static private int _directoryId = 0;
 		static public int DirectoryID => Interlocked.Increment(ref _directoryId);
+
+		static private int _fontFileId = 0;
+		static public int FontFileID = Interlocked.Increment(ref _fontFileId);
 	}
 }

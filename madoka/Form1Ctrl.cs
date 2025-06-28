@@ -40,21 +40,15 @@ namespace madoka
 
 		private void LaunchScanFontDirectoryTask(string[] pathList)
 		{
-			Task<ctrl.ScanDirTaskResult> task = ctrl.ScanDirTask.EnumDirs(pathList, _model, dataSet1);
-			task?.ContinueWith((prevTask) => {
-			});
+			Task<ctrl.ScanDirTaskResult> task = ctrl.ScanDirTask.Scan(pathList, _model, dataSet1);
+			task?.ContinueWith((prevTask) => RebuildTreeDirectory());
 		}
 
-		private void RebuildTree()
+		private void RebuildTreeDirectory()
 		{
-
-		}
-
-		private void InsertNewNode(TreeNode parent, TreeNode newItem)
-		{
-			List<string> nameList = parent.Nodes.Cast<TreeNode>().Select((node) => node.Name).ToList();
-			int index = U.ComputeInsertPosition(nameList, newItem.Name);
-			parent.Nodes.Insert(index, newItem);
+			TreeNode nodeDir = FindRootTreeNode(K.TREENODE_NAME_DIRECTORY_ROOT);
+			ctrl.TreeBuilderDirectory builder = new ctrl.TreeBuilderDirectory(nodeDir, _model, dataSet1);
+			builder.Rebuild();
 		}
 
 		/* ------------------------------------------ *
@@ -73,9 +67,15 @@ namespace madoka
 
 		private DataGridViewRow[] EnumerateDirectories(Dir d)
 		{
+			return null;
+		}
 
-			d.ID;
-
+		/* ------------------------------------------ *
+		 * Util
+		 * ------------------------------------------ */
+		TreeNode FindRootTreeNode(string name)
+		{
+			return treeView1.Nodes.Cast<TreeNode>().First((n) => n.Name == name);
 		}
 	}
 }

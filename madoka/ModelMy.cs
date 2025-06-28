@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
+using System.Runtime.InteropServices;
 using System.Linq;
 using System.IO;
 using System.Threading;
@@ -8,33 +9,68 @@ using System.Threading.Tasks;
 
 namespace madoka
 {
+	class FontFile
+	{
+		public FontFile(int id, string filePath)
+		{
+			ID = id;
+			FilePath = filePath;
+		}
+
+		public int ID { get; private set; }
+		public string FilePath { get; private set; }
+	}
+
 	class Dir
 	{
-		public Dir(int id, DirectoryInfo info, FileInfo[] fontList)
+		public Dir(int id, DirectoryInfo info, int[] fontFileId)
 		{
 			ID = id;
 			DirectoryInfo = info;
-			FontFileList = fontList;
+			FontFileID = fontFileId;
 		}
 
 		public int ID { get; private set; }
 		public DirectoryInfo DirectoryInfo { get; private set; }
-		public FileInfo[] FontFileList { get; private set; }
+		public int[] FontFileID { get; private set; }
 	}
 
-	struct TreeModelPair : IComparable<TreeModelPair>
+	[StructLayout(LayoutKind.Explicit)]
+	struct RelationPair : IComparable<RelationPair>, IEquatable<RelationPair>
 	{
-		public int parent;
-		public int child;
+		[FieldOffset(0)]
+		private int _child;
+		[FieldOffset(4)]
+		private int _parent;
 
-		public int CompareTo(TreeModelPair ro)
-		{   // 本当は 64bit で処理すべきだけど…まぁ 65536 とか登録しないやろう…ダルい
-			int lv = this.parent << 16 | this.child;
-			int rv = ro.parent << 16 | ro.child;
+		[FieldOffset(0)]
+		private long _value;
 
-			return lv - rv;
+		public RelationPair(int parent, int child)
+		{
+			_value = 0;
+			this._parent = parent;
+			this._child = child;
+		}
+
+		public int Parent => _parent;
+		public int Child => _child;
+
+		public int CompareTo(RelationPair ro)
+		{
+			ulong diff = (ulong)(this._value - ro._value);
+			uint sign = (uint)((diff & 0x80000000_00000000) >> 32);
+			uint value = (uint)(((diff & 0x7fffffff_ffffffff) + 1) >> 63);
+
+			return (int)(sign | value);
+		}
+
+		public bool Equals(RelationPair rv)
+		{
+			return this._value == rv._value;
 		}
 	};
+
 
 	/*
 	class ModelTag
@@ -53,7 +89,8 @@ namespace madoka
 		public ConcurrentQueue<string> addFontDirectoryPathList = new ConcurrentQueue<string>();
 
 		public int rootDirID = 0;
-		public readonly List<TreeModelPair> treeRelationModel = new List<TreeModelPair>();
+		public readonly SortedSet<RelationPair> treeRelationModel = new SortedSet<RelationPair>();
+		public readonly SortedSet<RelationPair> dir2fontRelationModel = new SortedSet<RelationPair>();
 		// public List<string> fontFolderList;
 		// public List<ModelTag> tagList;
 	}

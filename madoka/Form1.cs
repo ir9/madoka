@@ -76,7 +76,15 @@ namespace madoka
 
 		private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
 		{
-
+			/*
+			switch (e.Node.Tag)
+			{
+			case Dir d;
+				break;
+			case null;
+				break;
+			}
+			*/
 		}
 	}
 }

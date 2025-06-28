@@ -6,12 +6,6 @@ using System.Threading.Tasks;
 
 namespace madoka.ctrl
 {
-	struct TableDirectoryRowCompati
-	{
-		public int id;
-		public Dir dir;
-	};
-
 	class DataSetCtrl
 	{
 		private readonly DataSet1 _dataSet;
@@ -25,21 +19,37 @@ namespace madoka.ctrl
 		{
 			int rootNodeId = IDIssuer.DirectoryID;
 			DataSet1.DirectoryTableRow root = _dataSet.DirectoryTable.AddDirectoryTableRow(
-				rootNodeId, new Dir(rootNodeId, null, new System.IO.FileInfo[] { })
+				rootNodeId, new Dir(rootNodeId, null, new int[] { })
 			);
 			return rootNodeId;
 		}
 
-		public void RegsiterDirectory(IEnumerable<TableDirectoryRowCompati> rowList)
+		public void RegisterDirectoryList(IEnumerable<Dir> rowList)
 		{
-			lock (_dataSet)
+			lock (_dataSet.DirectoryTable)
 			{
-				foreach (TableDirectoryRowCompati row in rowList)
+				foreach (Dir row in rowList)
 				{
-					_dataSet.DirectoryTable.AddDirectoryTableRow(row.id, row.dir);
+					_dataSet.DirectoryTable.AddDirectoryTableRow(row.ID, row);
 				}
 			}
 		}
 
+		public void RegisterFontFileList(IEnumerable<FontFile> rowList)
+		{
+			lock (_dataSet.FontFileTable)
+			{
+				foreach (FontFile row in rowList)
+				{
+					_dataSet.FontFileTable.AddFontFileTableRow(row.ID, row.FilePath, row.OwnerDirID);
+				}
+			}
+		}
+
+		public Dir GetDirectory(int nodeId)
+		{
+			DataSet1.DirectoryTableRow row = (DataSet1.DirectoryTableRow)_dataSet.DirectoryTable.Rows.Find(nodeId);
+			return (Dir)row.directory;
+		}
 	}
 }

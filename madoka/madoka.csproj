@@ -49,6 +49,7 @@
     <Compile Include="ctrl\DataSetCtrl.cs" />
     <Compile Include="ctrl\IOCtrl.cs" />
     <Compile Include="ctrl\TaskCtrl.cs" />
+    <Compile Include="ctrl\TreeBuilderDirectory.cs" />
     <Compile Include="ctrl\TreeModelCtrl.cs" />
     <Compile Include="DataSet1.cs">
       <DependentUpon>DataSet1.xsd</DependentUpon>

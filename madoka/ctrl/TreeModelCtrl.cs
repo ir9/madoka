@@ -15,43 +15,36 @@ namespace madoka.ctrl
 			_model = model;
 		}
 
-		public void AddDirRelation(int parentDir, int[] childDir)
+		public SortedSet<RelationPair> AddDirRelation(int parentDir, int[] childDir)
 		{
-			AddDirRelation(childDir.Select(
-				(c) => new TreeModelPair() { parent = parentDir, child = c })
-			);
+			return AddDirRelation(childDir.Select(
+				(c) => new RelationPair(parentDir, c)
+			));
 		}
 
-		public void AddDirRelation(IEnumerable<TreeModelPair> pairList)
+		public SortedSet<RelationPair> AddDirRelation(IEnumerable<RelationPair> pairList)
 		{
-			_model.treeRelationModel.AddRange(pairList);
-			_model.treeRelationModel.Sort();
+			SortedSet<RelationPair> newItemList = new SortedSet<RelationPair>(pairList);
+			newItemList.ExceptWith(_model.treeRelationModel);
+			_model.treeRelationModel.UnionWith(newItemList);
+
+			return newItemList;
 		}
 
-		public bool Contain(TreeModelPair rv)
+		public bool Contain(RelationPair rv)
 		{
-			return _model.treeRelationModel.BinarySearch(rv) >= 0;
+			return _model.treeRelationModel.Contains(rv);
 		}
 
 		public int[] GetChildIndexes(int parent)
 		{
-			List<TreeModelPair> treeModel = _model.treeRelationModel;
+			SortedSet<RelationPair> treeModel = _model.treeRelationModel;
+			SortedSet<RelationPair> childItemList = treeModel.GetViewBetween(
+				new RelationPair(parent + 0, 0),
+				new RelationPair(parent + 1, 0)
+			);
 
-			int start = treeModel.BinarySearch(new TreeModelPair { parent = parent, child = 0 });
-			if (start < 0) start = ~start;
-
-			int left = treeModel.Count - start;
-			int end = treeModel.BinarySearch(start, left, new TreeModelPair { parent = parent + 1, child = 0 }, null);
-			if (end < 0) end = ~end;
-
-			int length = end - start;
-			int[] ret = new int[length];
-			for (int i = 0; i < length; ++i)
-			{
-				ret[i] = treeModel[i + start].child;
-			}
-
-			return ret;
+			return childItemList.Select((c) => c.Child).ToArray();
 		}
 	}
 }

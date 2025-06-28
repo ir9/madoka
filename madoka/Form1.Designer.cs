@@ -41,8 +41,8 @@
 			this.treeView1 = new System.Windows.Forms.TreeView();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+			this.gridViewDataTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.dataSet1 = new madoka.DataSet1();
 			this.contextMenuFolder.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
@@ -52,6 +52,7 @@
 			this.splitContainer1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.tableLayoutPanel1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.gridViewDataTableBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -116,11 +117,12 @@
 			this.treeView1.Name = "treeView1";
 			treeNode1.ContextMenuStrip = this.contextMenuFolder;
 			treeNode1.ImageIndex = 0;
-			treeNode1.Name = "DirectoryBase";
+			treeNode1.Name = "DirectoryRoot";
 			treeNode1.SelectedImageIndex = 0;
+			treeNode1.Tag = "";
 			treeNode1.Text = "Directory";
 			treeNode2.ImageIndex = 2;
-			treeNode2.Name = "TagBase";
+			treeNode2.Name = "TagRoot";
 			treeNode2.SelectedImageIndex = 2;
 			treeNode2.Text = "Tag";
 			this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
@@ -154,9 +156,9 @@
 			// 
 			this.dataGridView1.AllowUserToAddRows = false;
 			this.dataGridView1.AllowUserToDeleteRows = false;
+			this.dataGridView1.AutoGenerateColumns = false;
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.FileName});
+			this.dataGridView1.DataSource = this.gridViewDataTableBindingSource;
 			this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.dataGridView1.Location = new System.Drawing.Point(0, 0);
 			this.dataGridView1.MultiSelect = false;
@@ -169,13 +171,6 @@
 			this.dataGridView1.ShowRowErrors = false;
 			this.dataGridView1.Size = new System.Drawing.Size(501, 422);
 			this.dataGridView1.TabIndex = 0;
-			// 
-			// FileName
-			// 
-			this.FileName.HeaderText = "FileName";
-			this.FileName.Name = "FileName";
-			this.FileName.ReadOnly = true;
-			this.FileName.Width = 498;
 			// 
 			// tableLayoutPanel1
 			// 
@@ -192,7 +187,7 @@
 			this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 450);
 			this.tableLayoutPanel1.TabIndex = 2;
 			// 
-			// dataSet11
+			// dataSet1
 			// 
 			this.dataSet1.DataSetName = "DataSet";
 			this.dataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
@@ -218,6 +213,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			this.tableLayoutPanel1.ResumeLayout(false);
 			this.tableLayoutPanel1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.gridViewDataTableBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataSet1)).EndInit();
 			this.ResumeLayout(false);
 
@@ -235,8 +231,8 @@
 		private System.Windows.Forms.SplitContainer splitContainer1;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 		private System.Windows.Forms.DataGridView dataGridView1;
-		private System.Windows.Forms.DataGridViewTextBoxColumn FileName;
 		private DataSet1 dataSet1;
+		private System.Windows.Forms.BindingSource gridViewDataTableBindingSource;
 	}
 }
 

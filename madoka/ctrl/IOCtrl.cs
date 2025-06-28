@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace madoka.ctrl
 {
 	using NodeID = Int32;
+	using FontFileID = Int32;
 
 	/*
 	class IOCtrl
@@ -22,25 +23,29 @@ namespace madoka.ctrl
 
 	class ScanDirTaskResult
 	{
-		public ScanDirTaskResult(List<TableDirectoryRowCompati> recordList, List<TreeModelPair> relationList)
+		public ScanDirTaskResult(IEnumerable<Dir> dirList, IEnumerable<FontFile> fontFileList, IEnumerable<RelationPair> relationList)
 		{
-			RecordList = recordList;
-			RelationList = relationList;
+			MewDirList = dirList.ToArray();
+			NewFontFileList = fontFileList.ToArray();
+			NewRelationList = relationList.ToArray();
 		}
 
-		public List<TableDirectoryRowCompati> RecordList { get; private set; }
-		public List<TreeModelPair> RelationList { get; private set; }
+		public Dir[] MewDirList { get; private set; }
+		public FontFile[] NewFontFileList { get; private set; }
+		public RelationPair[] NewRelationList { get; private set; }
 	};
 
 	class ScanDirTask
 	{
-		private readonly List<TableDirectoryRowCompati> _recordList = new List<TableDirectoryRowCompati>();
-		private readonly List<TreeModelPair> _relationList = new List<TreeModelPair>();
+		private readonly List<Dir> _tmpRecordList = new List<Dir>();
+		private readonly List<RelationPair> _tmpTreeRelationList = new List<RelationPair>();
+		private readonly List<FontFile> _tmpFontFileList = new List<FontFile>();
 
 		private readonly ModelMy _model;
 		private readonly DataSet1 _dataSet;
 		private readonly Dictionary<string, NodeID> _path2dirIDTemp;
 		private readonly TreeModelCtrl _treeModelCtr;
+		private readonly Dictionary<string, FontFileID> _path2fontIDTemp;
 
 		private ScanDirTask(ModelMy model, DataSet1 dataSet)
 		{
@@ -54,7 +59,7 @@ namespace madoka.ctrl
 			);
 		}
 
-		static public Task<ScanDirTaskResult> EnumDirs(string[] pathList, ModelMy model, DataSet1 dataSet)
+		static public Task<ScanDirTaskResult> Scan(string[] pathList, ModelMy model, DataSet1 dataSet)
 		{
 			foreach (string path in pathList)
 			{
@@ -70,8 +75,8 @@ namespace madoka.ctrl
 				Task<ScanDirTaskResult> task = new Task<ScanDirTaskResult>(
 					() =>
 					{
-						ScanDirTask enumDir = new ScanDirTask(model, dataSet);
-						ScanDirTaskResult result = enumDir.RegisterDirs();
+						ScanDirTask scanDir = new ScanDirTask(model, dataSet);
+						ScanDirTaskResult result = scanDir.RegisterDirs();
 						return result;
 					},
 					model.cancelToken.Token
@@ -98,7 +103,7 @@ namespace madoka.ctrl
 					NodeID childNodeId = RegisterDir(dir);
 					if (childNodeId > 0)
 					{
-						_relationList.Add(new TreeModelPair() { parent = model.rootDirID, child = childNodeId });
+						_tmpTreeRelationList.Add(new RelationPair(model.rootDirID, childNodeId));
 					}
 				}
 
@@ -109,12 +114,17 @@ namespace madoka.ctrl
 
 			// === commit ===
 			DataSetCtrl dataSetCtrl = new DataSetCtrl(_dataSet);
-			dataSetCtrl.RegsiterDirectory(_recordList);
+			dataSetCtrl.RegisterDirectoryList(_tmpRecordList);
+			dataSetCtrl.RegisterFontFileList(_tmpFontFileList);
+
+			RelationPair[] dir2FontRelationList = _tmpRecordList.SelectMany(
+				(dir) => dir.FontFileID.Select((fontID) => new RelationPair(dir.ID, fontID))
+			).ToArray();
 
 			TreeModelCtrl treeModelCtrl = new TreeModelCtrl(_model);
-			treeModelCtrl.AddDirRelation(_relationList);
+			IEnumerable<RelationPair> newItemList = treeModelCtrl.AddDirRelation(_tmpTreeRelationList);
 
-			return new ScanDirTaskResult(_recordList, _relationList);
+			return new ScanDirTaskResult(_tmpRecordList, _tmpFontFileList, _tmpTreeRelationList);
 		}
 
 		private NodeID RegisterDir(DirectoryInfo currDir)
@@ -134,17 +144,33 @@ namespace madoka.ctrl
 			if (!_path2dirIDTemp.TryGetValue(currDir.FullName, out parentDirId))
 			{   // not exist... -> pre-regsiter an new dir object
 				parentDirId = IDIssuer.DirectoryID;
-				Dir newDir = new Dir(parentDirId, currDir, fontList);
-				_recordList.Add(new TableDirectoryRowCompati() { id = parentDirId, dir = newDir });
+
+				FontFileID[] fontFileIDList = fontList.Select(RegisterFontFile).ToArray();
+				Dir newDir = new Dir(parentDirId, currDir, fontFileIDList);
+
+				_tmpRecordList.Add(newDir);
 				_path2dirIDTemp.Add(currDir.FullName, parentDirId);
 			}
 
 			var newPairList = from c in childNodeIdList
-							  let pair = new TreeModelPair() { parent = parentDirId, child = c }
-							  where !_treeModelCtr.Contain(pair)
+							  let pair = new RelationPair(parentDirId, c)
 							  select pair;
-			_relationList.AddRange(newPairList);
+			_tmpTreeRelationList.AddRange(newPairList);
 			return parentDirId;
+		}
+
+		private FontFileID RegisterFontFile(FileInfo fontFile)
+		{
+			string fullPath = fontFile.FullName;
+			if (_path2fontIDTemp.TryGetValue(fullPath, out FontFileID id))
+				return id;
+
+			FontFileID newID = IDIssuer.FontFileID;
+			FontFile newFont = new FontFile(newID, fullPath);
+			_tmpFontFileList.Add(newFont);
+			_path2dirIDTemp.Add(fullPath, newID);
+
+			return newID;
 		}
 	}
 }

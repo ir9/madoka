@@ -21,6 +21,7 @@ namespace madoka
 		}
 	};
 
+	/*
 	class GridViewCtrl
 	{
 		static private readonly Padding TEXT_PADDING = new Padding { Left = 16 };
@@ -65,4 +66,5 @@ namespace madoka
 			return row;
 		}
 	}
+	*/
 }
