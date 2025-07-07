@@ -22,4 +22,10 @@ namespace madoka
 
 		public const string TREENODE_NAME_DIRECTORY_ROOT = "DIRECTORY_ROOT";
 	}
+
+	enum GridViewDataType: int
+	{
+		DIRECTORY,
+		FONT,
+	};
 }

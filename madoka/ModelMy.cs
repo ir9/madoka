@@ -90,7 +90,9 @@ namespace madoka
 
 		public int rootDirID = 0;
 		public readonly SortedSet<RelationPair> treeRelationModel = new SortedSet<RelationPair>();
+		public readonly CommitVersion treeRelationModelVersion = new CommitVersion();
 		public readonly SortedSet<RelationPair> dir2fontRelationModel = new SortedSet<RelationPair>();
+		public readonly CommitVersion dir2fontRelationModelVersion = new CommitVersion();
 		// public List<string> fontFolderList;
 		// public List<ModelTag> tagList;
 	}

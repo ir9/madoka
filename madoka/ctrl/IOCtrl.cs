@@ -44,8 +44,12 @@ namespace madoka.ctrl
 		private readonly ModelMy _model;
 		private readonly DataSet1 _dataSet;
 		private readonly Dictionary<string, NodeID> _path2dirIDTemp;
-		private readonly TreeModelCtrl _treeModelCtr;
 		private readonly Dictionary<string, FontFileID> _path2fontIDTemp;
+		private readonly TreeModelCtrl _treeModelCtr;
+		private readonly int _directoryTableVersion;
+		private readonly int _fontFileTableVersion;
+		private readonly int _treeRelationModelVersion;
+		private readonly int _dir2fontRelationModelVersion;
 
 		private ScanDirTask(ModelMy model, DataSet1 dataSet)
 		{
@@ -53,10 +57,16 @@ namespace madoka.ctrl
 			_dataSet = dataSet;
 			_treeModelCtr = new TreeModelCtrl(model);
 
-			_path2dirIDTemp = dataSet.DirectoryTable.ToDictionary(
-				(r) => ((Dir)r.directory).DirectoryInfo.FullName,
-				(r) => r.id
-			);
+			using (DataSetReadLocker r = dataSet.GetReadLocker())
+			{
+				_directoryTableVersion = dataSet.DirectoryTable.Version;
+				_fontFileTableVersion = dataSet.FontFileTable.Version;
+				_treeRelationModelVersion = model.treeRelationModelVersion;
+				_dir2fontRelationModelVersion = model.dir2fontRelationModelVersion;
+
+				_path2dirIDTemp = dataSet.CreatePath2DirID();
+				_path2fontIDTemp = dataSet.CreatePath2FontFileID();
+			}
 		}
 
 		static public Task<ScanDirTaskResult> Scan(string[] pathList, ModelMy model, DataSet1 dataSet)
@@ -73,12 +83,13 @@ namespace madoka.ctrl
 
 				model.addFontDirectoryTaskTerminateFlag = false;
 				Task<ScanDirTaskResult> task = new Task<ScanDirTaskResult>(
-					() =>
-					{
-						ScanDirTask scanDir = new ScanDirTask(model, dataSet);
-						ScanDirTaskResult result = scanDir.RegisterDirs();
-						return result;
-					},
+					() => U.HandleTableVersionMismatchException(() =>
+						{
+							ScanDirTask scanDir = new ScanDirTask(model, dataSet);
+							ScanDirTaskResult result = scanDir.RegisterDirs();
+							return result;
+						}
+					),
 					model.cancelToken.Token
 				);
 
@@ -113,18 +124,28 @@ namespace madoka.ctrl
 			}
 
 			// === commit ===
-			DataSetCtrl dataSetCtrl = new DataSetCtrl(_dataSet);
-			dataSetCtrl.RegisterDirectoryList(_tmpRecordList);
-			dataSetCtrl.RegisterFontFileList(_tmpFontFileList);
+			using (DataSetWriteLocker w = _dataSet.GetWriteLocker())
+			{
+				// throw TableVersionMismatchException
+				_dataSet.DirectoryTable.Version.Test(_directoryTableVersion);
+				_dataSet.FontFileTable.Version.Test(_directoryTableVersion);
+				_model.treeRelationModelVersion.Test(_treeRelationModelVersion);
 
-			RelationPair[] dir2FontRelationList = _tmpRecordList.SelectMany(
-				(dir) => dir.FontFileID.Select((fontID) => new RelationPair(dir.ID, fontID))
-			).ToArray();
+				_dataSet.RegisterDirectoryList(_tmpRecordList);
+				_dataSet.DirectoryTable.Version.Inc();
+				_dataSet.RegisterFontFileList(_tmpFontFileList);
+				_dataSet.FontFileTable.Version.Inc();
 
-			TreeModelCtrl treeModelCtrl = new TreeModelCtrl(_model);
-			IEnumerable<RelationPair> newItemList = treeModelCtrl.AddDirRelation(_tmpTreeRelationList);
+				RelationPair[] dir2FontRelationList = _tmpRecordList.SelectMany(
+					(dir) => dir.FontFileID.Select((fontID) => new RelationPair(dir.ID, fontID))
+				).ToArray();
 
-			return new ScanDirTaskResult(_tmpRecordList, _tmpFontFileList, _tmpTreeRelationList);
+				AbtractRelationCtrl treeModelCtrl = new TreeModelCtrl(_model);
+				IEnumerable<RelationPair> newItemList = treeModelCtrl.AddRelation(_tmpTreeRelationList);
+				treeModelCtrl.IncVersion();
+
+				return new ScanDirTaskResult(_tmpRecordList, _tmpFontFileList, _tmpTreeRelationList);
+			}
 		}
 
 		private NodeID RegisterDir(DirectoryInfo currDir)

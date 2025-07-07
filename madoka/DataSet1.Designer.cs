@@ -954,8 +954,6 @@ namespace madoka {
             
             private global::System.Data.DataColumn columnfilepath;
             
-            private global::System.Data.DataColumn columnownerDirID;
-            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public FontFileTableDataTable() {
@@ -1007,14 +1005,6 @@ namespace madoka {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn ownerDirIDColumn {
-                get {
-                    return this.columnownerDirID;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1050,12 +1040,11 @@ namespace madoka {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public FontFileTableRow AddFontFileTableRow(int id, string filepath, int ownerDirID) {
+            public FontFileTableRow AddFontFileTableRow(int id, string filepath) {
                 FontFileTableRow rowFontFileTableRow = ((FontFileTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
-                        filepath,
-                        ownerDirID};
+                        filepath};
                 rowFontFileTableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowFontFileTableRow);
                 return rowFontFileTableRow;
@@ -1087,7 +1076,6 @@ namespace madoka {
             internal void InitVars() {
                 this.columnid = base.Columns["id"];
                 this.columnfilepath = base.Columns["filepath"];
-                this.columnownerDirID = base.Columns["ownerDirID"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1097,8 +1085,6 @@ namespace madoka {
                 base.Columns.Add(this.columnid);
                 this.columnfilepath = new global::System.Data.DataColumn("filepath", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnfilepath);
-                this.columnownerDirID = new global::System.Data.DataColumn("ownerDirID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnownerDirID);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid}, true));
                 this.columnid.AutoIncrementSeed = 1;
@@ -1106,8 +1092,6 @@ namespace madoka {
                 this.columnid.ReadOnly = true;
                 this.columnid.Unique = true;
                 this.columnfilepath.ReadOnly = true;
-                this.columnownerDirID.AllowDBNull = false;
-                this.columnownerDirID.ReadOnly = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1361,7 +1345,7 @@ namespace madoka {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public GridViewDataTableRow AddGridViewDataTableRow(int id, string name, bool flag, int objectType, string objectID) {
+            public GridViewDataTableRow AddGridViewDataTableRow(int id, string name, bool flag, int objectType, int objectID) {
                 GridViewDataTableRow rowGridViewDataTableRow = ((GridViewDataTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
@@ -1416,7 +1400,7 @@ namespace madoka {
                 base.Columns.Add(this.columnflag);
                 this.columnobjectType = new global::System.Data.DataColumn("objectType", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnobjectType);
-                this.columnobjectID = new global::System.Data.DataColumn("objectID", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columnobjectID = new global::System.Data.DataColumn("objectID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnobjectID);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid}, true));
@@ -1426,6 +1410,7 @@ namespace madoka {
                 this.columnid.Unique = true;
                 this.columnflag.AllowDBNull = false;
                 this.columnobjectType.AllowDBNull = false;
+                this.columnobjectID.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1714,17 +1699,6 @@ namespace madoka {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public int ownerDirID {
-                get {
-                    return ((int)(this[this.tableFontFileTable.ownerDirIDColumn]));
-                }
-                set {
-                    this[this.tableFontFileTable.ownerDirIDColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsfilepathNull() {
                 return this.IsNull(this.tableFontFileTable.filepathColumn);
             }
@@ -1801,14 +1775,9 @@ namespace madoka {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string objectID {
+            public int objectID {
                 get {
-                    try {
-                        return ((string)(this[this.tableGridViewDataTable.objectIDColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("テーブル \'GridViewDataTable\' にある列 \'objectID\' の値は DBNull です。", e);
-                    }
+                    return ((int)(this[this.tableGridViewDataTable.objectIDColumn]));
                 }
                 set {
                     this[this.tableGridViewDataTable.objectIDColumn] = value;
@@ -1825,18 +1794,6 @@ namespace madoka {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetnameNull() {
                 this[this.tableGridViewDataTable.nameColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsobjectIDNull() {
-                return this.IsNull(this.tableGridViewDataTable.objectIDColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetobjectIDNull() {
-                this[this.tableGridViewDataTable.objectIDColumn] = global::System.Convert.DBNull;
             }
         }
         

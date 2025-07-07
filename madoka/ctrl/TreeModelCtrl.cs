@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace madoka.ctrl
 {
-	class Dir2FontCtrl : AbtractRelationCtrl
+	class TreeModelCtrl : AbtractRelationCtrl
 	{
-		public Dir2FontCtrl(ModelMy model)
-			: base(model.dir2fontRelationModel, model.dir2fontRelationModelVersion)
+		public TreeModelCtrl(ModelMy model)
+			: base(model.treeRelationModel, model.treeRelationModelVersion)
 		{
 
 		}

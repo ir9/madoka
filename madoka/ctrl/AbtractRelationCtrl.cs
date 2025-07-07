@@ -6,45 +6,51 @@ using System.Threading.Tasks;
 
 namespace madoka.ctrl
 {
-	class TreeModelCtrl
+	abstract class AbtractRelationCtrl
 	{
-		private readonly ModelMy _model;
+		private readonly SortedSet<RelationPair> _relationPair;
+		private readonly CommitVersion _version;
 
-		public TreeModelCtrl(ModelMy model)
+		public AbtractRelationCtrl(SortedSet<RelationPair> relationPair, CommitVersion version)
 		{
-			_model = model;
+			_relationPair = relationPair;
+			_version = version;
 		}
 
-		public SortedSet<RelationPair> AddDirRelation(int parentDir, int[] childDir)
+		public SortedSet<RelationPair> AddRelation(int parentDir, int[] childDir)
 		{
-			return AddDirRelation(childDir.Select(
+			return AddRelation(childDir.Select(
 				(c) => new RelationPair(parentDir, c)
 			));
 		}
 
-		public SortedSet<RelationPair> AddDirRelation(IEnumerable<RelationPair> pairList)
+		public SortedSet<RelationPair> AddRelation(IEnumerable<RelationPair> pairList)
 		{
 			SortedSet<RelationPair> newItemList = new SortedSet<RelationPair>(pairList);
-			newItemList.ExceptWith(_model.treeRelationModel);
-			_model.treeRelationModel.UnionWith(newItemList);
+			newItemList.ExceptWith(_relationPair);
+			_relationPair.UnionWith(newItemList);
 
 			return newItemList;
 		}
 
 		public bool Contain(RelationPair rv)
 		{
-			return _model.treeRelationModel.Contains(rv);
+			return _relationPair.Contains(rv);
 		}
 
 		public int[] GetChildIndexes(int parent)
 		{
-			SortedSet<RelationPair> treeModel = _model.treeRelationModel;
-			SortedSet<RelationPair> childItemList = treeModel.GetViewBetween(
+			SortedSet<RelationPair> childItemList = _relationPair.GetViewBetween(
 				new RelationPair(parent + 0, 0),
 				new RelationPair(parent + 1, 0)
 			);
 
 			return childItemList.Select((c) => c.Child).ToArray();
+		}
+
+		public int IncVersion()
+		{
+			return _version.Inc();
 		}
 	}
 }

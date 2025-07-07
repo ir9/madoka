@@ -13,7 +13,6 @@ namespace madoka.ctrl
 		private readonly DataSet1 _dataSet;
 		private readonly ModelMy _model;
 
-		private readonly DataSetCtrl _dataSetCtrl;
 		private readonly TreeModelCtrl _treeModelCtrl;
 
 		public TreeBuilderDirectory(TreeNode rootDir, ModelMy model, DataSet1 dataSet)
@@ -22,7 +21,6 @@ namespace madoka.ctrl
 			_dataSet = dataSet;
 			_model = model;
 
-			_dataSetCtrl = new DataSetCtrl(dataSet);
 			_treeModelCtrl = new TreeModelCtrl(model);
 		}
 
@@ -38,7 +36,7 @@ namespace madoka.ctrl
 
 		private TreeNode BuildNode(int nodeId, bool isSubRoot)
 		{
-			Dir dirObj = _dataSetCtrl.GetDirectory(nodeId);
+			Dir dirObj = _dataSet.GetDirectory(nodeId);
 
 			TreeNode node = new TreeNode();
 			node.Text = isSubRoot ? dirObj.DirectoryInfo.FullName : dirObj.DirectoryInfo.Name;

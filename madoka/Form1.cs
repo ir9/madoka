@@ -10,8 +10,6 @@ using System.Windows.Forms;
 
 namespace madoka
 {
-	delegate void MainThradInvoker(Action func);
-
 	public partial class Form1 : Form
 	{
 		private ModelMy _model = new ModelMy();
@@ -19,6 +17,7 @@ namespace madoka
 		public Form1()
 		{
 			InitializeComponent();
+			Initialize();
 			InitializeImageList();
 		}
 
@@ -57,21 +56,8 @@ namespace madoka
 		{
 			if (!e.Data.GetDataPresent(DataFormats.FileDrop))
 				return;
-			string[] fileList = (string[])e.Data.GetData(DataFormats.FileDrop);
-			string[] dirList = fileList.Where((f) => Directory.Exists(f)).ToArray();
-
-			if (dirList.Length == 0)
-			{
-				var dirList2 = from f in fileList
-							   let dir = Directory.GetParent(f)
-							   select dir.FullName;
-				dirList = dirList2.Distinct().ToArray();
-			}
-
-			if (dirList.Length == 0)
-				return; // no-op
-
-			LaunchScanFontDirectoryTask(dirList);
+			string[] pathList = (string[])e.Data.GetData(DataFormats.FileDrop);
+			ReceivedFilePathList(pathList);
 		}
 
 		private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)

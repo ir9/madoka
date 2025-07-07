@@ -12,8 +12,7 @@ namespace madoka
 	{
 		private void Initialize()
 		{
-			ctrl.DataSetCtrl dataSet = new ctrl.DataSetCtrl(this.dataSet1);
-			_model.rootDirID = dataSet.Init();
+			_model.rootDirID = dataSet1.Initialize();
 		}
 
 		/* ------------------------------------------ *
@@ -37,6 +36,25 @@ namespace madoka
 				hIconList.AsParallel().Select(WinAPI.DestroyIcon).ToArray();
 			}
 		}
+
+		private void ReceivedFilePathList(string[] pathList)
+		{
+			string[] dirList = pathList.Where((f) => Directory.Exists(f)).ToArray();
+
+			if (dirList.Length == 0)
+			{
+				var dirList2 = from f in pathList
+							   let dir = Directory.GetParent(f)
+							   select dir.FullName;
+				dirList = dirList2.Distinct().ToArray();
+			}
+
+			if (dirList.Length == 0)
+				return; // no-op
+
+			LaunchScanFontDirectoryTask(dirList);
+		}
+
 
 		private void LaunchScanFontDirectoryTask(string[] pathList)
 		{

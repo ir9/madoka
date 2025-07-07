@@ -7,6 +7,30 @@ using System.Text.RegularExpressions;
 
 namespace madoka
 {
+	class CommitVersion
+	{
+		private int _version = 0;
+
+		public int Inc()
+		{
+			return ++_version;
+		}
+
+		public static implicit operator int(CommitVersion c)
+		{
+			return c._version;
+		}
+
+		public int Get => _version;
+
+		public void Test(int expect)
+		{
+			int current = this;
+			if (current != expect)
+				throw new TableVersionMismatchException(current, expect);
+		}
+	};
+
 	class U
 	{
 		public static IntPtr LoadIcon(int index)
@@ -21,6 +45,27 @@ namespace madoka
 		public static bool IsFontFile(string path)
 		{
 			return RE_FONTFILE_EXT_CHECKER.IsMatch(path);
+		}
+
+		public static R HandleTableVersionMismatchException<R>(Func<R> func)
+		{
+			return HandleTableVersionMismatchException(func, 4);
+		}
+
+		public static R HandleTableVersionMismatchException<R>(Func<R> func, int maxRetryCount)
+		{
+			for (int i = 0; ; ++i)
+			{
+				try
+				{
+					return func();
+				}
+				catch (TableVersionMismatchException)
+				{
+					if (i >= maxRetryCount)
+						throw;
+				}
+			}
 		}
 
 		/*
