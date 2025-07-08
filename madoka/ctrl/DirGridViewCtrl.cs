@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace madoka
+namespace madoka.ctrl
 {
 	/*
 	class DataGridViewIconTextCell : DataGridViewCell
@@ -23,7 +23,7 @@ namespace madoka
 	};
 	*/
 
-	class GridViewCtrl
+	class DirGridViewCtrl
 	{
 		static private readonly Padding TEXT_PADDING = new Padding { Left = 16 };
 
