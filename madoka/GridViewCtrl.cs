@@ -8,6 +8,7 @@ using System.Drawing;
 
 namespace madoka
 {
+	/*
 	class DataGridViewIconTextCell : DataGridViewCell
 	{
 		public DataGridViewIconTextCell()
@@ -20,8 +21,8 @@ namespace madoka
 			base.Paint(graphics, clipBounds, cellBounds, rowIndex, cellState, value, formattedValue, errorText, cellStyle, advancedBorderStyle, paintParts);
 		}
 	};
+	*/
 
-	/*
 	class GridViewCtrl
 	{
 		static private readonly Padding TEXT_PADDING = new Padding { Left = 16 };
@@ -66,5 +67,4 @@ namespace madoka
 			return row;
 		}
 	}
-	*/
 }

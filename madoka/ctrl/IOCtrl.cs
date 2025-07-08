@@ -130,22 +130,49 @@ namespace madoka.ctrl
 				_dataSet.DirectoryTable.Version.Test(_directoryTableVersion);
 				_dataSet.FontFileTable.Version.Test(_directoryTableVersion);
 				_model.treeRelationModelVersion.Test(_treeRelationModelVersion);
+				_model.dir2fontRelationModelVersion.Test(_dir2fontRelationModelVersion);
 
-				_dataSet.RegisterDirectoryList(_tmpRecordList);
-				_dataSet.DirectoryTable.Version.Inc();
-				_dataSet.RegisterFontFileList(_tmpFontFileList);
-				_dataSet.FontFileTable.Version.Inc();
-
-				RelationPair[] dir2FontRelationList = _tmpRecordList.SelectMany(
-					(dir) => dir.FontFileID.Select((fontID) => new RelationPair(dir.ID, fontID))
-				).ToArray();
-
-				AbtractRelationCtrl treeModelCtrl = new TreeModelCtrl(_model);
-				IEnumerable<RelationPair> newItemList = treeModelCtrl.AddRelation(_tmpTreeRelationList);
-				treeModelCtrl.IncVersion();
+				var cancelToken = _model.cancelToken.Token;
+				Task[] taskList = {
+					Task.Run((Action)AddDir2FontRelationListTask, cancelToken),
+					Task.Run((Action)AddTreeModelRelationListTask, cancelToken),
+					Task.Run((Action)RegisterFontFileListTask, cancelToken),
+					Task.Run((Action)RegisterDirectryListTask, cancelToken),
+				};
+				Task.WaitAll(taskList, cancelToken);
 
 				return new ScanDirTaskResult(_tmpRecordList, _tmpFontFileList, _tmpTreeRelationList);
 			}
+		}
+
+		private void RegisterDirectryListTask()
+		{
+			_dataSet.RegisterDirectoryList(_tmpRecordList);
+			_dataSet.DirectoryTable.Version.Inc();
+		}
+
+		private void RegisterFontFileListTask()
+		{
+			_dataSet.RegisterFontFileList(_tmpFontFileList);
+			_dataSet.FontFileTable.Version.Inc();
+		}
+
+		private void AddTreeModelRelationListTask()
+		{
+			AbtractRelationCtrl treeModelCtrl = new TreeModelCtrl(_model);
+			IEnumerable<RelationPair> newItemList = treeModelCtrl.AddRelation(_tmpTreeRelationList);
+			treeModelCtrl.IncVersion();
+		}
+
+		private void AddDir2FontRelationListTask()
+		{
+			var dir2FontRelationList = _tmpRecordList.SelectMany(
+				(dir) => dir.FontFileID.Select((fontID) => new RelationPair(dir.ID, fontID))
+			);
+
+			AbtractRelationCtrl dir2FontModelCtrl = new TreeModelCtrl(_model);
+			IEnumerable<RelationPair> newItemList = dir2FontModelCtrl.AddRelation(dir2FontRelationList);
+			dir2FontModelCtrl.IncVersion();
 		}
 
 		private NodeID RegisterDir(DirectoryInfo currDir)
