@@ -159,7 +159,7 @@ namespace madoka.ctrl
 
 		private void AddTreeModelRelationListTask()
 		{
-			AbtractRelationCtrl treeModelCtrl = new TreeModelCtrl(_model);
+			TreeModelCtrl treeModelCtrl = new TreeModelCtrl(_model);
 			IEnumerable<RelationPair> newItemList = treeModelCtrl.AddRelation(_tmpTreeRelationList);
 			treeModelCtrl.IncVersion();
 		}
@@ -170,7 +170,7 @@ namespace madoka.ctrl
 				(dir) => dir.FontFileID.Select((fontID) => new RelationPair(dir.ID, fontID))
 			);
 
-			AbtractRelationCtrl dir2FontModelCtrl = new TreeModelCtrl(_model);
+			Dir2FontCtrl dir2FontModelCtrl = new Dir2FontCtrl(_model);
 			IEnumerable<RelationPair> newItemList = dir2FontModelCtrl.AddRelation(dir2FontRelationList);
 			dir2FontModelCtrl.IncVersion();
 		}
@@ -181,7 +181,7 @@ namespace madoka.ctrl
 
 			NodeID[] childNodeIdList = currDir.GetDirectories()
 				.Select(RegisterDir)
-				.Where((ret) => ret < 0)
+				.Where((ret) => ret > 0)
 				.ToArray();
 			FileInfo[] fontList = currDir.GetFiles().Where((f) => U.IsFontFile(f.Name)).ToArray();
 

@@ -59,8 +59,8 @@ namespace madoka
 		public int CompareTo(RelationPair ro)
 		{
 			ulong diff = (ulong)(this._value - ro._value);
-			uint sign = (uint)((diff & 0x80000000_00000000) >> 32);
-			uint value = (uint)(((diff & 0x7fffffff_ffffffff) + 1) >> 63);
+			uint sign = (uint)((diff & 0x80000000_00000000u) >> 32);
+			uint value = (uint)(((diff & 0x7fffffff_ffffffffu) + 0x7fffffff_ffffffffu) >> 63);
 
 			return (int)(sign | value);
 		}

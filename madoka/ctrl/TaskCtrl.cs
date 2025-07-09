@@ -31,14 +31,12 @@ namespace madoka.ctrl
 		{
 			Queue<Task> taskList = _model.taskList;
 
-			if (taskList.Count > 0)
-			{   // remove completed tasks
-				Task prev = taskList.Peek();
-				while (prev.IsCompleted)
-				{
-					taskList.Dequeue();
-					prev = taskList.Peek();
-				}
+			while (taskList.Count > 0)
+			{
+				Task task = taskList.Peek();
+				if (!task.IsCompleted)
+					break;
+				taskList.Dequeue();
 			}
 		}
 

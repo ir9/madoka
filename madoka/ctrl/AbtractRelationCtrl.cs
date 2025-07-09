@@ -48,6 +48,25 @@ namespace madoka.ctrl
 			return childItemList.Select((c) => c.Child).ToArray();
 		}
 
+		public int[] GetChildIndexesRecuresive(int parent)
+		{
+			List<int> ret = new List<int>();
+
+			void follow(int p)
+			{
+				ret.Add(p);
+
+				int[] childIndexes = GetChildIndexes(p);
+				foreach (int child in childIndexes)
+				{
+					follow(child);
+				}
+			}
+
+			follow(parent);
+			return ret.ToArray();
+		}
+
 		public int IncVersion()
 		{
 			return _version.Inc();

@@ -20,7 +20,7 @@ namespace madoka
 		public const int TAG_ROOT = 2;
 		public const int TAG_LEAF = 3;
 
-		public const string TREENODE_NAME_DIRECTORY_ROOT = "DIRECTORY_ROOT";
+		public const string TREENODE_NAME_DIRECTORY_ROOT = "DirectoryRoot";
 	}
 
 	enum GridViewDataType: int

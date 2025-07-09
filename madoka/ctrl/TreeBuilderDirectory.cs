@@ -9,29 +9,27 @@ namespace madoka.ctrl
 {
 	class TreeBuilderDirectory
 	{
-		private readonly TreeNode _rootDir;
 		private readonly DataSet1 _dataSet;
 		private readonly ModelMy _model;
 
 		private readonly TreeModelCtrl _treeModelCtrl;
 
-		public TreeBuilderDirectory(TreeNode rootDir, ModelMy model, DataSet1 dataSet)
+		public TreeBuilderDirectory(ModelMy model, DataSet1 dataSet)
 		{
-			_rootDir = rootDir;
 			_dataSet = dataSet;
 			_model = model;
 
 			_treeModelCtrl = new TreeModelCtrl(model);
 		}
 
-		public void Rebuild()
+		/// <summary>
+		/// Directory ノード直下の TreeItem を再構築して返します
+		/// </summary>
+		/// <returns></returns>
+		public TreeNode[] Rebuild()
 		{
-			_rootDir.Nodes.Clear();
-
 			int[] childNodeIdList = _treeModelCtrl.GetChildIndexes(_model.rootDirID);
-			_rootDir.Nodes.AddRange(
-				SortNodeList(childNodeIdList.Select((childId) => BuildNode(childId, true)))
-			);
+			return SortNodeList(childNodeIdList.Select((childId) => BuildNode(childId, true)));
 		}
 
 		private TreeNode BuildNode(int nodeId, bool isSubRoot)

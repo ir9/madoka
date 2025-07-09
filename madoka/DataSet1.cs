@@ -29,7 +29,7 @@ namespace madoka
 		{
 			int rootNodeId = IDIssuer.DirectoryID;
 			DataSet1.DirectoryTableRow root = DirectoryTable.AddDirectoryTableRow(
-				rootNodeId, new Dir(rootNodeId, null, new int[] { })
+				rootNodeId, new Dir(rootNodeId, new System.IO.DirectoryInfo("."), new int[] { })
 			);
 			return rootNodeId;
 		}

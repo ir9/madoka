@@ -12,9 +12,9 @@ namespace madoka
 		static public int DirectoryID => Interlocked.Increment(ref _directoryId);
 
 		static private int _fontFileId = 0;
-		static public int FontFileID = Interlocked.Increment(ref _fontFileId);
+		static public int FontFileID => Interlocked.Increment(ref _fontFileId);
 
 		static private int _gridViewDataId = 0;
-		static public int GridViewDataID = Interlocked.Increment(ref _gridViewDataId);
+		static public int GridViewDataID => Interlocked.Increment(ref _gridViewDataId);
 	}
 }

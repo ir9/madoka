@@ -24,7 +24,7 @@ namespace madoka
 			{
 				IntPtr[] hIconList = K.IconIndexList.AsParallel().Select(U.LoadIcon).ToArray();
 
-				var iconList = hIconList.AsParallel().Select(Icon.FromHandle);
+				var iconList = hIconList.AsParallel().Select(Icon.FromHandle).ToList();
 				foreach (Icon icon_ in iconList)
 				{
 					using (Icon icon = icon_)
@@ -64,9 +64,16 @@ namespace madoka
 
 		private void RebuildTreeDirectory()
 		{
+			ctrl.TreeBuilderDirectory builder = new ctrl.TreeBuilderDirectory(_model, dataSet1);
+			TreeNode[] subRootList = builder.Rebuild();
+
 			TreeNode nodeDir = FindRootTreeNode(K.TREENODE_NAME_DIRECTORY_ROOT);
-			ctrl.TreeBuilderDirectory builder = new ctrl.TreeBuilderDirectory(nodeDir, _model, dataSet1);
-			builder.Rebuild();
+			this.Invoke((Action)(() =>
+			{
+				nodeDir.Nodes.Clear();
+				nodeDir.Nodes.AddRange(subRootList);
+				nodeDir.ExpandAll();
+			}));
 		}
 
 		/* ------------------------------------------ *
@@ -85,7 +92,10 @@ namespace madoka
 
 		private DataGridViewRow[] EnumerateDirectories(Dir d)
 		{
-			return null;
+			ctrl.TreeModelCtrl treeCtrl = new ctrl.TreeModelCtrl(_model);
+			int[] dirIDList = treeCtrl.GetChildIndexesRecuresive(d.ID);
+
+			return ctrl.DirGridViewCtrl.GetRows(_model, dataSet1, dirIDList);
 		}
 
 		/* ------------------------------------------ *

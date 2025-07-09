@@ -27,29 +27,48 @@ namespace madoka.ctrl
 	{
 		static private readonly Padding TEXT_PADDING = new Padding { Left = 16 };
 
-		public DataGridViewRow[] CreateRows(Dir[] dirList)
+		private readonly ModelMy _model;
+		private readonly DataSet1 _dataSet;
+
+		private DirGridViewCtrl(ModelMy model, DataSet1 dataSet)
 		{
-			return _CreateRowsInternal(dirList).ToArray();
+			_model = model;
+			_dataSet = dataSet;
 		}
 
-		private IEnumerable<DataGridViewRow> _CreateRowsInternal(Dir[] dirList)
+		public static DataGridViewRow[] GetRows(ModelMy model, DataSet1 dataSet, int[] srcDirList)
 		{
-			IEnumerable<DataGridViewRow> Convert(Dir d)
+			using (dataSet.GetReadLocker())
 			{
-				DataGridViewRow[] dir = { ConvertDirectory(d) };
-				var fontList = d.FontFileList.AsParallel().Select(ConvertFont);
-
-				IEnumerable<DataGridViewRow>[] both = { dir, fontList };
-				return both.SelectMany((r) => r);
+				DirGridViewCtrl c = new DirGridViewCtrl(model, dataSet);
+				return c._GetRows(srcDirList).ToArray();
 			}
-
-			return dirList.SelectMany(Convert);
 		}
 
-		private DataGridViewRow ConvertFont(FileInfo font)
+		private IEnumerable<DataGridViewRow> _GetRows(int[] srcDirList)
 		{
+			return srcDirList.AsParallel().SelectMany(Convert);
+		}
+
+		private IEnumerable<DataGridViewRow> Convert(int d)
+		{
+			DataSet1.DirectoryTableRow dirRow = _dataSet.DirectoryTable.FindByid(d);
+			Dir dirObj = (Dir)dirRow.directory;
+
+			DataGridViewRow[] dir = { ConvertDirectory(dirObj) };
+			var fontList = dirObj.FontFileID.AsParallel().Select(ConvertFont);
+
+			IEnumerable<DataGridViewRow>[] both = { dir, fontList };
+			return both.SelectMany((r) => r);
+		}
+
+		private DataGridViewRow ConvertFont(int fontFileId)
+		{
+			DataSet1.FontFileTableRow fontRow = _dataSet.FontFileTable.FindByid(fontFileId);
+			string fileName = Path.GetFileName(fontRow.filepath);
+
 			DataGridViewTextBoxCell cell = new DataGridViewTextBoxCell();
-			cell.Value = font.Name;
+			cell.Value = fileName;
 			cell.Style.Padding = TEXT_PADDING;
 
 			DataGridViewRow row = new DataGridViewRow();
@@ -59,7 +78,7 @@ namespace madoka.ctrl
 
 		private DataGridViewRow ConvertDirectory(Dir d)
 		{
-			DataGridViewIconTextCell cell = new DataGridViewIconTextCell();
+			DataGridViewTextBoxCell cell = new DataGridViewTextBoxCell();
 			cell.Value = d.DirectoryInfo.Name;
 
 			DataGridViewRow row = new DataGridViewRow();
