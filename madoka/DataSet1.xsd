@@ -37,7 +37,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="GridViewDataTable" msprop:Generator_TableClassName="GridViewDataTableDataTable" msprop:Generator_TableVarName="tableGridViewDataTable" msprop:Generator_RowChangedName="GridViewDataTableRowChanged" msprop:Generator_TablePropName="GridViewDataTable" msprop:Generator_RowDeletingName="GridViewDataTableRowDeleting" msprop:Generator_RowChangingName="GridViewDataTableRowChanging" msprop:Generator_RowEvHandlerName="GridViewDataTableRowChangeEventHandler" msprop:Generator_RowDeletedName="GridViewDataTableRowDeleted" msprop:Generator_RowClassName="GridViewDataTableRow" msprop:Generator_UserTableName="GridViewDataTable" msprop:Generator_RowEvArgName="GridViewDataTableRowChangeEvent">
+        <xs:element name="DirGridViewDataTable" msprop:Generator_TableClassName="DirGridViewDataTableDataTable" msprop:Generator_TableVarName="tableDirGridViewDataTable" msprop:Generator_RowChangedName="DirGridViewDataTableRowChanged" msprop:Generator_TablePropName="DirGridViewDataTable" msprop:Generator_RowDeletingName="DirGridViewDataTableRowDeleting" msprop:Generator_RowChangingName="DirGridViewDataTableRowChanging" msprop:Generator_RowEvHandlerName="DirGridViewDataTableRowChangeEventHandler" msprop:Generator_RowDeletedName="DirGridViewDataTableRowDeleted" msprop:Generator_RowClassName="DirGridViewDataTableRow" msprop:Generator_UserTableName="DirGridViewDataTable" msprop:Generator_RowEvArgName="DirGridViewDataTableRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
@@ -45,6 +45,21 @@
               <xs:element name="flag" msprop:Generator_ColumnVarNameInTable="columnflag" msprop:Generator_ColumnPropNameInRow="flag" msprop:Generator_ColumnPropNameInTable="flagColumn" msprop:Generator_UserColumnName="flag" type="xs:boolean" />
               <xs:element name="objectType" msprop:Generator_ColumnVarNameInTable="columnobjectType" msprop:Generator_ColumnPropNameInRow="objectType" msprop:Generator_ColumnPropNameInTable="objectTypeColumn" msprop:Generator_UserColumnName="objectType" type="xs:int" />
               <xs:element name="objectID" msprop:Generator_ColumnVarNameInTable="columnobjectID" msprop:Generator_ColumnPropNameInRow="objectID" msprop:Generator_ColumnPropNameInTable="objectIDColumn" msprop:Generator_UserColumnName="objectID" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DirGridViewExpandTable" msprop:Generator_TableClassName="DirGridViewExpandTableDataTable" msprop:Generator_TableVarName="tableDirGridViewExpandTable" msprop:Generator_RowChangedName="DirGridViewExpandTableRowChanged" msprop:Generator_TablePropName="DirGridViewExpandTable" msprop:Generator_RowDeletingName="DirGridViewExpandTableRowDeleting" msprop:Generator_RowChangingName="DirGridViewExpandTableRowChanging" msprop:Generator_RowEvHandlerName="DirGridViewExpandTableRowChangeEventHandler" msprop:Generator_RowDeletedName="DirGridViewExpandTableRowDeleted" msprop:Generator_RowClassName="DirGridViewExpandTableRow" msprop:Generator_UserTableName="DirGridViewExpandTable" msprop:Generator_RowEvArgName="DirGridViewExpandTableRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
+              <xs:element name="expand" msprop:Generator_ColumnVarNameInTable="columnexpand" msprop:Generator_ColumnPropNameInRow="expand" msprop:Generator_ColumnPropNameInTable="expandColumn" msprop:Generator_UserColumnName="expand" type="xs:boolean" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="RootFontDirTable" msprop:Generator_TableClassName="RootFontDirTableDataTable" msprop:Generator_TableVarName="tableRootFontDirTable" msprop:Generator_TablePropName="RootFontDirTable" msprop:Generator_RowDeletingName="RootFontDirTableRowDeleting" msprop:Generator_RowChangingName="RootFontDirTableRowChanging" msprop:Generator_RowEvHandlerName="RootFontDirTableRowChangeEventHandler" msprop:Generator_RowDeletedName="RootFontDirTableRowDeleted" msprop:Generator_UserTableName="RootFontDirTable" msprop:Generator_RowChangedName="RootFontDirTableRowChanged" msprop:Generator_RowEvArgName="RootFontDirTableRowChangeEvent" msprop:Generator_RowClassName="RootFontDirTableRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="path" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnpath" msprop:Generator_ColumnPropNameInRow="path" msprop:Generator_ColumnPropNameInTable="pathColumn" msprop:Generator_UserColumnName="path" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -62,9 +77,17 @@
       <xs:selector xpath=".//mstns:FontFileTable" />
       <xs:field xpath="mstns:id" />
     </xs:unique>
-    <xs:unique name="GridViewDataTable_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:GridViewDataTable" />
+    <xs:unique name="DirGridViewDataTable_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:DirGridViewDataTable" />
       <xs:field xpath="mstns:id" />
+    </xs:unique>
+    <xs:unique name="DirGridViewExpandTable_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:DirGridViewExpandTable" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+    <xs:unique name="RootFontDirTable_Constraint1" msdata:ConstraintName="Constraint1">
+      <xs:selector xpath=".//mstns:RootFontDirTable" />
+      <xs:field xpath="mstns:path" />
     </xs:unique>
   </xs:element>
 </xs:schema>

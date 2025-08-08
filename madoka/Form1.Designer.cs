@@ -41,8 +41,8 @@
 			this.treeView1 = new System.Windows.Forms.TreeView();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.gridViewDataTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.dataSet1 = new madoka.DataSet1();
 			this.contextMenuFolder.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
@@ -51,8 +51,8 @@
 			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-			this.tableLayoutPanel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridViewDataTableBindingSource)).BeginInit();
+			this.tableLayoutPanel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -211,9 +211,9 @@
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
 			this.splitContainer1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.gridViewDataTableBindingSource)).EndInit();
 			this.tableLayoutPanel1.ResumeLayout(false);
 			this.tableLayoutPanel1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.gridViewDataTableBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataSet1)).EndInit();
 			this.ResumeLayout(false);
 

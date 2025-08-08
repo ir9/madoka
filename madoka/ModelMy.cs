@@ -9,6 +9,12 @@ using System.Threading.Tasks;
 
 namespace madoka
 {
+	class DirGridViewRecord
+	{
+		public string Name { get; private set; }
+		public int ObjectType { get; private set; }
+	};
+
 	class FontFile
 	{
 		public FontFile(int id, string filePath)
@@ -71,6 +77,12 @@ namespace madoka
 		}
 	};
 
+	[Flags]
+	enum AppState
+	{
+		NONE = 0,
+		CONFIG_LOADED = 0x01,
+	};
 
 	/*
 	class ModelTag
@@ -84,6 +96,7 @@ namespace madoka
 	{
 		public Queue<Task> taskList = new Queue<Task>();
 		public CancellationTokenSource cancelToken = new CancellationTokenSource();
+		public AppState appState = AppState.NONE;
 
 		public bool addFontDirectoryTaskTerminateFlag = true;
 		public ConcurrentQueue<string> addFontDirectoryPathList = new ConcurrentQueue<string>();

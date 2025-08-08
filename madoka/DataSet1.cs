@@ -99,20 +99,20 @@ namespace madoka
 		 * ========================================= */
 		internal void RebuildGridViewDataTable(ModelMy model)
 		{
-			GridViewDataTableDataTable table = new GridViewDataTableDataTable();
+			DirGridViewDataTableDataTable table = new DirGridViewDataTableDataTable();
 
 			try
 			{
-				GridViewDataTable.BeginInit();
-				GridViewDataTable.Clear();
+				table.BeginInit();
+				// table.Clear();
 				foreach (var row in table)
 				{
-					GridViewDataTable.ImportRow(row);
+					table.ImportRow(row);
 				}
 			}
 			finally
 			{
-				GridViewDataTable.EndInit();
+				table.EndInit();
 			}
 		}
 	}
@@ -140,7 +140,7 @@ namespace madoka
 		{
 			int ret = Interlocked.Decrement(ref _dataSet.readLockCount);
 			if (ret < 0)
-			{	// まず無いハズだけどまぁ気持ち的に一応…
+			{   // まず無いハズだけどまぁ気持ち的に一応…
 				_dataSet.readLockCount = 0;
 			}
 		}
@@ -163,15 +163,15 @@ namespace madoka
 		}
 	}
 
-	class GridViewDataRecordBuilder
+	class DirGridViewDataRecordBuilder
 	{
 		private readonly ModelMy _model;
 		private readonly DataSet1 _dataSet;
 		private readonly ctrl.TreeModelCtrl _treeModelCtrl;
 		private readonly ctrl.Dir2FontCtrl _fontCtrl;
-		private readonly DataSet1.GridViewDataTableDataTable _table = new DataSet1.GridViewDataTableDataTable();
+		private readonly DataSet1.DirGridViewDataTableDataTable _table = new DataSet1.DirGridViewDataTableDataTable();
 
-		public GridViewDataRecordBuilder(ModelMy model, DataSet1 dataSet)
+		public DirGridViewDataRecordBuilder(ModelMy model, DataSet1 dataSet)
 		{
 			_model = model;
 			_dataSet = dataSet;
@@ -179,28 +179,31 @@ namespace madoka
 			_fontCtrl = new ctrl.Dir2FontCtrl(model);
 		}
 
-		public DataSet1.GridViewDataTableDataTable Build()
+		public DataSet1.DirGridViewDataTableDataTable Build(Dir selectedDir)
 		{
-			Dir dirObj = _dataSet.GetDirectory(_model.rootDirID);
-			string rootPath;
-
-			System.IO.DirectoryInfo parent = dirObj.DirectoryInfo.Parent;
-			if (parent != null)
+			using (_dataSet.GetReadLocker())
 			{
-				rootPath = parent.FullName;
-				rootPath = rootPath.TrimEnd(System.IO.Path.DirectorySeparatorChar) + System.IO.Path.DirectorySeparatorChar;
-			}
-			else
-			{   // parent == null
-				rootPath = "::::::"; // use a dummy path
-			}
+				Dir dirObj = _dataSet.GetDirectory(selectedDir.ID);
+				string rootPath;
 
-			Insert(_model.rootDirID, rootPath);
+				System.IO.DirectoryInfo parent = dirObj.DirectoryInfo.Parent;
+				if (parent != null)
+				{
+					rootPath = parent.FullName;
+					rootPath = rootPath.TrimEnd(System.IO.Path.DirectorySeparatorChar) + System.IO.Path.DirectorySeparatorChar;
+				}
+				else
+				{   // parent == null
+					rootPath = "::::::"; // use a dummy path
+				}
+
+				Insert(_model.rootDirID, rootPath);
+			}
 
 			return _table;
 		}
 
-		public void Insert(int dirNodeID, string rootPath)
+		private void Insert(int dirNodeID, string rootPath)
 		{
 			int[] childDirNodeIDList = _treeModelCtrl.GetChildIndexes(dirNodeID);
 			int[] fontFileIDList = _fontCtrl.GetChildIndexes(dirNodeID);
@@ -214,8 +217,7 @@ namespace madoka
 				dirName = fullPath.Substring(rootPath.Length);
 			}
 
-
-			_table.AddGridViewDataTableRow(
+			_table.AddDirGridViewDataTableRow(
 				IDIssuer.GridViewDataID,
 				dirName,
 				false,
@@ -229,13 +231,19 @@ namespace madoka
 				fullPath = _dataSet.GetFontFilePath(fontFileID);
 				string fileName = System.IO.Path.GetFileName(fullPath);
 
-				_table.AddGridViewDataTableRow(
+				_table.AddDirGridViewDataTableRow(
 					IDIssuer.GridViewDataID,
 					fileName,
 					false,
 					(int)GridViewDataType.FONT,
 					fontFileID
 				);
+			}
+
+			// == insert children ===
+			foreach (int childDirNodeID in childDirNodeIDList)
+			{
+				Insert(childDirNodeID, rootPath);
 			}
 		}
 	}

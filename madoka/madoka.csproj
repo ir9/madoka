@@ -35,19 +35,19 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ctrl\AppConfig.cs" />
     <Compile Include="ctrl\Dir2FontCtrl.cs" />
     <Compile Include="ctrl\IOCtrl.cs" />
+    <Compile Include="ctrl\DataSetKomono.cs" />
     <Compile Include="ctrl\TaskCtrl.cs" />
     <Compile Include="ctrl\TreeBuilderDirectory.cs" />
     <Compile Include="ctrl\AbtractRelationCtrl.cs" />

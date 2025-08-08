@@ -27,7 +27,8 @@ namespace madoka.ctrl
 			task.Start();
 		}
 
-		public void CleanTaskQueue()
+		/// <returns>Queue が空になったら true</returns>
+		public bool CleanTaskQueue()
 		{
 			Queue<Task> taskList = _model.taskList;
 
@@ -38,13 +39,19 @@ namespace madoka.ctrl
 					break;
 				taskList.Dequeue();
 			}
+
+			return taskList.Count == 0;
 		}
 
 		public void DisposeTask()
 		{
-			_model.cancelToken.Cancel();
 			Task.WaitAll(_model.taskList.ToArray(), 10000);
-			_model.cancelToken.Dispose();
+			if (!CleanTaskQueue())
+			{
+				_model.cancelToken.Cancel();
+				Task.WaitAll(_model.taskList.ToArray(), 10000);
+				_model.cancelToken.Dispose();
+			}
 		}
 	}
 }

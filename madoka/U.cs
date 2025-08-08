@@ -41,6 +41,15 @@ namespace madoka
 			return ret == 0 ? IntPtr.Zero : small;
 		}
 
+		public static string CreateAppConfigPath()
+		{
+			string dir = Path.Combine(
+				Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+				K.AppName);
+			Directory.CreateDirectory(dir); // 存在しない場合は作成
+			return dir;
+		}
+
 		public static readonly Regex RE_FONTFILE_EXT_CHECKER = new Regex(@"\.(fon|fnt|ttf|ttc|fot|otf|mmm|pfb|pfm)$", RegexOptions.IgnoreCase);
 		public static bool IsFontFile(string path)
 		{
@@ -66,6 +75,15 @@ namespace madoka
 						throw;
 				}
 			}
+		}
+
+		public static bool IsNullOrEmpty<T>(IEnumerable<T> list)
+		{
+			if (list == null)
+				return true;
+			if (list is ICollection<T> c)
+				return c.Count == 0;
+			return !list.Any();
 		}
 
 		/*

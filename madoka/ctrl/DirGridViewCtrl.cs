@@ -23,6 +23,7 @@ namespace madoka.ctrl
 	};
 	*/
 
+	/*
 	class DirGridViewCtrl
 	{
 		static private readonly Padding TEXT_PADDING = new Padding { Left = 16 };
@@ -86,4 +87,5 @@ namespace madoka.ctrl
 			return row;
 		}
 	}
+	*/
 }

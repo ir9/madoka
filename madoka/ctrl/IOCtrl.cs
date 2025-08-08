@@ -37,9 +37,11 @@ namespace madoka.ctrl
 
 	class ScanDirTask
 	{
+		// いろいろ処理して登録OKになった系
 		private readonly List<Dir> _tmpRecordList = new List<Dir>();
 		private readonly List<RelationPair> _tmpTreeRelationList = new List<RelationPair>();
 		private readonly List<FontFile> _tmpFontFileList = new List<FontFile>();
+		private readonly List<string> _tmpRootFontDirPathList = new List<string>();
 
 		private readonly ModelMy _model;
 		private readonly DataSet1 _dataSet;
@@ -115,6 +117,7 @@ namespace madoka.ctrl
 					if (childNodeId > 0)
 					{
 						_tmpTreeRelationList.Add(new RelationPair(model.rootDirID, childNodeId));
+						_tmpRootFontDirPathList.Add(path);
 					}
 				}
 
@@ -138,12 +141,15 @@ namespace madoka.ctrl
 					Task.Run((Action)AddTreeModelRelationListTask, cancelToken),
 					Task.Run((Action)RegisterFontFileListTask, cancelToken),
 					Task.Run((Action)RegisterDirectryListTask, cancelToken),
+					Task.Run((Action)AddRootFontDirList, cancelToken), // conflict check 抜けてる… まぁ… すまん…
 				};
 				Task.WaitAll(taskList, cancelToken);
 
 				return new ScanDirTaskResult(_tmpRecordList, _tmpFontFileList, _tmpTreeRelationList);
 			}
 		}
+
+		// === commit 系 ===
 
 		private void RegisterDirectryListTask()
 		{
@@ -174,6 +180,14 @@ namespace madoka.ctrl
 			IEnumerable<RelationPair> newItemList = dir2FontModelCtrl.AddRelation(dir2FontRelationList);
 			dir2FontModelCtrl.IncVersion();
 		}
+
+		private void AddRootFontDirList()
+		{
+			DataSetKomono ctrl = new DataSetKomono(_dataSet);
+			ctrl.AppendNewRootFontDir(_tmpRootFontDirPathList);
+		}
+
+		// === main ===
 
 		private NodeID RegisterDir(DirectoryInfo currDir)
 		{

@@ -30,7 +30,11 @@ namespace madoka {
         
         private FontFileTableDataTable tableFontFileTable;
         
-        private GridViewDataTableDataTable tableGridViewDataTable;
+        private DirGridViewDataTableDataTable tableDirGridViewDataTable;
+        
+        private DirGridViewExpandTableDataTable tableDirGridViewExpandTable;
+        
+        private RootFontDirTableDataTable tableRootFontDirTable;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -69,8 +73,14 @@ namespace madoka {
                 if ((ds.Tables["FontFileTable"] != null)) {
                     base.Tables.Add(new FontFileTableDataTable(ds.Tables["FontFileTable"]));
                 }
-                if ((ds.Tables["GridViewDataTable"] != null)) {
-                    base.Tables.Add(new GridViewDataTableDataTable(ds.Tables["GridViewDataTable"]));
+                if ((ds.Tables["DirGridViewDataTable"] != null)) {
+                    base.Tables.Add(new DirGridViewDataTableDataTable(ds.Tables["DirGridViewDataTable"]));
+                }
+                if ((ds.Tables["DirGridViewExpandTable"] != null)) {
+                    base.Tables.Add(new DirGridViewExpandTableDataTable(ds.Tables["DirGridViewExpandTable"]));
+                }
+                if ((ds.Tables["RootFontDirTable"] != null)) {
+                    base.Tables.Add(new RootFontDirTableDataTable(ds.Tables["RootFontDirTable"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -124,9 +134,29 @@ namespace madoka {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public GridViewDataTableDataTable GridViewDataTable {
+        public DirGridViewDataTableDataTable DirGridViewDataTable {
             get {
-                return this.tableGridViewDataTable;
+                return this.tableDirGridViewDataTable;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public DirGridViewExpandTableDataTable DirGridViewExpandTable {
+            get {
+                return this.tableDirGridViewExpandTable;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public RootFontDirTableDataTable RootFontDirTable {
+            get {
+                return this.tableRootFontDirTable;
             }
         }
         
@@ -206,8 +236,14 @@ namespace madoka {
                 if ((ds.Tables["FontFileTable"] != null)) {
                     base.Tables.Add(new FontFileTableDataTable(ds.Tables["FontFileTable"]));
                 }
-                if ((ds.Tables["GridViewDataTable"] != null)) {
-                    base.Tables.Add(new GridViewDataTableDataTable(ds.Tables["GridViewDataTable"]));
+                if ((ds.Tables["DirGridViewDataTable"] != null)) {
+                    base.Tables.Add(new DirGridViewDataTableDataTable(ds.Tables["DirGridViewDataTable"]));
+                }
+                if ((ds.Tables["DirGridViewExpandTable"] != null)) {
+                    base.Tables.Add(new DirGridViewExpandTableDataTable(ds.Tables["DirGridViewExpandTable"]));
+                }
+                if ((ds.Tables["RootFontDirTable"] != null)) {
+                    base.Tables.Add(new RootFontDirTableDataTable(ds.Tables["RootFontDirTable"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -260,10 +296,22 @@ namespace madoka {
                     this.tableFontFileTable.InitVars();
                 }
             }
-            this.tableGridViewDataTable = ((GridViewDataTableDataTable)(base.Tables["GridViewDataTable"]));
+            this.tableDirGridViewDataTable = ((DirGridViewDataTableDataTable)(base.Tables["DirGridViewDataTable"]));
             if ((initTable == true)) {
-                if ((this.tableGridViewDataTable != null)) {
-                    this.tableGridViewDataTable.InitVars();
+                if ((this.tableDirGridViewDataTable != null)) {
+                    this.tableDirGridViewDataTable.InitVars();
+                }
+            }
+            this.tableDirGridViewExpandTable = ((DirGridViewExpandTableDataTable)(base.Tables["DirGridViewExpandTable"]));
+            if ((initTable == true)) {
+                if ((this.tableDirGridViewExpandTable != null)) {
+                    this.tableDirGridViewExpandTable.InitVars();
+                }
+            }
+            this.tableRootFontDirTable = ((RootFontDirTableDataTable)(base.Tables["RootFontDirTable"]));
+            if ((initTable == true)) {
+                if ((this.tableRootFontDirTable != null)) {
+                    this.tableRootFontDirTable.InitVars();
                 }
             }
         }
@@ -282,8 +330,12 @@ namespace madoka {
             base.Tables.Add(this.tableDirectoryTable);
             this.tableFontFileTable = new FontFileTableDataTable();
             base.Tables.Add(this.tableFontFileTable);
-            this.tableGridViewDataTable = new GridViewDataTableDataTable();
-            base.Tables.Add(this.tableGridViewDataTable);
+            this.tableDirGridViewDataTable = new DirGridViewDataTableDataTable();
+            base.Tables.Add(this.tableDirGridViewDataTable);
+            this.tableDirGridViewExpandTable = new DirGridViewExpandTableDataTable();
+            base.Tables.Add(this.tableDirGridViewExpandTable);
+            this.tableRootFontDirTable = new RootFontDirTableDataTable();
+            base.Tables.Add(this.tableRootFontDirTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -306,7 +358,19 @@ namespace madoka {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        private bool ShouldSerializeGridViewDataTable() {
+        private bool ShouldSerializeDirGridViewDataTable() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private bool ShouldSerializeDirGridViewExpandTable() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private bool ShouldSerializeRootFontDirTable() {
             return false;
         }
         
@@ -375,7 +439,13 @@ namespace madoka {
         public delegate void FontFileTableRowChangeEventHandler(object sender, FontFileTableRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        public delegate void GridViewDataTableRowChangeEventHandler(object sender, GridViewDataTableRowChangeEvent e);
+        public delegate void DirGridViewDataTableRowChangeEventHandler(object sender, DirGridViewDataTableRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public delegate void DirGridViewExpandTableRowChangeEventHandler(object sender, DirGridViewExpandTableRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public delegate void RootFontDirTableRowChangeEventHandler(object sender, RootFontDirTableRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -1223,7 +1293,7 @@ namespace madoka {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class GridViewDataTableDataTable : global::System.Data.TypedTableBase<GridViewDataTableRow> {
+        public partial class DirGridViewDataTableDataTable : global::System.Data.TypedTableBase<DirGridViewDataTableRow> {
             
             private global::System.Data.DataColumn columnid;
             
@@ -1237,8 +1307,8 @@ namespace madoka {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public GridViewDataTableDataTable() {
-                this.TableName = "GridViewDataTable";
+            public DirGridViewDataTableDataTable() {
+                this.TableName = "DirGridViewDataTable";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -1246,7 +1316,7 @@ namespace madoka {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            internal GridViewDataTableDataTable(global::System.Data.DataTable table) {
+            internal DirGridViewDataTableDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -1263,7 +1333,7 @@ namespace madoka {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            protected GridViewDataTableDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected DirGridViewDataTableDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -1319,56 +1389,56 @@ namespace madoka {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public GridViewDataTableRow this[int index] {
+            public DirGridViewDataTableRow this[int index] {
                 get {
-                    return ((GridViewDataTableRow)(this.Rows[index]));
+                    return ((DirGridViewDataTableRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public event GridViewDataTableRowChangeEventHandler GridViewDataTableRowChanging;
+            public event DirGridViewDataTableRowChangeEventHandler DirGridViewDataTableRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public event GridViewDataTableRowChangeEventHandler GridViewDataTableRowChanged;
+            public event DirGridViewDataTableRowChangeEventHandler DirGridViewDataTableRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public event GridViewDataTableRowChangeEventHandler GridViewDataTableRowDeleting;
+            public event DirGridViewDataTableRowChangeEventHandler DirGridViewDataTableRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public event GridViewDataTableRowChangeEventHandler GridViewDataTableRowDeleted;
+            public event DirGridViewDataTableRowChangeEventHandler DirGridViewDataTableRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void AddGridViewDataTableRow(GridViewDataTableRow row) {
+            public void AddDirGridViewDataTableRow(DirGridViewDataTableRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public GridViewDataTableRow AddGridViewDataTableRow(int id, string name, bool flag, int objectType, int objectID) {
-                GridViewDataTableRow rowGridViewDataTableRow = ((GridViewDataTableRow)(this.NewRow()));
+            public DirGridViewDataTableRow AddDirGridViewDataTableRow(int id, string name, bool flag, int objectType, int objectID) {
+                DirGridViewDataTableRow rowDirGridViewDataTableRow = ((DirGridViewDataTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
                         name,
                         flag,
                         objectType,
                         objectID};
-                rowGridViewDataTableRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowGridViewDataTableRow);
-                return rowGridViewDataTableRow;
+                rowDirGridViewDataTableRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowDirGridViewDataTableRow);
+                return rowDirGridViewDataTableRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public GridViewDataTableRow FindByid(int id) {
-                return ((GridViewDataTableRow)(this.Rows.Find(new object[] {
+            public DirGridViewDataTableRow FindByid(int id) {
+                return ((DirGridViewDataTableRow)(this.Rows.Find(new object[] {
                             id})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                GridViewDataTableDataTable cln = ((GridViewDataTableDataTable)(base.Clone()));
+                DirGridViewDataTableDataTable cln = ((DirGridViewDataTableDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -1376,7 +1446,7 @@ namespace madoka {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new GridViewDataTableDataTable();
+                return new DirGridViewDataTableDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1415,28 +1485,28 @@ namespace madoka {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public GridViewDataTableRow NewGridViewDataTableRow() {
-                return ((GridViewDataTableRow)(this.NewRow()));
+            public DirGridViewDataTableRow NewDirGridViewDataTableRow() {
+                return ((DirGridViewDataTableRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new GridViewDataTableRow(builder);
+                return new DirGridViewDataTableRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(GridViewDataTableRow);
+                return typeof(DirGridViewDataTableRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.GridViewDataTableRowChanged != null)) {
-                    this.GridViewDataTableRowChanged(this, new GridViewDataTableRowChangeEvent(((GridViewDataTableRow)(e.Row)), e.Action));
+                if ((this.DirGridViewDataTableRowChanged != null)) {
+                    this.DirGridViewDataTableRowChanged(this, new DirGridViewDataTableRowChangeEvent(((DirGridViewDataTableRow)(e.Row)), e.Action));
                 }
             }
             
@@ -1444,8 +1514,8 @@ namespace madoka {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.GridViewDataTableRowChanging != null)) {
-                    this.GridViewDataTableRowChanging(this, new GridViewDataTableRowChangeEvent(((GridViewDataTableRow)(e.Row)), e.Action));
+                if ((this.DirGridViewDataTableRowChanging != null)) {
+                    this.DirGridViewDataTableRowChanging(this, new DirGridViewDataTableRowChangeEvent(((DirGridViewDataTableRow)(e.Row)), e.Action));
                 }
             }
             
@@ -1453,8 +1523,8 @@ namespace madoka {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.GridViewDataTableRowDeleted != null)) {
-                    this.GridViewDataTableRowDeleted(this, new GridViewDataTableRowChangeEvent(((GridViewDataTableRow)(e.Row)), e.Action));
+                if ((this.DirGridViewDataTableRowDeleted != null)) {
+                    this.DirGridViewDataTableRowDeleted(this, new DirGridViewDataTableRowChangeEvent(((DirGridViewDataTableRow)(e.Row)), e.Action));
                 }
             }
             
@@ -1462,14 +1532,14 @@ namespace madoka {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.GridViewDataTableRowDeleting != null)) {
-                    this.GridViewDataTableRowDeleting(this, new GridViewDataTableRowChangeEvent(((GridViewDataTableRow)(e.Row)), e.Action));
+                if ((this.DirGridViewDataTableRowDeleting != null)) {
+                    this.DirGridViewDataTableRowDeleting(this, new DirGridViewDataTableRowChangeEvent(((DirGridViewDataTableRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void RemoveGridViewDataTableRow(GridViewDataTableRow row) {
+            public void RemoveDirGridViewDataTableRow(DirGridViewDataTableRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -1496,7 +1566,534 @@ namespace madoka {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "GridViewDataTableDataTable";
+                attribute2.FixedValue = "DirGridViewDataTableDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class DirGridViewExpandTableDataTable : global::System.Data.TypedTableBase<DirGridViewExpandTableRow> {
+            
+            private global::System.Data.DataColumn columnid;
+            
+            private global::System.Data.DataColumn columnexpand;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public DirGridViewExpandTableDataTable() {
+                this.TableName = "DirGridViewExpandTable";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal DirGridViewExpandTableDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected DirGridViewExpandTableDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn idColumn {
+                get {
+                    return this.columnid;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn expandColumn {
+                get {
+                    return this.columnexpand;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public DirGridViewExpandTableRow this[int index] {
+                get {
+                    return ((DirGridViewExpandTableRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event DirGridViewExpandTableRowChangeEventHandler DirGridViewExpandTableRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event DirGridViewExpandTableRowChangeEventHandler DirGridViewExpandTableRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event DirGridViewExpandTableRowChangeEventHandler DirGridViewExpandTableRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event DirGridViewExpandTableRowChangeEventHandler DirGridViewExpandTableRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void AddDirGridViewExpandTableRow(DirGridViewExpandTableRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public DirGridViewExpandTableRow AddDirGridViewExpandTableRow(int id, bool expand) {
+                DirGridViewExpandTableRow rowDirGridViewExpandTableRow = ((DirGridViewExpandTableRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        id,
+                        expand};
+                rowDirGridViewExpandTableRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowDirGridViewExpandTableRow);
+                return rowDirGridViewExpandTableRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public DirGridViewExpandTableRow FindByid(int id) {
+                return ((DirGridViewExpandTableRow)(this.Rows.Find(new object[] {
+                            id})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                DirGridViewExpandTableDataTable cln = ((DirGridViewExpandTableDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new DirGridViewExpandTableDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal void InitVars() {
+                this.columnid = base.Columns["id"];
+                this.columnexpand = base.Columns["expand"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            private void InitClass() {
+                this.columnid = new global::System.Data.DataColumn("id", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnid);
+                this.columnexpand = new global::System.Data.DataColumn("expand", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnexpand);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnid}, true));
+                this.columnid.AutoIncrementSeed = 1;
+                this.columnid.AllowDBNull = false;
+                this.columnid.ReadOnly = true;
+                this.columnid.Unique = true;
+                this.columnexpand.AllowDBNull = false;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public DirGridViewExpandTableRow NewDirGridViewExpandTableRow() {
+                return ((DirGridViewExpandTableRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new DirGridViewExpandTableRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(DirGridViewExpandTableRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.DirGridViewExpandTableRowChanged != null)) {
+                    this.DirGridViewExpandTableRowChanged(this, new DirGridViewExpandTableRowChangeEvent(((DirGridViewExpandTableRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.DirGridViewExpandTableRowChanging != null)) {
+                    this.DirGridViewExpandTableRowChanging(this, new DirGridViewExpandTableRowChangeEvent(((DirGridViewExpandTableRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.DirGridViewExpandTableRowDeleted != null)) {
+                    this.DirGridViewExpandTableRowDeleted(this, new DirGridViewExpandTableRowChangeEvent(((DirGridViewExpandTableRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.DirGridViewExpandTableRowDeleting != null)) {
+                    this.DirGridViewExpandTableRowDeleting(this, new DirGridViewExpandTableRowChangeEvent(((DirGridViewExpandTableRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void RemoveDirGridViewExpandTableRow(DirGridViewExpandTableRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                DataSet1 ds = new DataSet1();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "DirGridViewExpandTableDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class RootFontDirTableDataTable : global::System.Data.TypedTableBase<RootFontDirTableRow> {
+            
+            private global::System.Data.DataColumn columnpath;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public RootFontDirTableDataTable() {
+                this.TableName = "RootFontDirTable";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal RootFontDirTableDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected RootFontDirTableDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn pathColumn {
+                get {
+                    return this.columnpath;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public RootFontDirTableRow this[int index] {
+                get {
+                    return ((RootFontDirTableRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event RootFontDirTableRowChangeEventHandler RootFontDirTableRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event RootFontDirTableRowChangeEventHandler RootFontDirTableRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event RootFontDirTableRowChangeEventHandler RootFontDirTableRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event RootFontDirTableRowChangeEventHandler RootFontDirTableRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void AddRootFontDirTableRow(RootFontDirTableRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public RootFontDirTableRow AddRootFontDirTableRow(string path) {
+                RootFontDirTableRow rowRootFontDirTableRow = ((RootFontDirTableRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        path};
+                rowRootFontDirTableRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowRootFontDirTableRow);
+                return rowRootFontDirTableRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                RootFontDirTableDataTable cln = ((RootFontDirTableDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new RootFontDirTableDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal void InitVars() {
+                this.columnpath = base.Columns["path"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            private void InitClass() {
+                this.columnpath = new global::System.Data.DataColumn("path", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnpath);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnpath}, false));
+                this.columnpath.AllowDBNull = false;
+                this.columnpath.ReadOnly = true;
+                this.columnpath.Unique = true;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public RootFontDirTableRow NewRootFontDirTableRow() {
+                return ((RootFontDirTableRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new RootFontDirTableRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(RootFontDirTableRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.RootFontDirTableRowChanged != null)) {
+                    this.RootFontDirTableRowChanged(this, new RootFontDirTableRowChangeEvent(((RootFontDirTableRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.RootFontDirTableRowChanging != null)) {
+                    this.RootFontDirTableRowChanging(this, new RootFontDirTableRowChangeEvent(((RootFontDirTableRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.RootFontDirTableRowDeleted != null)) {
+                    this.RootFontDirTableRowDeleted(this, new RootFontDirTableRowChangeEvent(((RootFontDirTableRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.RootFontDirTableRowDeleting != null)) {
+                    this.RootFontDirTableRowDeleting(this, new RootFontDirTableRowChangeEvent(((RootFontDirTableRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void RemoveRootFontDirTableRow(RootFontDirTableRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                DataSet1 ds = new DataSet1();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "RootFontDirTableDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -1713,25 +2310,25 @@ namespace madoka {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class GridViewDataTableRow : global::System.Data.DataRow {
+        public partial class DirGridViewDataTableRow : global::System.Data.DataRow {
             
-            private GridViewDataTableDataTable tableGridViewDataTable;
+            private DirGridViewDataTableDataTable tableDirGridViewDataTable;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            internal GridViewDataTableRow(global::System.Data.DataRowBuilder rb) : 
+            internal DirGridViewDataTableRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableGridViewDataTable = ((GridViewDataTableDataTable)(this.Table));
+                this.tableDirGridViewDataTable = ((DirGridViewDataTableDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public int id {
                 get {
-                    return ((int)(this[this.tableGridViewDataTable.idColumn]));
+                    return ((int)(this[this.tableDirGridViewDataTable.idColumn]));
                 }
                 set {
-                    this[this.tableGridViewDataTable.idColumn] = value;
+                    this[this.tableDirGridViewDataTable.idColumn] = value;
                 }
             }
             
@@ -1740,14 +2337,14 @@ namespace madoka {
             public string name {
                 get {
                     try {
-                        return ((string)(this[this.tableGridViewDataTable.nameColumn]));
+                        return ((string)(this[this.tableDirGridViewDataTable.nameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("テーブル \'GridViewDataTable\' にある列 \'name\' の値は DBNull です。", e);
+                        throw new global::System.Data.StrongTypingException("テーブル \'DirGridViewDataTable\' にある列 \'name\' の値は DBNull です。", e);
                     }
                 }
                 set {
-                    this[this.tableGridViewDataTable.nameColumn] = value;
+                    this[this.tableDirGridViewDataTable.nameColumn] = value;
                 }
             }
             
@@ -1755,10 +2352,10 @@ namespace madoka {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool flag {
                 get {
-                    return ((bool)(this[this.tableGridViewDataTable.flagColumn]));
+                    return ((bool)(this[this.tableDirGridViewDataTable.flagColumn]));
                 }
                 set {
-                    this[this.tableGridViewDataTable.flagColumn] = value;
+                    this[this.tableDirGridViewDataTable.flagColumn] = value;
                 }
             }
             
@@ -1766,10 +2363,10 @@ namespace madoka {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public int objectType {
                 get {
-                    return ((int)(this[this.tableGridViewDataTable.objectTypeColumn]));
+                    return ((int)(this[this.tableDirGridViewDataTable.objectTypeColumn]));
                 }
                 set {
-                    this[this.tableGridViewDataTable.objectTypeColumn] = value;
+                    this[this.tableDirGridViewDataTable.objectTypeColumn] = value;
                 }
             }
             
@@ -1777,23 +2374,86 @@ namespace madoka {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public int objectID {
                 get {
-                    return ((int)(this[this.tableGridViewDataTable.objectIDColumn]));
+                    return ((int)(this[this.tableDirGridViewDataTable.objectIDColumn]));
                 }
                 set {
-                    this[this.tableGridViewDataTable.objectIDColumn] = value;
+                    this[this.tableDirGridViewDataTable.objectIDColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsnameNull() {
-                return this.IsNull(this.tableGridViewDataTable.nameColumn);
+                return this.IsNull(this.tableDirGridViewDataTable.nameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetnameNull() {
-                this[this.tableGridViewDataTable.nameColumn] = global::System.Convert.DBNull;
+                this[this.tableDirGridViewDataTable.nameColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class DirGridViewExpandTableRow : global::System.Data.DataRow {
+            
+            private DirGridViewExpandTableDataTable tableDirGridViewExpandTable;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal DirGridViewExpandTableRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableDirGridViewExpandTable = ((DirGridViewExpandTableDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public int id {
+                get {
+                    return ((int)(this[this.tableDirGridViewExpandTable.idColumn]));
+                }
+                set {
+                    this[this.tableDirGridViewExpandTable.idColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool expand {
+                get {
+                    return ((bool)(this[this.tableDirGridViewExpandTable.expandColumn]));
+                }
+                set {
+                    this[this.tableDirGridViewExpandTable.expandColumn] = value;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class RootFontDirTableRow : global::System.Data.DataRow {
+            
+            private RootFontDirTableDataTable tableRootFontDirTable;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal RootFontDirTableRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableRootFontDirTable = ((RootFontDirTableDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string path {
+                get {
+                    return ((string)(this[this.tableRootFontDirTable.pathColumn]));
+                }
+                set {
+                    this[this.tableRootFontDirTable.pathColumn] = value;
+                }
             }
         }
         
@@ -1903,22 +2563,90 @@ namespace madoka {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        public class GridViewDataTableRowChangeEvent : global::System.EventArgs {
+        public class DirGridViewDataTableRowChangeEvent : global::System.EventArgs {
             
-            private GridViewDataTableRow eventRow;
+            private DirGridViewDataTableRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public GridViewDataTableRowChangeEvent(GridViewDataTableRow row, global::System.Data.DataRowAction action) {
+            public DirGridViewDataTableRowChangeEvent(DirGridViewDataTableRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public GridViewDataTableRow Row {
+            public DirGridViewDataTableRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public class DirGridViewExpandTableRowChangeEvent : global::System.EventArgs {
+            
+            private DirGridViewExpandTableRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public DirGridViewExpandTableRowChangeEvent(DirGridViewExpandTableRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public DirGridViewExpandTableRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public class RootFontDirTableRowChangeEvent : global::System.EventArgs {
+            
+            private RootFontDirTableRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public RootFontDirTableRowChangeEvent(RootFontDirTableRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public RootFontDirTableRow Row {
                 get {
                     return this.eventRow;
                 }

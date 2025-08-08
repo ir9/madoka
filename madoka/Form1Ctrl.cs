@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Data;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,6 +14,20 @@ namespace madoka
 		private void Initialize()
 		{
 			_model.rootDirID = dataSet1.Initialize();
+		}
+
+		private void ApplyConfig(Task<ctrl.AppConfig> loaderTask)
+		{
+			ctrl.AppConfig config = loaderTask.Result;
+			if (config != null)
+			{
+				if (!U.IsNullOrEmpty(config.RootFontDirList))
+				{
+					ReceivedFilePathList(config.RootFontDirList);
+				}
+			}
+
+			_model.appState |= AppState.CONFIG_LOADED;
 		}
 
 		/* ------------------------------------------ *
@@ -51,8 +66,10 @@ namespace madoka
 
 			if (dirList.Length == 0)
 				return; // no-op
+			ctrl.DataSetKomono ctrlKomono = new ctrl.DataSetKomono(dataSet1);
+			string[] newDirList = ctrlKomono.ComputeNewRootFontDir(dirList);
 
-			LaunchScanFontDirectoryTask(dirList);
+			LaunchScanFontDirectoryTask(newDirList);
 		}
 
 
@@ -79,23 +96,34 @@ namespace madoka
 		/* ------------------------------------------ *
 		 * DataGridView
 		 * ------------------------------------------ */
-		private DataGridViewRow[] GetDataGridViewRow(TreeNode selectTreeNode)
+		private void GetDataGridViewRow(TreeNode selectTreeNode)
 		{
 			switch (selectTreeNode.Tag)
 			{
-			case Dir e: return EnumerateDirectories(e);
+			case Dir dir:
+				{
+					SwitchToDirDataGridView(dir);
+				}
+				break;
+			default:
+				break;
 			}
 
-			// null
-			return new DataGridViewRow[] { };
 		}
 
-		private DataGridViewRow[] EnumerateDirectories(Dir d)
+		private void SwitchToDirDataGridView(Dir selectedDir)
 		{
-			ctrl.TreeModelCtrl treeCtrl = new ctrl.TreeModelCtrl(_model);
-			int[] dirIDList = treeCtrl.GetChildIndexesRecuresive(d.ID);
+			gridViewDataTableBindingSource.DataSource = new object[] { };
+			dataGridView1.Columns.Clear();
+			dataGridView1.Columns.Add(new DataGridViewTextBoxColumn()
+			{
+				HeaderText = "FileName",
+				DataPropertyName = "name",
+			});
 
-			return ctrl.DirGridViewCtrl.GetRows(_model, dataSet1, dirIDList);
+			DirGridViewDataRecordBuilder b = new DirGridViewDataRecordBuilder(_model, dataSet1);
+			DataSet1.DirGridViewDataTableDataTable dataTable = b.Build(selectedDir);
+			gridViewDataTableBindingSource.DataSource = dataTable;
 		}
 
 		/* ------------------------------------------ *

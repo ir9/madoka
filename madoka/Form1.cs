@@ -13,12 +13,23 @@ namespace madoka
 	public partial class Form1 : Form
 	{
 		private ModelMy _model = new ModelMy();
+		private readonly ctrl.AppConfigSaverCtrl _configSaverCtrl;
 
 		public Form1()
 		{
 			InitializeComponent();
 			Initialize();
 			InitializeImageList();
+
+			_configSaverCtrl = new ctrl.AppConfigSaverCtrl(dataSet1, _model);
+
+			ctrl.AppConfigLoaderCtrl configLoader = new ctrl.AppConfigLoaderCtrl(_model);
+			configLoader.Load().ContinueWith(
+				ApplyConfig,
+				_model.cancelToken.Token,
+				TaskContinuationOptions.None,
+				TaskScheduler.FromCurrentSynchronizationContext()
+			);
 		}
 
 		private void Form1_Load(object sender, EventArgs e)
@@ -28,6 +39,8 @@ namespace madoka
 
 		private void Form1_FormClosed(object sender, FormClosedEventArgs e)
 		{
+			_configSaverCtrl.WriteAsync(true);
+
 			ctrl.TaskCtrl task = new ctrl.TaskCtrl(_model);
 			task.DisposeTask();
 		}
@@ -62,15 +75,14 @@ namespace madoka
 
 		private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
 		{
+			GetDataGridViewRow(e.Node);
 			/*
-			switch (e.Node.Tag)
-			{
-			case Dir d;
-				break;
-			case null;
-				break;
-			}
+			gridViewDataTableBindingSource.name
+			dataGridView1.DataSource = gridViewDataTableBindingSource;
+			dataGridView1.name
 			*/
 		}
+
+
 	}
 }
