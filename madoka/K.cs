@@ -32,10 +32,8 @@ namespace madoka
 			70, // solo file
 		};
 
-		public const int FOLDER_ROOT = 0;
-		public const int FOLDER_LEAF = 1;
-		public const int TAG_ROOT = 2;
-		public const int TAG_LEAF = 3;
+		public const int FONTSTATE_INSTALLED = 0x01;
+		public const int FONTSTATE_ERROR = 0x80;
 
 		public const string TREENODE_NAME_DIRECTORY_ROOT = "DirectoryRoot";
 	}

@@ -10,5 +10,18 @@ namespace madoka
 
 		[DllImport("user32.dll")]
 		public static extern bool DestroyIcon(IntPtr handle);
+
+		/// <returns>1以上で成功</returns>
+		[DllImport("gdi32.dll")]
+		public static extern int AddFontResourceEx(string lpszFilename, uint fl, IntPtr pdv);
+
+		/// <returns>1以上で成功</returns>
+		[DllImport("gdi32.dll")]
+		public static extern int RemoveFontResourceEx(string name, uint fl, IntPtr pdv);
+
+		[DllImport("user32.dll")]
+		public static extern int PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+
+		public static readonly IntPtr HWND_BROADCAST = (IntPtr)0xffff;
 	}
 }

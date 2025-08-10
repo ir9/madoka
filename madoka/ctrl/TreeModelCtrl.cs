@@ -13,7 +13,5 @@ namespace madoka.ctrl
 		{
 
 		}
-
-
 	}
 }

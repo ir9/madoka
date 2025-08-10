@@ -33,8 +33,9 @@
 			System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Tag", 2, 2);
 			this.contextMenuFolder = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.menuFolderInstall = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuRemoveTemporaryInstallation = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.menuFolderAddDirectory = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuFolderDeleteNode = new System.Windows.Forms.ToolStripMenuItem();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
@@ -44,6 +45,7 @@
 			this.gridViewDataTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.dataSet1 = new madoka.DataSet1();
+			this.menuNotifyFontInstallationChangeMessage = new System.Windows.Forms.ToolStripMenuItem();
 			this.contextMenuFolder.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -60,28 +62,40 @@
 			// 
 			this.contextMenuFolder.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuFolderInstall,
+            this.menuRemoveTemporaryInstallation,
             this.toolStripSeparator1,
-            this.menuFolderAddDirectory});
+            this.menuFolderDeleteNode,
+            this.menuNotifyFontInstallationChangeMessage});
 			this.contextMenuFolder.Name = "contextMenuFolder";
-			this.contextMenuFolder.Size = new System.Drawing.Size(200, 54);
+			this.contextMenuFolder.Size = new System.Drawing.Size(278, 98);
+			this.contextMenuFolder.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuFolder_Opening);
 			// 
 			// menuFolderInstall
 			// 
 			this.menuFolderInstall.Font = new System.Drawing.Font("Yu Gothic UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
 			this.menuFolderInstall.Name = "menuFolderInstall";
-			this.menuFolderInstall.Size = new System.Drawing.Size(199, 22);
-			this.menuFolderInstall.Text = "Temporary Install (&I)";
+			this.menuFolderInstall.Size = new System.Drawing.Size(277, 22);
+			this.menuFolderInstall.Text = "Temporary Installation (&I)";
+			this.menuFolderInstall.Click += new System.EventHandler(this.menuFolderInstall_Click);
+			// 
+			// menuRemoveTemporaryInstallation
+			// 
+			this.menuRemoveTemporaryInstallation.Name = "menuRemoveTemporaryInstallation";
+			this.menuRemoveTemporaryInstallation.Size = new System.Drawing.Size(277, 22);
+			this.menuRemoveTemporaryInstallation.Text = "Remove temporary installation (&R)";
+			this.menuRemoveTemporaryInstallation.Click += new System.EventHandler(this.menuRemoveTemporaryInstallation_Click);
 			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(196, 6);
+			this.toolStripSeparator1.Size = new System.Drawing.Size(274, 6);
 			// 
-			// menuFolderAddDirectory
+			// menuFolderDeleteNode
 			// 
-			this.menuFolderAddDirectory.Name = "menuFolderAddDirectory";
-			this.menuFolderAddDirectory.Size = new System.Drawing.Size(199, 22);
-			this.menuFolderAddDirectory.Text = "Add a font directory (&A)";
+			this.menuFolderDeleteNode.Name = "menuFolderDeleteNode";
+			this.menuFolderDeleteNode.Size = new System.Drawing.Size(277, 22);
+			this.menuFolderDeleteNode.Text = "Delete (&D)";
+			this.menuFolderDeleteNode.Click += new System.EventHandler(this.menuFolderDeleteNode_Click);
 			// 
 			// imageList1
 			// 
@@ -132,6 +146,7 @@
 			this.treeView1.Size = new System.Drawing.Size(289, 422);
 			this.treeView1.TabIndex = 0;
 			this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+			this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
 			this.treeView1.DragDrop += new System.Windows.Forms.DragEventHandler(this.treeView1_DragDrop);
 			this.treeView1.DragEnter += new System.Windows.Forms.DragEventHandler(this.treeView1_DragEnter);
 			// 
@@ -192,6 +207,12 @@
 			this.dataSet1.DataSetName = "DataSet";
 			this.dataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
 			// 
+			// menuNotifyFontInstallationChangeMessage
+			// 
+			this.menuNotifyFontInstallationChangeMessage.Name = "menuNotifyFontInstallationChangeMessage";
+			this.menuNotifyFontInstallationChangeMessage.Size = new System.Drawing.Size(277, 22);
+			this.menuNotifyFontInstallationChangeMessage.Text = "Broadcast Installation change message";
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -224,7 +245,7 @@
 		private System.Windows.Forms.ContextMenuStrip contextMenuFolder;
 		private System.Windows.Forms.ToolStripMenuItem menuFolderInstall;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-		private System.Windows.Forms.ToolStripMenuItem menuFolderAddDirectory;
+		private System.Windows.Forms.ToolStripMenuItem menuFolderDeleteNode;
 		private System.Windows.Forms.StatusStrip statusStrip1;
 		private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
 		private System.Windows.Forms.TreeView treeView1;
@@ -233,6 +254,8 @@
 		private System.Windows.Forms.DataGridView dataGridView1;
 		private DataSet1 dataSet1;
 		private System.Windows.Forms.BindingSource gridViewDataTableBindingSource;
+		private System.Windows.Forms.ToolStripMenuItem menuRemoveTemporaryInstallation;
+		private System.Windows.Forms.ToolStripMenuItem menuNotifyFontInstallationChangeMessage;
 	}
 }
 

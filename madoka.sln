@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "install_test", "install_tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testguid00", "testguid00\testguid00.csproj", "{A8B58AAF-D680-4325-8FDD-CED6EBFA6A58}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "madoka_test", "madoka_test\madoka_test.csproj", "{562647EA-B67E-45C4-9A78-912C3A796BB7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A8B58AAF-D680-4325-8FDD-CED6EBFA6A58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8B58AAF-D680-4325-8FDD-CED6EBFA6A58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8B58AAF-D680-4325-8FDD-CED6EBFA6A58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{562647EA-B67E-45C4-9A78-912C3A796BB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{562647EA-B67E-45C4-9A78-912C3A796BB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{562647EA-B67E-45C4-9A78-912C3A796BB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{562647EA-B67E-45C4-9A78-912C3A796BB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

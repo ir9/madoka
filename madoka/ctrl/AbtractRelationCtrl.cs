@@ -33,18 +33,30 @@ namespace madoka.ctrl
 			return newItemList;
 		}
 
+		public bool RemoveNode(int parentId, int childId)
+		{
+			RelationPair pair = new RelationPair(parentId, childId);
+			return _relationPair.Remove(pair);
+		}
+
 		public bool Contain(RelationPair rv)
 		{
 			return _relationPair.Contains(rv);
 		}
 
-		public int[] GetChildIndexes(int parent)
+		private SortedSet<RelationPair> GetChildIndexesRaw(int parentId)
 		{
 			SortedSet<RelationPair> childItemList = _relationPair.GetViewBetween(
-				new RelationPair(parent + 0, 0),
-				new RelationPair(parent + 1, 0)
+				new RelationPair(parentId, 0),
+				new RelationPair(parentId, int.MaxValue)
 			);
 
+			return childItemList;
+		}
+
+		public int[] GetChildIndexes(int parentId)
+		{
+			SortedSet<RelationPair> childItemList = GetChildIndexesRaw(parentId);
 			return childItemList.Select((c) => c.Child).ToArray();
 		}
 

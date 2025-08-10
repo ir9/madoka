@@ -11,13 +11,15 @@ namespace madoka.ctrl
 	{
 		private readonly DataSet1 _dataSet;
 		private readonly ModelMy _model;
+		private readonly ContextMenuStrip _ctxMenu;
 
 		private readonly TreeModelCtrl _treeModelCtrl;
 
-		public TreeBuilderDirectory(ModelMy model, DataSet1 dataSet)
+		public TreeBuilderDirectory(ModelMy model, DataSet1 dataSet, ContextMenuStrip ctxMenu)
 		{
 			_dataSet = dataSet;
 			_model = model;
+			_ctxMenu = ctxMenu;
 
 			_treeModelCtrl = new TreeModelCtrl(model);
 		}
@@ -39,6 +41,7 @@ namespace madoka.ctrl
 			TreeNode node = new TreeNode();
 			node.Text = isSubRoot ? dirObj.DirectoryInfo.FullName : dirObj.DirectoryInfo.Name;
 			node.Tag  = dirObj;
+			node.ContextMenuStrip = _ctxMenu;
 
 			int[] childNodeIdList = _treeModelCtrl.GetChildIndexes(dirObj.ID);
 			node.Nodes.AddRange(

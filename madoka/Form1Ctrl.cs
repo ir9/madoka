@@ -30,6 +30,14 @@ namespace madoka
 			_model.appState |= AppState.CONFIG_LOADED;
 		}
 
+		private void OnDeleteTreeNode(TreeNode selectedTreeNode)
+		{
+			if (selectedTreeNode.Tag is Dir)
+			{
+				DeleteRootFontDirectory(selectedTreeNode);
+			}
+		}
+
 		/* ------------------------------------------ *
 		 * TreeView
 		 * ------------------------------------------ */
@@ -81,7 +89,7 @@ namespace madoka
 
 		private void RebuildTreeDirectory()
 		{
-			ctrl.TreeBuilderDirectory builder = new ctrl.TreeBuilderDirectory(_model, dataSet1);
+			ctrl.TreeBuilderDirectory builder = new ctrl.TreeBuilderDirectory(_model, dataSet1, contextMenuFolder);
 			TreeNode[] subRootList = builder.Rebuild();
 
 			TreeNode nodeDir = FindRootTreeNode(K.TREENODE_NAME_DIRECTORY_ROOT);
@@ -91,6 +99,13 @@ namespace madoka
 				nodeDir.Nodes.AddRange(subRootList);
 				nodeDir.ExpandAll();
 			}));
+		}
+
+		private void DeleteRootFontDirectory(TreeNode node)
+		{
+			Dir dir = node.Tag as Dir;
+			ctrl.TreeModelCtrl tree = new ctrl.TreeModelCtrl(_model);
+			tree.RemoveNode(_model.rootDirID, dir.ID);
 		}
 
 		/* ------------------------------------------ *

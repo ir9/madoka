@@ -53,6 +53,9 @@ namespace madoka
 			}
 		}
 
+		/* ==================================== *
+		 * treeView
+		 * ==================================== */
 		private void treeView1_DragEnter(object sender, DragEventArgs e)
 		{
 			if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -83,6 +86,42 @@ namespace madoka
 			*/
 		}
 
+		/* ==================================== *
+		 * menu
+		 * ==================================== */
+		private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+		{	// menuに関する実装では無いけど非常に関連するので…
+			if (e.Button == MouseButtons.Right)
+			{
+				treeView1.SelectedNode = e.Node;
+			}
+		}
+
+		private void contextMenuFolder_Opening(object sender, CancelEventArgs e)
+		{
+			TreeNode node = treeView1.SelectedNode;
+			menuFolderDeleteNode.Enabled = false;
+			if (node.Tag is Dir)
+			{
+				menuFolderDeleteNode.Enabled = node.Level == 1;
+			}
+		}
+
+		private void menuFolderInstall_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void menuRemoveTemporaryInstallation_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void menuFolderDeleteNode_Click(object sender, EventArgs e)
+		{
+			TreeNode selectedNode = treeView1.SelectedNode;
+			OnDeleteTreeNode(selectedNode);
+		}
 
 	}
 }

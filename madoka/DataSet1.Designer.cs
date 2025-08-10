@@ -1024,6 +1024,8 @@ namespace madoka {
             
             private global::System.Data.DataColumn columnfilepath;
             
+            private global::System.Data.DataColumn columnstate;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public FontFileTableDataTable() {
@@ -1075,6 +1077,14 @@ namespace madoka {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn stateColumn {
+                get {
+                    return this.columnstate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1110,11 +1120,12 @@ namespace madoka {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public FontFileTableRow AddFontFileTableRow(int id, string filepath) {
+            public FontFileTableRow AddFontFileTableRow(int id, string filepath, int state) {
                 FontFileTableRow rowFontFileTableRow = ((FontFileTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
-                        filepath};
+                        filepath,
+                        state};
                 rowFontFileTableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowFontFileTableRow);
                 return rowFontFileTableRow;
@@ -1146,6 +1157,7 @@ namespace madoka {
             internal void InitVars() {
                 this.columnid = base.Columns["id"];
                 this.columnfilepath = base.Columns["filepath"];
+                this.columnstate = base.Columns["state"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1155,6 +1167,8 @@ namespace madoka {
                 base.Columns.Add(this.columnid);
                 this.columnfilepath = new global::System.Data.DataColumn("filepath", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnfilepath);
+                this.columnstate = new global::System.Data.DataColumn("state", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnstate);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid}, true));
                 this.columnid.AutoIncrementSeed = 1;
@@ -1162,6 +1176,7 @@ namespace madoka {
                 this.columnid.ReadOnly = true;
                 this.columnid.Unique = true;
                 this.columnfilepath.ReadOnly = true;
+                this.columnstate.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2291,6 +2306,17 @@ namespace madoka {
                 }
                 set {
                     this[this.tableFontFileTable.filepathColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public int state {
+                get {
+                    return ((int)(this[this.tableFontFileTable.stateColumn]));
+                }
+                set {
+                    this[this.tableFontFileTable.stateColumn] = value;
                 }
             }
             

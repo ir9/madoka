@@ -76,7 +76,7 @@ namespace madoka
 		{
 			foreach (FontFile row in rowList)
 			{
-				FontFileTable.AddFontFileTableRow(row.ID, row.FilePath);
+				FontFileTable.AddFontFileTableRow(row.ID, row.FilePath, 0);
 			}
 		}
 
