@@ -14,6 +14,16 @@ namespace madoka
 		private void Initialize()
 		{
 			_model.rootDirID = dataSet1.Initialize();
+
+			// フォームデザイナで設定しても TreeView あたりの設定が何故か消える…
+			TreeNode dirRoot = FindRootTreeNode(K.TREENODE_NAME_DIRECTORY_ROOT);
+			dirRoot.ContextMenuStrip = contextMenuFolder;
+			dirRoot.ImageIndex = K.IMAGELIST_INDEX_DRIVE;
+			dirRoot.SelectedImageIndex = K.IMAGELIST_INDEX_DRIVE;
+
+			TreeNode tagRoot = FindRootTreeNode(K.TREENODE_NAME_TAG_ROOT);
+			tagRoot.ImageIndex = K.IMAGELIST_INDEX_TAG_MULTI;
+			tagRoot.SelectedImageIndex = K.IMAGELIST_INDEX_TAG_SOLO;
 		}
 
 		private void ApplyConfig(Task<ctrl.AppConfig> loaderTask)

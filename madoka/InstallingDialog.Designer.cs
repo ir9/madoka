@@ -95,10 +95,12 @@
 			// radioButtonRequireNotify
 			// 
 			this.radioButtonRequireNotify.AutoSize = true;
+			this.radioButtonRequireNotify.Checked = true;
 			this.radioButtonRequireNotify.Location = new System.Drawing.Point(6, 40);
 			this.radioButtonRequireNotify.Name = "radioButtonRequireNotify";
 			this.radioButtonRequireNotify.Size = new System.Drawing.Size(274, 16);
 			this.radioButtonRequireNotify.TabIndex = 1;
+			this.radioButtonRequireNotify.TabStop = true;
 			this.radioButtonRequireNotify.Text = "起動済みのアプリケーションでも利用したいです（重い）";
 			this.radioButtonRequireNotify.UseVisualStyleBackColor = true;
 			this.radioButtonRequireNotify.UseWaitCursor = true;
@@ -106,12 +108,10 @@
 			// radioButtonNoAction
 			// 
 			this.radioButtonNoAction.AutoSize = true;
-			this.radioButtonNoAction.Checked = true;
 			this.radioButtonNoAction.Location = new System.Drawing.Point(6, 18);
 			this.radioButtonNoAction.Name = "radioButtonNoAction";
 			this.radioButtonNoAction.Size = new System.Drawing.Size(280, 16);
 			this.radioButtonNoAction.TabIndex = 0;
-			this.radioButtonNoAction.TabStop = true;
 			this.radioButtonNoAction.Text = "今後起動するアプリケーションで利用出来れば良いです";
 			this.radioButtonNoAction.UseVisualStyleBackColor = true;
 			this.radioButtonNoAction.UseWaitCursor = true;

@@ -19,11 +19,6 @@ namespace madoka
 		NOTIFY_ONLY,
 	};
 
-	enum InstallingDialogState
-	{
-		NOTIFY_FONT_CHANGE,
-	};
-
 	partial class InstallingDialog : Form
 	{
 		private delegate int ResultAnalyzeFunc(int[] retList);

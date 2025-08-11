@@ -13,12 +13,14 @@ namespace madoka
 			InitializeInstallPhase();
 			bool hasErrorOnInstallPhase = await _InstallOrUninstallFont();
 
-			bool requireNotifyChangeMessage = true; // GetFontChangeNotifyActionType();
+			bool requireNotifyChangeMessage = GetFontChangeNotifyActionType();
 			if (requireNotifyChangeMessage)
 			{
 				InitializeNotifyPhase();
 				bool hasErrorOnNotifyPhase = await _BroadCastFontChange();
 			}
+
+			this.Close();
 		}
 
 		private void InitializeInstallPhase()

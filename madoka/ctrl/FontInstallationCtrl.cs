@@ -10,13 +10,12 @@ namespace madoka.ctrl
 {
 	class FontInstallationCtrl
 	{
-		private struct TargetRecord
+		private class TargetRecord
 		{
 			public int fontId;
 			public string fontPath;
 			public int state; // [i/o]
 		};
-
 
 		public const int NO_OP = -1;
 		private delegate int FontActionFunc(TargetRecord target);
@@ -64,10 +63,6 @@ namespace madoka.ctrl
 				target.state = ret > 0 ? K.FONTSTATE_INSTALLED : K.FONTSTATE_ERROR;
 				return ret;
 			}
-			catch (IndexOutOfRangeException)
-			{
-				return 0;
-			}
 			finally
 			{
 				Interlocked.Increment(ref _completedCount);
@@ -105,10 +100,6 @@ namespace madoka.ctrl
 				}
 				return ret;
 			}
-			catch (IndexOutOfRangeException)
-			{
-				return NO_OP;
-			}
 			finally
 			{
 				Interlocked.Increment(ref _completedCount);
@@ -117,28 +108,43 @@ namespace madoka.ctrl
 
 		private Task<int[]> ApplyActionTolFontList(int[] fontIdList, FontActionFunc actionFunc)
 		{
+			DataSet1.FontFileTableDataTable fontTable = _dataSet.FontFileTable;
+			TargetRecord Convert(int fontId)
+			{
+				DataSet1.FontFileTableRow row = fontTable.FindByid(fontId);
+				try
+				{
+					return new TargetRecord()
+					{
+						fontId = row.id,
+						fontPath = row.filepath,
+						state = row.state
+					};
+				}
+				catch (IndexOutOfRangeException)
+				{
+					return null;
+				}
+			}
+
 			int[] Func()
 			{
 				using (_dataSet.GetWriteLocker())
 				{
-					DataSet1.FontFileTableDataTable fontTable = _dataSet.FontFileTable;
-					TargetRecord[] targetRecordList = fontIdList.AsParallel().Select((fontId) =>
-					{
-						// IndexOutOfRangeException
-						DataSet1.FontFileTableRow row = fontTable.FindByid(fontId);
-						return new TargetRecord()
-						{
-							fontId = row.id,
-							fontPath = row.filepath,
-							state = row.state
-						};
-					}).ToArray();
+					// extract values
+					var it = from fontId in fontIdList.AsParallel().WithCancellation(_cancelToken)
+							 let ret = Convert(fontId)
+							 where ret != null
+							 select ret;
+					TargetRecord[] targetRecordList = it.ToArray();
 
+					// action
 					int[] retList = targetRecordList.AsParallel()
 						.WithCancellation(_cancelToken)
 						.Select((target) => actionFunc(target))
 						.ToArray();
 
+					// reflect results to original records
 					foreach (TargetRecord record in targetRecordList)
 					{
 						DataSet1.FontFileTableRow row = fontTable.FindByid(record.fontId);

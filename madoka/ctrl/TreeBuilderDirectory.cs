@@ -41,6 +41,8 @@ namespace madoka.ctrl
 			TreeNode node = new TreeNode();
 			node.Text = isSubRoot ? dirObj.DirectoryInfo.FullName : dirObj.DirectoryInfo.Name;
 			node.Tag  = dirObj;
+			node.ImageIndex = K.IMAGELIST_INDEX_FOLDER;
+			node.SelectedImageIndex = K.IMAGELIST_INDEX_FOLDER;
 			node.ContextMenuStrip = _ctxMenu;
 
 			int[] childNodeIdList = _treeModelCtrl.GetChildIndexes(dirObj.ID);
