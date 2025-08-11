@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace madoka
 {
-	interface IInstallingDialogAPI
+	interface IFontInstallingAPI
 	{
 		int AddFontResourceEx(string lpszFilename, uint fl, IntPtr pdv);
 
 		int RemoveFontResourceEx(string name, uint fl, IntPtr pdv);
+
+		int PostMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 	};
 
-	class InstallingDialogAPI : IInstallingDialogAPI
+	class FontInstallingAPI : IFontInstallingAPI
 	{
 		public int AddFontResourceEx(string lpszFilename, uint fl, IntPtr pdv)
 		{
@@ -23,6 +25,11 @@ namespace madoka
 		public int RemoveFontResourceEx(string name, uint fl, IntPtr pdv)
 		{
 			return WinAPI.RemoveFontResourceEx(name, fl, pdv);
+		}
+
+		public int PostMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
+		{
+			return WinAPI.PostMessage(hWnd, msg, wParam, lParam);
 		}
 	}
 }

@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			this.labelMessage = new System.Windows.Forms.Label();
 			this.labelProgress = new System.Windows.Forms.Label();
@@ -35,6 +36,7 @@
 			this.groupBoxNoNotify = new System.Windows.Forms.GroupBox();
 			this.radioButtonRequireNotify = new System.Windows.Forms.RadioButton();
 			this.radioButton1 = new System.Windows.Forms.RadioButton();
+			this.timerUpdate = new System.Windows.Forms.Timer(this.components);
 			this.groupBoxNoNotify.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -114,6 +116,12 @@
 			this.radioButton1.UseVisualStyleBackColor = true;
 			this.radioButton1.UseWaitCursor = true;
 			// 
+			// timerUpdate
+			// 
+			this.timerUpdate.Enabled = true;
+			this.timerUpdate.Interval = 250;
+			this.timerUpdate.Tick += new System.EventHandler(this.timerUpdate_Tick);
+			// 
 			// InstallingDialog
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -149,5 +157,6 @@
 		private System.Windows.Forms.GroupBox groupBoxNoNotify;
 		private System.Windows.Forms.RadioButton radioButtonRequireNotify;
 		private System.Windows.Forms.RadioButton radioButton1;
+		private System.Windows.Forms.Timer timerUpdate;
 	}
 }

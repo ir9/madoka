@@ -20,8 +20,9 @@ namespace madoka
 		public static extern int RemoveFontResourceEx(string name, uint fl, IntPtr pdv);
 
 		[DllImport("user32.dll")]
-		public static extern int PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+		public static extern int PostMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 
 		public static readonly IntPtr HWND_BROADCAST = (IntPtr)0xffff;
+		public const uint WM_FONTCHANGE = 0x001D;
 	}
 }

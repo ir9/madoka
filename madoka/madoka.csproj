@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="ctrl\AppConfig.cs" />
     <Compile Include="ctrl\Dir2FontCtrl.cs" />
+    <Compile Include="ctrl\FontInstallationCtrl.cs" />
     <Compile Include="ctrl\IOCtrl.cs" />
     <Compile Include="ctrl\DataSetKomono.cs" />
     <Compile Include="ctrl\TaskCtrl.cs" />
@@ -63,7 +64,7 @@
     <Compile Include="InstallingDialog.Designer.cs">
       <DependentUpon>InstallingDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="InstallingDialogAPI.cs" />
+    <Compile Include="FontIntallationAPI.cs" />
     <Compile Include="K.cs" />
     <Compile Include="DataSet1.Designer.cs">
       <AutoGen>True</AutoGen>

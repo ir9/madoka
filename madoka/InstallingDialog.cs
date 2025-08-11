@@ -26,19 +26,19 @@ namespace madoka
 
 	partial class InstallingDialog : Form
 	{
-		private const int NO_OP = -1;
-		private delegate int FontActionFunc(int fontId);
 		private delegate int ResultAnalyzeFunc(int[] retList);
 
-		private readonly IInstallingDialogAPI _api;
+		private readonly IFontInstallingAPI _api;
 		private readonly Task _task;
+		private readonly InstallDialogActionType _actionType;
 		private readonly CancellationTokenSource _cancelToken = new CancellationTokenSource();
+		private readonly ctrl.FontInstallationCtrl _fontInstallCtrl;
 
 		private readonly DataSet1 _dataSet;
 		private readonly int[] _opFontIdList;
 
 		public InstallingDialog(
-			IInstallingDialogAPI api,
+			IFontInstallingAPI api,
 			InstallDialogActionType type,
 			int[] operationTargetFontIdList,
 			DataSet1 dataSet)
@@ -47,7 +47,10 @@ namespace madoka
 
 			_api = api;
 			_dataSet = dataSet;
+			_actionType = type;
 			_opFontIdList = operationTargetFontIdList;
+
+			_fontInstallCtrl = new ctrl.FontInstallationCtrl(dataSet, _cancelToken.Token);
 
 			_task = new Task(Main, TaskCreationOptions.LongRunning);
 			_task.Start();
@@ -69,94 +72,25 @@ namespace madoka
 			buttonCancel.Enabled = false;
 		}
 
+		private void timerUpdate_Tick(object sender, EventArgs e)
+		{
+			UpdateProgressMessage();
+		}
+
 		/// <summary>
 		/// inboked by worker thread
 		/// </summary>
 		private void Main()
 		{
-			ApplyActionTolFontList(InstallFont);
-		}
-
-		private void ApplyActionTolFontList(FontActionFunc func)
-		{
-			using (_dataSet.GetWriteLocker())
+			int[] retInstallList;
+			if (_actionType == InstallDialogActionType.INSTALL)
 			{
-				int[] retList = _opFontIdList.AsParallel()
-					.WithCancellation(_cancelToken.Token)
-					.Select((fontId) => func(fontId))
-					.ToArray();
+				retInstallList = _fontInstallCtrl.InstallFonts(_opFontIdList);
+			}
+			else if (_actionType == InstallDialogActionType.UNINSTALL)
+			{
+				retInstallList = _fontInstallCtrl.UninstallFonts(_opFontIdList);
 			}
 		}
-
-		private int InstallFont(int fontId)
-		{
-			DataSet1.FontFileTableDataTable fontTable = _dataSet.FontFileTable;
-			try
-			{
-				DataSet1.FontFileTableRow row = fontTable.FindByid(fontId);
-				if (row.state != 0)
-					return NO_OP;
-
-				string fontPath = row.filepath;
-				int ret;
-				using (MemoryMappedFile m = CreateFileMapping(fontPath))
-				{
-					ret = _api.AddFontResourceEx(fontPath, 0, IntPtr.Zero);
-				}
-
-				row.state = ret > 0 ? K.FONTSTATE_INSTALLED : K.FONTSTATE_ERROR;
-				return ret;
-			}
-			catch (IndexOutOfRangeException)
-			{
-				return 0;
-			}
-		}
-
-		private int UninstallFont(int fontId)
-		{
-			DataSet1.FontFileTableDataTable fontTable = _dataSet.FontFileTable;
-			try
-			{
-				DataSet1.FontFileTableRow row = fontTable.FindByid(fontId);
-				if (row.state == 0) // FONTSTATE_ERROR でもまぁ試してみる
-					return NO_OP;
-
-				string fontPath = row.filepath;
-				int ret = _api.RemoveFontResourceEx(fontPath, 0, IntPtr.Zero);
-
-				if (row.state == K.FONTSTATE_INSTALLED)
-				{
-					if (ret > 0)
-					{
-						row.state = 0;
-					}
-					else
-					{
-						// no-op
-					}
-				}
-				else
-				{   // error or other
-					if (ret == 0)
-					{
-						ret = NO_OP;
-					}
-					row.state = 0; // clear
-				}
-				return ret;
-			}
-			catch (IndexOutOfRangeException)
-			{
-				return NO_OP;
-			}
-		}
-
-		static private MemoryMappedFile CreateFileMapping(string file)
-		{
-			FileStream fstream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read);
-			return MemoryMappedFile.CreateFromFile(fstream, null, 0, MemoryMappedFileAccess.Read, null, HandleInheritability.None, false);
-		}
-
 	}
 }
