@@ -12,7 +12,7 @@
   <xs:element name="DataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet1" msprop:Generator_UserDSName="DataSet1">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Tag" msprop:Generator_TableClassName="TagDataTable" msprop:Generator_TableVarName="tableTag" msprop:Generator_TablePropName="Tag" msprop:Generator_RowDeletingName="TagRowDeleting" msprop:Generator_RowChangingName="TagRowChanging" msprop:Generator_RowEvHandlerName="TagRowChangeEventHandler" msprop:Generator_RowDeletedName="TagRowDeleted" msprop:Generator_UserTableName="Tag" msprop:Generator_RowChangedName="TagRowChanged" msprop:Generator_RowEvArgName="TagRowChangeEvent" msprop:Generator_RowClassName="TagRow">
+        <xs:element name="Tag" msprop:Generator_TableClassName="TagDataTable" msprop:Generator_TableVarName="tableTag" msprop:Generator_RowChangedName="TagRowChanged" msprop:Generator_TablePropName="Tag" msprop:Generator_RowDeletingName="TagRowDeleting" msprop:Generator_RowChangingName="TagRowChanging" msprop:Generator_RowEvHandlerName="TagRowChangeEventHandler" msprop:Generator_RowDeletedName="TagRowDeleted" msprop:Generator_RowClassName="TagRow" msprop:Generator_UserTableName="Tag" msprop:Generator_RowEvArgName="TagRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
@@ -21,7 +21,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="DirectoryTable" msprop:Generator_TableClassName="DirectoryTableDataTable" msprop:Generator_TableVarName="tableDirectoryTable" msprop:Generator_RowChangedName="DirectoryTableRowChanged" msprop:Generator_TablePropName="DirectoryTable" msprop:Generator_RowDeletingName="DirectoryTableRowDeleting" msprop:Generator_RowChangingName="DirectoryTableRowChanging" msprop:Generator_RowEvHandlerName="DirectoryTableRowChangeEventHandler" msprop:Generator_RowDeletedName="DirectoryTableRowDeleted" msprop:Generator_RowClassName="DirectoryTableRow" msprop:Generator_UserTableName="DirectoryTable" msprop:Generator_RowEvArgName="DirectoryTableRowChangeEvent">
+        <xs:element name="DirectoryTable" msprop:Generator_TableClassName="DirectoryTableDataTable" msprop:Generator_TableVarName="tableDirectoryTable" msprop:Generator_TablePropName="DirectoryTable" msprop:Generator_RowDeletingName="DirectoryTableRowDeleting" msprop:Generator_RowChangingName="DirectoryTableRowChanging" msprop:Generator_RowEvHandlerName="DirectoryTableRowChangeEventHandler" msprop:Generator_RowDeletedName="DirectoryTableRowDeleted" msprop:Generator_UserTableName="DirectoryTable" msprop:Generator_RowChangedName="DirectoryTableRowChanged" msprop:Generator_RowEvArgName="DirectoryTableRowChangeEvent" msprop:Generator_RowClassName="DirectoryTableRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
@@ -29,7 +29,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="FontFileTable" msprop:Generator_TableClassName="FontFileTableDataTable" msprop:Generator_TableVarName="tableFontFileTable" msprop:Generator_RowChangedName="FontFileTableRowChanged" msprop:Generator_TablePropName="FontFileTable" msprop:Generator_RowDeletingName="FontFileTableRowDeleting" msprop:Generator_RowChangingName="FontFileTableRowChanging" msprop:Generator_RowEvHandlerName="FontFileTableRowChangeEventHandler" msprop:Generator_RowDeletedName="FontFileTableRowDeleted" msprop:Generator_RowClassName="FontFileTableRow" msprop:Generator_UserTableName="FontFileTable" msprop:Generator_RowEvArgName="FontFileTableRowChangeEvent">
+        <xs:element name="FontFileTable" msprop:Generator_TableClassName="FontFileTableDataTable" msprop:Generator_TableVarName="tableFontFileTable" msprop:Generator_TablePropName="FontFileTable" msprop:Generator_RowDeletingName="FontFileTableRowDeleting" msprop:Generator_RowChangingName="FontFileTableRowChanging" msprop:Generator_RowEvHandlerName="FontFileTableRowChangeEventHandler" msprop:Generator_RowDeletedName="FontFileTableRowDeleted" msprop:Generator_UserTableName="FontFileTable" msprop:Generator_RowChangedName="FontFileTableRowChanged" msprop:Generator_RowEvArgName="FontFileTableRowChangeEvent" msprop:Generator_RowClassName="FontFileTableRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
@@ -38,7 +38,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="DirGridViewDataTable" msprop:Generator_TableClassName="DirGridViewDataTableDataTable" msprop:Generator_TableVarName="tableDirGridViewDataTable" msprop:Generator_TablePropName="DirGridViewDataTable" msprop:Generator_RowDeletingName="DirGridViewDataTableRowDeleting" msprop:Generator_RowChangingName="DirGridViewDataTableRowChanging" msprop:Generator_RowEvHandlerName="DirGridViewDataTableRowChangeEventHandler" msprop:Generator_RowDeletedName="DirGridViewDataTableRowDeleted" msprop:Generator_UserTableName="DirGridViewDataTable" msprop:Generator_RowChangedName="DirGridViewDataTableRowChanged" msprop:Generator_RowEvArgName="DirGridViewDataTableRowChangeEvent" msprop:Generator_RowClassName="DirGridViewDataTableRow">
+        <xs:element name="DirGridViewDataTable" msprop:Generator_TableClassName="DirGridViewDataTableDataTable" msprop:Generator_TableVarName="tableDirGridViewDataTable" msprop:Generator_RowChangedName="DirGridViewDataTableRowChanged" msprop:Generator_TablePropName="DirGridViewDataTable" msprop:Generator_RowDeletingName="DirGridViewDataTableRowDeleting" msprop:Generator_RowChangingName="DirGridViewDataTableRowChanging" msprop:Generator_RowEvHandlerName="DirGridViewDataTableRowChangeEventHandler" msprop:Generator_RowDeletedName="DirGridViewDataTableRowDeleted" msprop:Generator_RowClassName="DirGridViewDataTableRow" msprop:Generator_UserTableName="DirGridViewDataTable" msprop:Generator_RowEvArgName="DirGridViewDataTableRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
@@ -49,15 +49,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="DirGridViewExpandTable" msprop:Generator_TableClassName="DirGridViewExpandTableDataTable" msprop:Generator_TableVarName="tableDirGridViewExpandTable" msprop:Generator_TablePropName="DirGridViewExpandTable" msprop:Generator_RowDeletingName="DirGridViewExpandTableRowDeleting" msprop:Generator_RowChangingName="DirGridViewExpandTableRowChanging" msprop:Generator_RowEvHandlerName="DirGridViewExpandTableRowChangeEventHandler" msprop:Generator_RowDeletedName="DirGridViewExpandTableRowDeleted" msprop:Generator_UserTableName="DirGridViewExpandTable" msprop:Generator_RowChangedName="DirGridViewExpandTableRowChanged" msprop:Generator_RowEvArgName="DirGridViewExpandTableRowChangeEvent" msprop:Generator_RowClassName="DirGridViewExpandTableRow">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
-              <xs:element name="expand" msprop:Generator_ColumnVarNameInTable="columnexpand" msprop:Generator_ColumnPropNameInRow="expand" msprop:Generator_ColumnPropNameInTable="expandColumn" msprop:Generator_UserColumnName="expand" type="xs:boolean" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="RootFontDirTable" msprop:Generator_TableClassName="RootFontDirTableDataTable" msprop:Generator_TableVarName="tableRootFontDirTable" msprop:Generator_RowChangedName="RootFontDirTableRowChanged" msprop:Generator_TablePropName="RootFontDirTable" msprop:Generator_RowDeletingName="RootFontDirTableRowDeleting" msprop:Generator_RowChangingName="RootFontDirTableRowChanging" msprop:Generator_RowEvHandlerName="RootFontDirTableRowChangeEventHandler" msprop:Generator_RowDeletedName="RootFontDirTableRowDeleted" msprop:Generator_RowClassName="RootFontDirTableRow" msprop:Generator_UserTableName="RootFontDirTable" msprop:Generator_RowEvArgName="RootFontDirTableRowChangeEvent">
+        <xs:element name="RootFontDirTable" msprop:Generator_TableClassName="RootFontDirTableDataTable" msprop:Generator_TableVarName="tableRootFontDirTable" msprop:Generator_TablePropName="RootFontDirTable" msprop:Generator_RowDeletingName="RootFontDirTableRowDeleting" msprop:Generator_RowChangingName="RootFontDirTableRowChanging" msprop:Generator_RowEvHandlerName="RootFontDirTableRowChangeEventHandler" msprop:Generator_RowDeletedName="RootFontDirTableRowDeleted" msprop:Generator_UserTableName="RootFontDirTable" msprop:Generator_RowChangedName="RootFontDirTableRowChanged" msprop:Generator_RowEvArgName="RootFontDirTableRowChangeEvent" msprop:Generator_RowClassName="RootFontDirTableRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="path" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnpath" msprop:Generator_ColumnPropNameInRow="path" msprop:Generator_ColumnPropNameInTable="pathColumn" msprop:Generator_UserColumnName="path" type="xs:string" />
@@ -80,10 +72,6 @@
     </xs:unique>
     <xs:unique name="DirGridViewDataTable_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:DirGridViewDataTable" />
-      <xs:field xpath="mstns:id" />
-    </xs:unique>
-    <xs:unique name="DirGridViewExpandTable_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:DirGridViewExpandTable" />
       <xs:field xpath="mstns:id" />
     </xs:unique>
     <xs:unique name="RootFontDirTable_Constraint1" msdata:ConstraintName="Constraint1">

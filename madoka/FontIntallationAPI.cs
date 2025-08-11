@@ -29,7 +29,8 @@ namespace madoka
 
 		public int PostMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
 		{
-			return WinAPI.PostMessage(hWnd, msg, wParam, lParam);
+			// return WinAPI.PostMessage(hWnd, msg, wParam, lParam);
+			return WinAPI.SendMessage(hWnd, msg, wParam, lParam);
 		}
 	}
 }

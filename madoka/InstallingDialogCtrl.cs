@@ -10,14 +10,22 @@ namespace madoka
 	{
 		private async void Main()
 		{
-			InitializeInstallPhase();
-			bool hasErrorOnInstallPhase = await _InstallOrUninstallFont();
+			bool hasErrorOnInstallPhase = false;
+			bool hasErrorOnNotifyPhase = false;
 
-			bool requireNotifyChangeMessage = GetFontChangeNotifyActionType();
+			if (_actionType != InstallDialogActionType.NOTIFY_ONLY)
+			{
+				InitializeInstallPhase();
+				hasErrorOnInstallPhase = await _InstallOrUninstallFont();
+			}
+
+			bool requireNotifyChangeMessage =
+				_actionType == InstallDialogActionType.NOTIFY_ONLY ||
+				GetFontChangeNotifyActionType();
 			if (requireNotifyChangeMessage)
 			{
 				InitializeNotifyPhase();
-				bool hasErrorOnNotifyPhase = await _BroadCastFontChange();
+				hasErrorOnNotifyPhase = await _BroadCastFontChange();
 			}
 
 			this.Close();
@@ -71,7 +79,7 @@ namespace madoka
 		{
 			bool Func()
 			{
-				return _api.PostMessage(WinAPI.HWND_BROADCAST, WinAPI.WM_FONTCHANGE, IntPtr.Zero, IntPtr.Zero) != 0;
+				return _api.PostMessage(WinAPI.HWND_BROADCAST, WinAPI.WM_FONTCHANGE, IntPtr.Zero, IntPtr.Zero) == 0;
 			}
 
 			Task<bool> task = new Task<bool>(

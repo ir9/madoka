@@ -60,6 +60,9 @@ namespace madoka.ctrl
 			return childItemList.Select((c) => c.Child).ToArray();
 		}
 
+		/// <remarks>
+		/// Child と言いつつ parent も結果に入ってる…
+		/// </remarks>
 		public int[] GetChildIndexesRecuresive(int parent)
 		{
 			List<int> ret = new List<int>();

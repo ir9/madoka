@@ -254,6 +254,9 @@
   <data name="&gt;&gt;splitContainer1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="gridViewDataTableBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>500, 17</value>
+  </metadata>
   <metadata name="contextMenuFolder.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>226, 17</value>
   </metadata>
@@ -266,11 +269,11 @@
   <data name="menuFolderInstall.Text" xml:space="preserve">
     <value>Temporary Installation (&amp;I)</value>
   </data>
-  <data name="menuRemoveTemporaryInstallation.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="menuReleaseTemporaryInstallation.Size" type="System.Drawing.Size, System.Drawing">
     <value>295, 22</value>
   </data>
-  <data name="menuRemoveTemporaryInstallation.Text" xml:space="preserve">
-    <value>Remove temporary installation (&amp;R)</value>
+  <data name="menuReleaseTemporaryInstallation.Text" xml:space="preserve">
+    <value>Release temporary installation (&amp;R)</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
     <value>292, 6</value>
@@ -288,7 +291,7 @@
     <value>Broadcast Installation change message (&amp;B)</value>
   </data>
   <data name="contextMenuFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>296, 98</value>
+    <value>296, 120</value>
   </data>
   <data name="&gt;&gt;contextMenuFolder.Name" xml:space="preserve">
     <value>contextMenuFolder</value>
@@ -301,12 +304,6 @@
   </metadata>
   <data name="statusStrip1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
-  </data>
-  <data name="toolStripProgressBar1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 16</value>
-  </data>
-  <data name="toolStripProgressBar1.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 428</value>
@@ -331,6 +328,12 @@
   </data>
   <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="toolStripProgressBar1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 16</value>
+  </data>
+  <data name="toolStripProgressBar1.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
     <value>1</value>
@@ -401,10 +404,10 @@
   <data name="&gt;&gt;menuFolderInstall.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;menuRemoveTemporaryInstallation.Name" xml:space="preserve">
-    <value>menuRemoveTemporaryInstallation</value>
+  <data name="&gt;&gt;menuReleaseTemporaryInstallation.Name" xml:space="preserve">
+    <value>menuReleaseTemporaryInstallation</value>
   </data>
-  <data name="&gt;&gt;menuRemoveTemporaryInstallation.Type" xml:space="preserve">
+  <data name="&gt;&gt;menuReleaseTemporaryInstallation.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">

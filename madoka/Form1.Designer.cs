@@ -37,7 +37,7 @@
 			this.gridViewDataTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.contextMenuFolder = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.menuFolderInstall = new System.Windows.Forms.ToolStripMenuItem();
-			this.menuRemoveTemporaryInstallation = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuReleaseTemporaryInstallation = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.menuFolderDeleteNode = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuNotifyFontInstallationChangeMessage = new System.Windows.Forms.ToolStripMenuItem();
@@ -111,7 +111,7 @@
 			// 
 			this.contextMenuFolder.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuFolderInstall,
-            this.menuRemoveTemporaryInstallation,
+            this.menuReleaseTemporaryInstallation,
             this.toolStripSeparator1,
             this.menuFolderDeleteNode,
             this.menuNotifyFontInstallationChangeMessage});
@@ -125,11 +125,11 @@
 			this.menuFolderInstall.Name = "menuFolderInstall";
 			this.menuFolderInstall.Click += new System.EventHandler(this.menuFolderInstall_Click);
 			// 
-			// menuRemoveTemporaryInstallation
+			// menuReleaseTemporaryInstallation
 			// 
-			this.menuRemoveTemporaryInstallation.Name = "menuRemoveTemporaryInstallation";
-			resources.ApplyResources(this.menuRemoveTemporaryInstallation, "menuRemoveTemporaryInstallation");
-			this.menuRemoveTemporaryInstallation.Click += new System.EventHandler(this.menuRemoveTemporaryInstallation_Click);
+			this.menuReleaseTemporaryInstallation.Name = "menuReleaseTemporaryInstallation";
+			resources.ApplyResources(this.menuReleaseTemporaryInstallation, "menuReleaseTemporaryInstallation");
+			this.menuReleaseTemporaryInstallation.Click += new System.EventHandler(this.menuReleaseTemporaryInstallation_Click);
 			// 
 			// toolStripSeparator1
 			// 
@@ -146,6 +146,7 @@
 			// 
 			this.menuNotifyFontInstallationChangeMessage.Name = "menuNotifyFontInstallationChangeMessage";
 			resources.ApplyResources(this.menuNotifyFontInstallationChangeMessage, "menuNotifyFontInstallationChangeMessage");
+			this.menuNotifyFontInstallationChangeMessage.Click += new System.EventHandler(this.menuNotifyFontInstallationChangeMessage_Click);
 			// 
 			// statusStrip1
 			// 
@@ -211,7 +212,7 @@
 		private System.Windows.Forms.DataGridView dataGridView1;
 		private DataSet1 dataSet1;
 		private System.Windows.Forms.BindingSource gridViewDataTableBindingSource;
-		private System.Windows.Forms.ToolStripMenuItem menuRemoveTemporaryInstallation;
+		private System.Windows.Forms.ToolStripMenuItem menuReleaseTemporaryInstallation;
 		private System.Windows.Forms.ToolStripMenuItem menuNotifyFontInstallationChangeMessage;
 	}
 }

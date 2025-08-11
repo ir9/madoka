@@ -109,12 +109,17 @@ namespace madoka
 
 		private void menuFolderInstall_Click(object sender, EventArgs e)
 		{
-
+			OpenFontInstallDialog(InstallDialogActionType.INSTALL);
 		}
 
-		private void menuRemoveTemporaryInstallation_Click(object sender, EventArgs e)
+		private void menuReleaseTemporaryInstallation_Click(object sender, EventArgs e)
 		{
+			OpenFontInstallDialog(InstallDialogActionType.UNINSTALL);
+		}
 
+		private void menuNotifyFontInstallationChangeMessage_Click(object sender, EventArgs e)
+		{
+			OpenFontInstallDialog(InstallDialogActionType.NOTIFY_ONLY);
 		}
 
 		private void menuFolderDeleteNode_Click(object sender, EventArgs e)
@@ -122,6 +127,5 @@ namespace madoka
 			TreeNode selectedNode = treeView1.SelectedNode;
 			OnDeleteTreeNode(selectedNode);
 		}
-
 	}
 }

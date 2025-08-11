@@ -22,6 +22,12 @@ namespace madoka
 		[DllImport("user32.dll")]
 		public static extern int PostMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 
+		[DllImport("user32.dll")]
+		public static extern int SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+
+		[DllImport("user32.dll")]
+		public static extern int SendMessageTimeout(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam, uint fuFlags, uint uTimeout, IntPtr lpdwResult);
+
 		public static readonly IntPtr HWND_BROADCAST = (IntPtr)0xffff;
 		public const uint WM_FONTCHANGE = 0x001D;
 	}
