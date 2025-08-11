@@ -35,7 +35,7 @@
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.groupBoxNoNotify = new System.Windows.Forms.GroupBox();
 			this.radioButtonRequireNotify = new System.Windows.Forms.RadioButton();
-			this.radioButton1 = new System.Windows.Forms.RadioButton();
+			this.radioButtonNoAction = new System.Windows.Forms.RadioButton();
 			this.timerUpdate = new System.Windows.Forms.Timer(this.components);
 			this.groupBoxNoNotify.SuspendLayout();
 			this.SuspendLayout();
@@ -83,7 +83,7 @@
 			// groupBoxNoNotify
 			// 
 			this.groupBoxNoNotify.Controls.Add(this.radioButtonRequireNotify);
-			this.groupBoxNoNotify.Controls.Add(this.radioButton1);
+			this.groupBoxNoNotify.Controls.Add(this.radioButtonNoAction);
 			this.groupBoxNoNotify.Location = new System.Drawing.Point(12, 96);
 			this.groupBoxNoNotify.Name = "groupBoxNoNotify";
 			this.groupBoxNoNotify.Size = new System.Drawing.Size(448, 65);
@@ -99,27 +99,27 @@
 			this.radioButtonRequireNotify.Name = "radioButtonRequireNotify";
 			this.radioButtonRequireNotify.Size = new System.Drawing.Size(274, 16);
 			this.radioButtonRequireNotify.TabIndex = 1;
-			this.radioButtonRequireNotify.TabStop = true;
 			this.radioButtonRequireNotify.Text = "起動済みのアプリケーションでも利用したいです（重い）";
 			this.radioButtonRequireNotify.UseVisualStyleBackColor = true;
 			this.radioButtonRequireNotify.UseWaitCursor = true;
 			// 
-			// radioButton1
+			// radioButtonNoAction
 			// 
-			this.radioButton1.AutoSize = true;
-			this.radioButton1.Location = new System.Drawing.Point(6, 18);
-			this.radioButton1.Name = "radioButton1";
-			this.radioButton1.Size = new System.Drawing.Size(280, 16);
-			this.radioButton1.TabIndex = 0;
-			this.radioButton1.TabStop = true;
-			this.radioButton1.Text = "今後起動するアプリケーションで利用出来れば良いです";
-			this.radioButton1.UseVisualStyleBackColor = true;
-			this.radioButton1.UseWaitCursor = true;
+			this.radioButtonNoAction.AutoSize = true;
+			this.radioButtonNoAction.Checked = true;
+			this.radioButtonNoAction.Location = new System.Drawing.Point(6, 18);
+			this.radioButtonNoAction.Name = "radioButtonNoAction";
+			this.radioButtonNoAction.Size = new System.Drawing.Size(280, 16);
+			this.radioButtonNoAction.TabIndex = 0;
+			this.radioButtonNoAction.TabStop = true;
+			this.radioButtonNoAction.Text = "今後起動するアプリケーションで利用出来れば良いです";
+			this.radioButtonNoAction.UseVisualStyleBackColor = true;
+			this.radioButtonNoAction.UseWaitCursor = true;
 			// 
 			// timerUpdate
 			// 
 			this.timerUpdate.Enabled = true;
-			this.timerUpdate.Interval = 250;
+			this.timerUpdate.Interval = 200;
 			this.timerUpdate.Tick += new System.EventHandler(this.timerUpdate_Tick);
 			// 
 			// InstallingDialog
@@ -138,7 +138,8 @@
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "InstallingDialog";
-			this.Text = "InstallingDialog";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+			this.Text = " ";
 			this.UseWaitCursor = true;
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InstallingDialog_FormClosing);
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.InstallingDialog_FormClosed);
@@ -156,7 +157,7 @@
 		private System.Windows.Forms.Button buttonCancel;
 		private System.Windows.Forms.GroupBox groupBoxNoNotify;
 		private System.Windows.Forms.RadioButton radioButtonRequireNotify;
-		private System.Windows.Forms.RadioButton radioButton1;
+		private System.Windows.Forms.RadioButton radioButtonNoAction;
 		private System.Windows.Forms.Timer timerUpdate;
 	}
 }

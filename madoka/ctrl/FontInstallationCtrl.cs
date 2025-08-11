@@ -10,16 +10,27 @@ namespace madoka.ctrl
 {
 	class FontInstallationCtrl
 	{
+		private struct TargetRecord
+		{
+			public int fontId;
+			public string fontPath;
+			public int state; // [i/o]
+		};
+
+
 		public const int NO_OP = -1;
-		private delegate int FontActionFunc(int fontId);
+		private delegate int FontActionFunc(TargetRecord target);
 
 		private readonly DataSet1 _dataSet;
 		private readonly CancellationToken _cancelToken;
+		private readonly IFontInstallingAPI _api;
+		private readonly object _lockObject = new object();
 
 		private int _completedCount = 0;
 
-		public FontInstallationCtrl(DataSet1 dataSet, CancellationToken cancelToken)
+		public FontInstallationCtrl(IFontInstallingAPI api, DataSet1 dataSet, CancellationToken cancelToken)
 		{
+			_api = api;
 			_dataSet = dataSet;
 			_cancelToken = cancelToken;
 		}
@@ -28,13 +39,7 @@ namespace madoka.ctrl
 
 		public Task<int[]> InstallFontsAsync(int[] fontIdList)
 		{
-			Task<int[]> task = new Task<int[]>(
-				() => ApplyActionTolFontList(fontIdList, _InstallFont),
-				TaskCreationOptions.LongRunning
-			);
-			task.Start();
-
-			return task;
+			return ApplyActionTolFontList(fontIdList, _InstallFont);
 		}
 
 		public Task<int[]> UninstallFontsAsync(int[] fontIdList)
@@ -42,23 +47,21 @@ namespace madoka.ctrl
 			return ApplyActionTolFontList(fontIdList, _UninstallFont);
 		}
 
-		private int _InstallFont(int fontId)
+		private int _InstallFont(TargetRecord target)
 		{
-			DataSet1.FontFileTableDataTable fontTable = _dataSet.FontFileTable;
 			try
 			{
-				DataSet1.FontFileTableRow row = fontTable.FindByid(fontId);
-				if (row.state != 0)
+				if (target.state != 0)
 					return NO_OP;
 
-				string fontPath = row.filepath;
+				string fontPath = target.fontPath;
 				int ret;
 				using (MemoryMappedFile m = CreateFileMapping(fontPath))
 				{
 					ret = _api.AddFontResourceEx(fontPath, 0, IntPtr.Zero);
 				}
 
-				row.state = ret > 0 ? K.FONTSTATE_INSTALLED : K.FONTSTATE_ERROR;
+				target.state = ret > 0 ? K.FONTSTATE_INSTALLED : K.FONTSTATE_ERROR;
 				return ret;
 			}
 			catch (IndexOutOfRangeException)
@@ -71,23 +74,21 @@ namespace madoka.ctrl
 			}
 		}
 
-		private int _UninstallFont(int fontId)
+		private int _UninstallFont(TargetRecord target)
 		{
-			DataSet1.FontFileTableDataTable fontTable = _dataSet.FontFileTable;
 			try
 			{
-				DataSet1.FontFileTableRow row = fontTable.FindByid(fontId);
-				if (row.state == 0) // FONTSTATE_ERROR でもまぁ試してみる
+				if (target.state == 0) // FONTSTATE_ERROR でもまぁ試してみる
 					return NO_OP;
 
-				string fontPath = row.filepath;
+				string fontPath = target.fontPath;
 				int ret = _api.RemoveFontResourceEx(fontPath, 0, IntPtr.Zero);
 
-				if (row.state == K.FONTSTATE_INSTALLED)
+				if (target.state == K.FONTSTATE_INSTALLED)
 				{
 					if (ret > 0)
 					{
-						row.state = 0;
+						target.state = 0;
 					}
 					else
 					{
@@ -100,7 +101,7 @@ namespace madoka.ctrl
 					{
 						ret = NO_OP;
 					}
-					row.state = 0; // clear
+					target.state = 0; // clear
 				}
 				return ret;
 			}
@@ -114,15 +115,43 @@ namespace madoka.ctrl
 			}
 		}
 
-		private int[] ApplyActionTolFontList(int[] fontIdList, FontActionFunc func)
+		private Task<int[]> ApplyActionTolFontList(int[] fontIdList, FontActionFunc actionFunc)
 		{
-			using (_dataSet.GetWriteLocker())
+			int[] Func()
 			{
-				return fontIdList.AsParallel()
-					.WithCancellation(_cancelToken)
-					.Select((fontId) => func(fontId))
-					.ToArray();
+				using (_dataSet.GetWriteLocker())
+				{
+					DataSet1.FontFileTableDataTable fontTable = _dataSet.FontFileTable;
+					TargetRecord[] targetRecordList = fontIdList.AsParallel().Select((fontId) =>
+					{
+						// IndexOutOfRangeException
+						DataSet1.FontFileTableRow row = fontTable.FindByid(fontId);
+						return new TargetRecord()
+						{
+							fontId = row.id,
+							fontPath = row.filepath,
+							state = row.state
+						};
+					}).ToArray();
+
+					int[] retList = targetRecordList.AsParallel()
+						.WithCancellation(_cancelToken)
+						.Select((target) => actionFunc(target))
+						.ToArray();
+
+					foreach (TargetRecord record in targetRecordList)
+					{
+						DataSet1.FontFileTableRow row = fontTable.FindByid(record.fontId);
+						row.state = record.state;
+					}
+
+					return retList;
+				}
 			}
+
+			Task<int[]> task = new Task<int[]>(Func, _cancelToken, TaskCreationOptions.LongRunning);
+			task.Start();
+			return task;
 		}
 
 		static private MemoryMappedFile CreateFileMapping(string file)

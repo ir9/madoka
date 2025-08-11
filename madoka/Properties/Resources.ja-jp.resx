@@ -118,33 +118,33 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FontInstallationDialog_GroupBoxInstallLabel" xml:space="preserve">
-    <value>Temporarily installed fonts are...</value>
+    <value>一時インストールしたフォントは…</value>
   </data>
   <data name="FontInstallationDialog_GroupBoxInstallNoActionLabel" xml:space="preserve">
-    <value>Will be used in the application that will be launched after.</value>
+    <value>これから起動するアプリケーションで利用出来れば満足です</value>
   </data>
   <data name="FontInstallationDialog_GroupBoxInstallRequireActionLabel" xml:space="preserve">
-    <value>Used in running applications.</value>
+    <value>起動済みのアプリケーションでも利用したいです</value>
   </data>
   <data name="FontInstallationDialog_GroupBoxUninstallLabel" xml:space="preserve">
-    <value>Release notification is...</value>
+    <value>一時インストールしたフォントがアンインストールされた事を…</value>
   </data>
   <data name="FontInstallationDialog_GroupBoxUninstallNoActionLabel" xml:space="preserve">
-    <value>Not notify to running applications.</value>
+    <value>起動済みのアプリケーションに通知しません</value>
   </data>
   <data name="FontInstallationDialog_GroupBoxUninstallRequireActionLabel" xml:space="preserve">
-    <value>Notify to running applications.</value>
+    <value>起動済みのアプリケーションに通知します</value>
   </data>
   <data name="FontInstallationDialog_MessageInstall" xml:space="preserve">
-    <value>Temporary installing now......</value>
+    <value>一時インストールしている</value>
   </data>
   <data name="FontInstallationDialog_MessageNotify" xml:space="preserve">
-    <value>Sending Font installation change event now...</value>
+    <value>フォントの変更通知を送信している</value>
   </data>
   <data name="FontInstallationDialog_MessageUninstall" xml:space="preserve">
-    <value>Releasing Temporary install fonts now......</value>
+    <value>一時インストールしたフォントを解放している</value>
   </data>
   <data name="FontInstallationDialog_Title" xml:space="preserve">
-    <value>Invoke font operation</value>
+    <value>フォント回りを操作中</value>
   </data>
 </root>

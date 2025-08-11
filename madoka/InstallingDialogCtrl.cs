@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.IO;
-using System.IO.MemoryMappedFiles;
+using System.Windows.Forms;
 using System.Threading.Tasks;
 
 namespace madoka
@@ -11,12 +10,39 @@ namespace madoka
 	{
 		private async void Main()
 		{
+			InitializeInstallPhase();
 			bool hasErrorOnInstallPhase = await _InstallOrUninstallFont();
+
+			bool requireNotifyChangeMessage = true; // GetFontChangeNotifyActionType();
+			if (requireNotifyChangeMessage)
+			{
+				InitializeNotifyPhase();
+				bool hasErrorOnNotifyPhase = await _BroadCastFontChange();
+			}
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
+		private void InitializeInstallPhase()
+		{
+			string text = _actionType == InstallDialogActionType.UNINSTALL
+				? Properties.Resources.FontInstallationDialog_MessageUninstall
+				: Properties.Resources.FontInstallationDialog_MessageInstall;
+
+			text = AddSpecialSuffixIfJP(text);
+			labelMessage.Text = text;
+		}
+
+		private void InitializeNotifyPhase()
+		{
+			string text = Properties.Resources.FontInstallationDialog_MessageNotify;
+			text = AddSpecialSuffixIfJP(text);
+			labelMessage.Text = text;
+
+			EnableGroupBox(false);
+			progressBar1.Style = ProgressBarStyle.Marquee;
+			timerUpdate.Enabled = false;
+			labelProgress.Text = "";
+		}
+
 		private async Task<bool> _InstallOrUninstallFont()
 		{
 			int[] retInstallList;
@@ -39,9 +65,21 @@ namespace madoka
 			return hasErrorOnInstallPhase;
 		}
 
-		private bool _BroadCastFontChange()
+		private Task<bool> _BroadCastFontChange()
 		{
-			return _api.PostMessage(WinAPI.HWND_BROADCAST, WinAPI.WM_FONTCHANGE, IntPtr.Zero, IntPtr.Zero) != 0;
+			bool Func()
+			{
+				return _api.PostMessage(WinAPI.HWND_BROADCAST, WinAPI.WM_FONTCHANGE, IntPtr.Zero, IntPtr.Zero) != 0;
+			}
+
+			Task<bool> task = new Task<bool>(
+				Func,
+				_cancelToken.Token,
+				TaskCreationOptions.LongRunning
+			);
+			task.Start();
+
+			return task;
 		}
 
 		/* ======================= *
@@ -53,6 +91,36 @@ namespace madoka
 
 			progressBar1.Value = progress;
 			labelProgress.Text = $"{progress}/{_opFontIdList.Length}";
+		}
+
+		private void EnableGroupBox(bool enable)
+		{
+			groupBoxNoNotify.Enabled = enable;
+			radioButtonNoAction.Enabled = enable;
+			radioButtonRequireNotify.Enabled = enable;
+		}
+
+		private bool GetFontChangeNotifyActionType()
+		{
+			return radioButtonRequireNotify.Checked;
+		}
+
+		static private string GetSpecialSuffix()
+		{
+			// 一時インストールしている
+			string[] suffix = {
+				"にょ", "にょ", "にゅ", "ゲマ", "んだよもん", "のかしら"
+			};
+			Random rand = new Random();
+			return suffix[rand.Next(suffix.Length)];
+		}
+
+		private string AddSpecialSuffixIfJP(string msg)
+		{
+			if (!U.CultureIsJaJp())
+				return msg;
+
+			return msg + _specialSuffix;
 		}
 	}
 }

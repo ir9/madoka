@@ -86,12 +86,15 @@ namespace madoka
 			return !list.Any();
 		}
 
-		/*
-		public static int ComputeInsertPosition(List<string> arr, string item)
+		private static bool? _cultureIsJP;
+		public static bool CultureIsJaJp()
 		{
-			int index = arr.BinarySearch(item);
-			return index >= 0 ? index : ~index;
+			if (_cultureIsJP == null)
+			{
+				_cultureIsJP = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja";
+			}
+
+			return _cultureIsJP.Value;
 		}
-		*/
 	}
 }
