@@ -1,11 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace madoka.ctrl
 {
+	[StructLayout(LayoutKind.Explicit)]
+	struct RelationPair : IComparable<RelationPair>, IEquatable<RelationPair>
+	{
+		[FieldOffset(0)]
+		private int _child;
+		[FieldOffset(4)]
+		private int _parent;
+
+		[FieldOffset(0)]
+		private long _value;
+
+		public RelationPair(int parent, int child)
+		{
+			_value = 0;
+			this._parent = parent;
+			this._child = child;
+		}
+
+		public int Parent => _parent;
+		public int Child => _child;
+
+		public int CompareTo(RelationPair ro)
+		{
+			ulong diff = (ulong)(this._value - ro._value);
+			uint sign = (uint)((diff & 0x80000000_00000000u) >> 32);
+			uint value = (uint)(((diff & 0x7fffffff_ffffffffu) + 0x7fffffff_ffffffffu) >> 63);
+
+			return (int)(sign | value);
+		}
+
+		public bool Equals(RelationPair rv)
+		{
+			return this._value == rv._value;
+		}
+	};
+
 	abstract class AbtractRelationCtrl
 	{
 		private readonly SortedSet<RelationPair> _relationPair;
@@ -17,10 +54,15 @@ namespace madoka.ctrl
 			_version = version;
 		}
 
-		public SortedSet<RelationPair> AddRelation(int parentDir, int[] childDir)
+		public SortedSet<RelationPair> AddRelation(int parent, int child)
 		{
-			return AddRelation(childDir.Select(
-				(c) => new RelationPair(parentDir, c)
+			return AddRelation(new RelationPair[] { new RelationPair(parent, child) });
+		}
+
+		public SortedSet<RelationPair> AddRelation(int parent, int[] childList)
+		{
+			return AddRelation(childList.Select(
+				(c) => new RelationPair(parent, c)
 			));
 		}
 

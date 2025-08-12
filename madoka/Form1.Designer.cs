@@ -40,12 +40,17 @@
 			this.menuReleaseTemporaryInstallation = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.menuFolderDeleteNode = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuAddNewTag = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.menuNotifyFontInstallationChangeMessage = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			this.dataSet1 = new madoka.DataSet1();
 			this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+			this.contextMenuStripGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.menuGridViewAddFontToTag = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuGridViewDelete = new System.Windows.Forms.ToolStripMenuItem();
+			this.dataSet1 = new madoka.DataSet1();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -55,6 +60,7 @@
 			this.contextMenuFolder.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
+			this.contextMenuStripGridView.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -65,21 +71,26 @@
 			// 
 			// splitContainer1.Panel1
 			// 
+			resources.ApplyResources(this.splitContainer1.Panel1, "splitContainer1.Panel1");
 			this.splitContainer1.Panel1.Controls.Add(this.treeView1);
 			// 
 			// splitContainer1.Panel2
 			// 
+			resources.ApplyResources(this.splitContainer1.Panel2, "splitContainer1.Panel2");
 			this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
 			// 
 			// treeView1
 			// 
-			this.treeView1.AllowDrop = true;
 			resources.ApplyResources(this.treeView1, "treeView1");
+			this.treeView1.AllowDrop = true;
 			this.treeView1.ImageList = this.imageList1;
+			this.treeView1.LabelEdit = true;
 			this.treeView1.Name = "treeView1";
 			this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             ((System.Windows.Forms.TreeNode)(resources.GetObject("treeView1.Nodes"))),
             ((System.Windows.Forms.TreeNode)(resources.GetObject("treeView1.Nodes1")))});
+			this.treeView1.BeforeLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView1_BeforeLabelEdit);
+			this.treeView1.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView1_AfterLabelEdit);
 			this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
 			this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
 			this.treeView1.DragDrop += new System.Windows.Forms.DragEventHandler(this.treeView1_DragDrop);
@@ -93,31 +104,36 @@
 			// 
 			// dataGridView1
 			// 
+			resources.ApplyResources(this.dataGridView1, "dataGridView1");
 			this.dataGridView1.AllowUserToAddRows = false;
 			this.dataGridView1.AllowUserToDeleteRows = false;
+			this.dataGridView1.AllowUserToResizeRows = false;
 			this.dataGridView1.AutoGenerateColumns = false;
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView1.DataSource = this.gridViewDataTableBindingSource;
-			resources.ApplyResources(this.dataGridView1, "dataGridView1");
-			this.dataGridView1.MultiSelect = false;
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.ReadOnly = true;
+			this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
 			this.dataGridView1.RowHeadersVisible = false;
 			this.dataGridView1.RowTemplate.Height = 21;
+			this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.dataGridView1.ShowCellErrors = false;
 			this.dataGridView1.ShowEditingIcon = false;
 			this.dataGridView1.ShowRowErrors = false;
+			this.dataGridView1.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDown);
 			// 
 			// contextMenuFolder
 			// 
+			resources.ApplyResources(this.contextMenuFolder, "contextMenuFolder");
 			this.contextMenuFolder.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuFolderInstall,
             this.menuReleaseTemporaryInstallation,
             this.toolStripSeparator1,
             this.menuFolderDeleteNode,
+            this.menuAddNewTag,
+            this.toolStripSeparator2,
             this.menuNotifyFontInstallationChangeMessage});
 			this.contextMenuFolder.Name = "contextMenuFolder";
-			resources.ApplyResources(this.contextMenuFolder, "contextMenuFolder");
 			this.contextMenuFolder.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuFolder_Opening);
 			// 
 			// menuFolderInstall
@@ -128,25 +144,36 @@
 			// 
 			// menuReleaseTemporaryInstallation
 			// 
-			this.menuReleaseTemporaryInstallation.Name = "menuReleaseTemporaryInstallation";
 			resources.ApplyResources(this.menuReleaseTemporaryInstallation, "menuReleaseTemporaryInstallation");
+			this.menuReleaseTemporaryInstallation.Name = "menuReleaseTemporaryInstallation";
 			this.menuReleaseTemporaryInstallation.Click += new System.EventHandler(this.menuReleaseTemporaryInstallation_Click);
 			// 
 			// toolStripSeparator1
 			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
 			resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
 			// 
 			// menuFolderDeleteNode
 			// 
-			this.menuFolderDeleteNode.Name = "menuFolderDeleteNode";
 			resources.ApplyResources(this.menuFolderDeleteNode, "menuFolderDeleteNode");
+			this.menuFolderDeleteNode.Name = "menuFolderDeleteNode";
 			this.menuFolderDeleteNode.Click += new System.EventHandler(this.menuFolderDeleteNode_Click);
+			// 
+			// menuAddNewTag
+			// 
+			resources.ApplyResources(this.menuAddNewTag, "menuAddNewTag");
+			this.menuAddNewTag.Name = "menuAddNewTag";
+			this.menuAddNewTag.Click += new System.EventHandler(this.menuAddNewTag_Click);
+			// 
+			// toolStripSeparator2
+			// 
+			resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
+			this.toolStripSeparator2.Name = "toolStripSeparator2";
 			// 
 			// menuNotifyFontInstallationChangeMessage
 			// 
-			this.menuNotifyFontInstallationChangeMessage.Name = "menuNotifyFontInstallationChangeMessage";
 			resources.ApplyResources(this.menuNotifyFontInstallationChangeMessage, "menuNotifyFontInstallationChangeMessage");
+			this.menuNotifyFontInstallationChangeMessage.Name = "menuNotifyFontInstallationChangeMessage";
 			this.menuNotifyFontInstallationChangeMessage.Click += new System.EventHandler(this.menuNotifyFontInstallationChangeMessage_Click);
 			// 
 			// statusStrip1
@@ -158,8 +185,8 @@
 			// 
 			// toolStripProgressBar1
 			// 
-			this.toolStripProgressBar1.Name = "toolStripProgressBar1";
 			resources.ApplyResources(this.toolStripProgressBar1, "toolStripProgressBar1");
+			this.toolStripProgressBar1.Name = "toolStripProgressBar1";
 			this.toolStripProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
 			// 
 			// tableLayoutPanel1
@@ -169,15 +196,36 @@
 			this.tableLayoutPanel1.Controls.Add(this.statusStrip1, 0, 1);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
 			// 
-			// dataSet1
-			// 
-			this.dataSet1.DataSetName = "DataSet";
-			this.dataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-			// 
 			// notifyIcon1
 			// 
 			resources.ApplyResources(this.notifyIcon1, "notifyIcon1");
 			this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+			// 
+			// contextMenuStripGridView
+			// 
+			resources.ApplyResources(this.contextMenuStripGridView, "contextMenuStripGridView");
+			this.contextMenuStripGridView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuGridViewAddFontToTag,
+            this.menuGridViewDelete});
+			this.contextMenuStripGridView.Name = "contextMenuStripGridView";
+			this.contextMenuStripGridView.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripGridView_Opening);
+			// 
+			// menuGridViewAddFontToTag
+			// 
+			resources.ApplyResources(this.menuGridViewAddFontToTag, "menuGridViewAddFontToTag");
+			this.menuGridViewAddFontToTag.Name = "menuGridViewAddFontToTag";
+			// 
+			// menuGridViewDelete
+			// 
+			resources.ApplyResources(this.menuGridViewDelete, "menuGridViewDelete");
+			this.menuGridViewDelete.Name = "menuGridViewDelete";
+			this.menuGridViewDelete.Click += new System.EventHandler(this.menuGridViewDelete_Click);
+			// 
+			// dataSet1
+			// 
+			this.dataSet1.DataSetName = "DataSet";
+			this.dataSet1.Locale = new System.Globalization.CultureInfo("");
+			this.dataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
 			// 
 			// Form1
 			// 
@@ -200,6 +248,7 @@
 			this.statusStrip1.PerformLayout();
 			this.tableLayoutPanel1.ResumeLayout(false);
 			this.tableLayoutPanel1.PerformLayout();
+			this.contextMenuStripGridView.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataSet1)).EndInit();
 			this.ResumeLayout(false);
 
@@ -222,6 +271,11 @@
 		private System.Windows.Forms.ToolStripMenuItem menuReleaseTemporaryInstallation;
 		private System.Windows.Forms.ToolStripMenuItem menuNotifyFontInstallationChangeMessage;
 		private System.Windows.Forms.NotifyIcon notifyIcon1;
+		private System.Windows.Forms.ToolStripMenuItem menuAddNewTag;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+		private System.Windows.Forms.ContextMenuStrip contextMenuStripGridView;
+		private System.Windows.Forms.ToolStripMenuItem menuGridViewAddFontToTag;
+		private System.Windows.Forms.ToolStripMenuItem menuGridViewDelete;
 	}
 }
 

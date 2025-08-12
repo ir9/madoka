@@ -12,7 +12,7 @@ namespace madoka
 {
 	public partial class Form1 : Form
 	{
-		private ModelMy _model = new ModelMy();
+		private ModelMain _model = new ModelMain();
 		private FormWindowState _prevState;
 
 		private readonly ctrl.AppConfigSaverCtrl _configSaverCtrl;
@@ -75,6 +75,19 @@ namespace madoka
 			this.WindowState = _prevState;
 		}
 
+		private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+		{
+			if (e.Button == MouseButtons.Right)
+			{
+				int mouseClickIndex = e.RowIndex;
+				if (!dataGridView1.Rows[mouseClickIndex].Selected)
+				{
+					dataGridView1.ClearSelection();
+					dataGridView1.Rows[mouseClickIndex].Selected = true;
+				}
+			}
+		}
+
 		/* ==================================== *
 		 * treeView
 		 * ==================================== */
@@ -100,12 +113,22 @@ namespace madoka
 
 		private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
 		{
-			GetDataGridViewRow(e.Node);
+			SwitchDataGridView(e.Node);
 			/*
 			gridViewDataTableBindingSource.name
 			dataGridView1.DataSource = gridViewDataTableBindingSource;
 			dataGridView1.name
 			*/
+		}
+
+		private void treeView1_BeforeLabelEdit(object sender, NodeLabelEditEventArgs e)
+		{
+			e.CancelEdit = !(e.Node.Tag is Tag);
+		}
+
+		private void treeView1_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
+		{
+			UpdateTagLabel(e.Node, e.Label);
 		}
 
 		/* ==================================== *
@@ -122,11 +145,7 @@ namespace madoka
 		private void contextMenuFolder_Opening(object sender, CancelEventArgs e)
 		{
 			TreeNode node = treeView1.SelectedNode;
-			menuFolderDeleteNode.Enabled = false;
-			if (node.Tag is Dir)
-			{
-				menuFolderDeleteNode.Enabled = node.Level == 1;
-			}
+			AdjustTreeMenuEnableState(node);
 		}
 
 		private void menuFolderInstall_Click(object sender, EventArgs e)
@@ -153,5 +172,29 @@ namespace madoka
 			TreeNode selectedNode = treeView1.SelectedNode;
 			OnDeleteTreeNode(selectedNode);
 		}
+
+		private void menuAddNewTag_Click(object sender, EventArgs e)
+		{
+			AddNewTag();
+		}
+
+		// === grid view ===
+
+		private void contextMenuStripGridView_Opening(object sender, CancelEventArgs e)
+		{
+			AdjustDataGridViewEnabmeState();
+		}
+
+		private void menuGridViewDelete_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void menuAddToTag_Submenu_Click(object sender, EventArgs e)
+		{
+			AddFontToTagGroup(sender);
+		}
+
+
 	}
 }

@@ -20,6 +20,11 @@ namespace madoka
 			internal CommitVersion Version { get; } = new CommitVersion();
 		}
 
+		partial class TagTableDataTable
+		{
+			internal CommitVersion Version { get; } = new CommitVersion();
+		}
+
 		/* ========================================= *
 		 *
 		 * ========================================= */
@@ -97,9 +102,9 @@ namespace madoka
 		/* ========================================= *
 		 * GridViewDataTable
 		 * ========================================= */
-		internal void RebuildGridViewDataTable(ModelMy model)
+		internal void RebuildGridViewDataTable(ModelMain model)
 		{
-			DirGridViewDataTableDataTable table = new DirGridViewDataTableDataTable();
+			DirGridViewTableDataTable table = new DirGridViewTableDataTable();
 
 			try
 			{
@@ -160,91 +165,6 @@ namespace madoka
 		public void Dispose()
 		{
 			Monitor.Exit(_dataSet);
-		}
-	}
-
-	class DirGridViewDataRecordBuilder
-	{
-		private readonly ModelMy _model;
-		private readonly DataSet1 _dataSet;
-		private readonly ctrl.TreeModelCtrl _treeModelCtrl;
-		private readonly ctrl.Dir2FontCtrl _fontCtrl;
-		private readonly DataSet1.DirGridViewDataTableDataTable _table = new DataSet1.DirGridViewDataTableDataTable();
-
-		public DirGridViewDataRecordBuilder(ModelMy model, DataSet1 dataSet)
-		{
-			_model = model;
-			_dataSet = dataSet;
-			_treeModelCtrl = new ctrl.TreeModelCtrl(model);
-			_fontCtrl = new ctrl.Dir2FontCtrl(model);
-		}
-
-		public DataSet1.DirGridViewDataTableDataTable Build(Dir selectedDir)
-		{
-			using (_dataSet.GetReadLocker())
-			{
-				Dir dirObj = _dataSet.GetDirectory(selectedDir.ID);
-				string rootPath;
-
-				System.IO.DirectoryInfo parent = dirObj.DirectoryInfo.Parent;
-				if (parent != null)
-				{
-					rootPath = parent.FullName;
-					rootPath = rootPath.TrimEnd(System.IO.Path.DirectorySeparatorChar) + System.IO.Path.DirectorySeparatorChar;
-				}
-				else
-				{   // parent == null
-					rootPath = "::::::"; // use a dummy path
-				}
-
-				Insert(_model.rootDirID, rootPath);
-			}
-
-			return _table;
-		}
-
-		private void Insert(int dirNodeID, string rootPath)
-		{
-			int[] childDirNodeIDList = _treeModelCtrl.GetChildIndexes(dirNodeID);
-			int[] fontFileIDList = _fontCtrl.GetChildIndexes(dirNodeID);
-
-			// === insert dir ===
-			Dir dirObj = _dataSet.GetDirectory(dirNodeID);
-			string fullPath = dirObj.DirectoryInfo.FullName;
-			string dirName = fullPath;
-			if (fullPath.StartsWith(rootPath))
-			{
-				dirName = fullPath.Substring(rootPath.Length);
-			}
-
-			_table.AddDirGridViewDataTableRow(
-				IDIssuer.GridViewDataID,
-				dirName,
-				false,
-				(int)GridViewDataType.DIRECTORY,
-				dirNodeID
-			);
-
-			// === insert fonts ===
-			foreach (int fontFileID in fontFileIDList)
-			{
-				fullPath = _dataSet.GetFontFilePath(fontFileID);
-				string fileName = System.IO.Path.GetFileName(fullPath);
-
-				_table.AddDirGridViewDataTableRow(
-					IDIssuer.GridViewDataID,
-					fileName,
-					false,
-					(int)GridViewDataType.FONT,
-					fontFileID
-				);
-			}
-
-			// == insert children ===
-			foreach (int childDirNodeID in childDirNodeIDList)
-			{
-				Insert(childDirNodeID, rootPath);
-			}
 		}
 	}
 }

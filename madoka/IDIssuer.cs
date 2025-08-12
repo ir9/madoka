@@ -16,5 +16,8 @@ namespace madoka
 
 		static private int _gridViewDataId = 0;
 		static public int GridViewDataID => Interlocked.Increment(ref _gridViewDataId);
+
+		static private int _tagId = 0;
+		static public int TagID => Interlocked.Increment(ref _tagId);
 	}
 }

@@ -2,26 +2,26 @@
 <xs:schema id="DataSet1" targetNamespace="http://tempuri.org/DataSet1.xsd" xmlns:mstns="http://tempuri.org/DataSet1.xsd" xmlns="http://tempuri.org/DataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
-      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="NotPublic" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections />
         <Tables />
         <Sources />
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="DataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet1" msprop:Generator_UserDSName="DataSet1">
+  <xs:element name="DataSet1" msdata:IsDataSet="true" msdata:Locale="" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet1" msprop:Generator_UserDSName="DataSet1">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Tag" msprop:Generator_TableClassName="TagDataTable" msprop:Generator_TableVarName="tableTag" msprop:Generator_RowChangedName="TagRowChanged" msprop:Generator_TablePropName="Tag" msprop:Generator_RowDeletingName="TagRowDeleting" msprop:Generator_RowChangingName="TagRowChanging" msprop:Generator_RowEvHandlerName="TagRowChangeEventHandler" msprop:Generator_RowDeletedName="TagRowDeleted" msprop:Generator_RowClassName="TagRow" msprop:Generator_UserTableName="Tag" msprop:Generator_RowEvArgName="TagRowChangeEvent">
+        <xs:element name="TagTable" msprop:Generator_TableClassName="TagTableDataTable" msprop:Generator_TableVarName="tableTagTable" msprop:Generator_TablePropName="TagTable" msprop:Generator_RowDeletingName="TagTableRowDeleting" msprop:Generator_RowChangingName="TagTableRowChanging" msprop:Generator_RowEvHandlerName="TagTableRowChangeEventHandler" msprop:Generator_RowDeletedName="TagTableRowDeleted" msprop:Generator_UserTableName="TagTable" msprop:Generator_RowChangedName="TagTableRowChanged" msprop:Generator_RowEvArgName="TagTableRowChangeEvent" msprop:Generator_RowClassName="TagTableRow">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
-              <xs:element name="name" msprop:Generator_ColumnVarNameInTable="columnname" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_UserColumnName="name" type="xs:string" minOccurs="0" />
-              <xs:element name="DataColumn3" msprop:Generator_ColumnVarNameInTable="columnDataColumn3" msprop:Generator_ColumnPropNameInRow="DataColumn3" msprop:Generator_ColumnPropNameInTable="DataColumn3Column" msprop:Generator_UserColumnName="DataColumn3" type="xs:string" minOccurs="0" />
+              <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
+              <xs:element name="name" msprop:Generator_ColumnVarNameInTable="columnname" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_UserColumnName="name" type="xs:string" />
+              <xs:element name="tagObj" msdata:DataType="madoka.Tag, madoka, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" msprop:nullValue="_null" msprop:Generator_ColumnPropNameInRow="tagObj" msprop:Generator_ColumnVarNameInTable="columntagObj" msprop:Generator_ColumnPropNameInTable="tagObjColumn" msprop:Generator_UserColumnName="tagObj" type="xs:anyType" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="DirectoryTable" msprop:Generator_TableClassName="DirectoryTableDataTable" msprop:Generator_TableVarName="tableDirectoryTable" msprop:Generator_TablePropName="DirectoryTable" msprop:Generator_RowDeletingName="DirectoryTableRowDeleting" msprop:Generator_RowChangingName="DirectoryTableRowChanging" msprop:Generator_RowEvHandlerName="DirectoryTableRowChangeEventHandler" msprop:Generator_RowDeletedName="DirectoryTableRowDeleted" msprop:Generator_UserTableName="DirectoryTable" msprop:Generator_RowChangedName="DirectoryTableRowChanged" msprop:Generator_RowEvArgName="DirectoryTableRowChangeEvent" msprop:Generator_RowClassName="DirectoryTableRow">
+        <xs:element name="DirectoryTable" msprop:Generator_TableClassName="DirectoryTableDataTable" msprop:Generator_TableVarName="tableDirectoryTable" msprop:Generator_RowChangedName="DirectoryTableRowChanged" msprop:Generator_TablePropName="DirectoryTable" msprop:Generator_RowDeletingName="DirectoryTableRowDeleting" msprop:Generator_RowChangingName="DirectoryTableRowChanging" msprop:Generator_RowEvHandlerName="DirectoryTableRowChangeEventHandler" msprop:Generator_RowDeletedName="DirectoryTableRowDeleted" msprop:Generator_RowClassName="DirectoryTableRow" msprop:Generator_UserTableName="DirectoryTable" msprop:Generator_RowEvArgName="DirectoryTableRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
@@ -29,7 +29,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="FontFileTable" msprop:Generator_TableClassName="FontFileTableDataTable" msprop:Generator_TableVarName="tableFontFileTable" msprop:Generator_TablePropName="FontFileTable" msprop:Generator_RowDeletingName="FontFileTableRowDeleting" msprop:Generator_RowChangingName="FontFileTableRowChanging" msprop:Generator_RowEvHandlerName="FontFileTableRowChangeEventHandler" msprop:Generator_RowDeletedName="FontFileTableRowDeleted" msprop:Generator_UserTableName="FontFileTable" msprop:Generator_RowChangedName="FontFileTableRowChanged" msprop:Generator_RowEvArgName="FontFileTableRowChangeEvent" msprop:Generator_RowClassName="FontFileTableRow">
+        <xs:element name="FontFileTable" msprop:Generator_TableClassName="FontFileTableDataTable" msprop:Generator_TableVarName="tableFontFileTable" msprop:Generator_RowChangedName="FontFileTableRowChanged" msprop:Generator_TablePropName="FontFileTable" msprop:Generator_RowDeletingName="FontFileTableRowDeleting" msprop:Generator_RowChangingName="FontFileTableRowChanging" msprop:Generator_RowEvHandlerName="FontFileTableRowChangeEventHandler" msprop:Generator_RowDeletedName="FontFileTableRowDeleted" msprop:Generator_RowClassName="FontFileTableRow" msprop:Generator_UserTableName="FontFileTable" msprop:Generator_RowEvArgName="FontFileTableRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
@@ -38,7 +38,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="DirGridViewDataTable" msprop:Generator_TableClassName="DirGridViewDataTableDataTable" msprop:Generator_TableVarName="tableDirGridViewDataTable" msprop:Generator_RowChangedName="DirGridViewDataTableRowChanged" msprop:Generator_TablePropName="DirGridViewDataTable" msprop:Generator_RowDeletingName="DirGridViewDataTableRowDeleting" msprop:Generator_RowChangingName="DirGridViewDataTableRowChanging" msprop:Generator_RowEvHandlerName="DirGridViewDataTableRowChangeEventHandler" msprop:Generator_RowDeletedName="DirGridViewDataTableRowDeleted" msprop:Generator_RowClassName="DirGridViewDataTableRow" msprop:Generator_UserTableName="DirGridViewDataTable" msprop:Generator_RowEvArgName="DirGridViewDataTableRowChangeEvent">
+        <xs:element name="DirGridViewTable" msprop:Generator_TableClassName="DirGridViewTableDataTable" msprop:Generator_TableVarName="tableDirGridViewTable" msprop:Generator_TablePropName="DirGridViewTable" msprop:Generator_RowDeletingName="DirGridViewTableRowDeleting" msprop:Generator_RowChangingName="DirGridViewTableRowChanging" msprop:Generator_RowEvHandlerName="DirGridViewTableRowChangeEventHandler" msprop:Generator_RowDeletedName="DirGridViewTableRowDeleted" msprop:Generator_UserTableName="DirGridViewTable" msprop:Generator_RowChangedName="DirGridViewTableRowChanged" msprop:Generator_RowEvArgName="DirGridViewTableRowChangeEvent" msprop:Generator_RowClassName="DirGridViewTableRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
@@ -49,17 +49,27 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="RootFontDirTable" msprop:Generator_TableClassName="RootFontDirTableDataTable" msprop:Generator_TableVarName="tableRootFontDirTable" msprop:Generator_TablePropName="RootFontDirTable" msprop:Generator_RowDeletingName="RootFontDirTableRowDeleting" msprop:Generator_RowChangingName="RootFontDirTableRowChanging" msprop:Generator_RowEvHandlerName="RootFontDirTableRowChangeEventHandler" msprop:Generator_RowDeletedName="RootFontDirTableRowDeleted" msprop:Generator_UserTableName="RootFontDirTable" msprop:Generator_RowChangedName="RootFontDirTableRowChanged" msprop:Generator_RowEvArgName="RootFontDirTableRowChangeEvent" msprop:Generator_RowClassName="RootFontDirTableRow">
+        <xs:element name="RootFontDirTable" msprop:Generator_TableClassName="RootFontDirTableDataTable" msprop:Generator_TableVarName="tableRootFontDirTable" msprop:Generator_RowChangedName="RootFontDirTableRowChanged" msprop:Generator_TablePropName="RootFontDirTable" msprop:Generator_RowDeletingName="RootFontDirTableRowDeleting" msprop:Generator_RowChangingName="RootFontDirTableRowChanging" msprop:Generator_RowEvHandlerName="RootFontDirTableRowChangeEventHandler" msprop:Generator_RowDeletedName="RootFontDirTableRowDeleted" msprop:Generator_RowClassName="RootFontDirTableRow" msprop:Generator_UserTableName="RootFontDirTable" msprop:Generator_RowEvArgName="RootFontDirTableRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="path" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnpath" msprop:Generator_ColumnPropNameInRow="path" msprop:Generator_ColumnPropNameInTable="pathColumn" msprop:Generator_UserColumnName="path" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="TagGridViewTable" msprop:Generator_TableClassName="TagGridViewTableDataTable" msprop:Generator_TableVarName="tableTagGridViewTable" msprop:Generator_TablePropName="TagGridViewTable" msprop:Generator_RowDeletingName="TagGridViewTableRowDeleting" msprop:Generator_RowChangingName="TagGridViewTableRowChanging" msprop:Generator_RowEvHandlerName="TagGridViewTableRowChangeEventHandler" msprop:Generator_RowDeletedName="TagGridViewTableRowDeleted" msprop:Generator_UserTableName="TagGridViewTable" msprop:Generator_RowChangedName="TagGridViewTableRowChanged" msprop:Generator_RowEvArgName="TagGridViewTableRowChangeEvent" msprop:Generator_RowClassName="TagGridViewTableRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
+              <xs:element name="name" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnname" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_UserColumnName="name" type="xs:string" />
+              <xs:element name="path" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnpath" msprop:Generator_ColumnPropNameInRow="path" msprop:Generator_ColumnPropNameInTable="pathColumn" msprop:Generator_UserColumnName="path" type="xs:string" minOccurs="0" />
+              <xs:element name="fontId" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnfontId" msprop:Generator_ColumnPropNameInRow="fontId" msprop:Generator_ColumnPropNameInTable="fontIdColumn" msprop:Generator_UserColumnName="fontId" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:Tag" />
+      <xs:selector xpath=".//mstns:TagTable" />
       <xs:field xpath="mstns:id" />
     </xs:unique>
     <xs:unique name="DirectoryTableConstraint" msdata:PrimaryKey="true">
@@ -70,13 +80,17 @@
       <xs:selector xpath=".//mstns:FontFileTable" />
       <xs:field xpath="mstns:id" />
     </xs:unique>
-    <xs:unique name="DirGridViewDataTable_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:DirGridViewDataTable" />
+    <xs:unique name="DirGridViewTable_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:DirGridViewTable" />
       <xs:field xpath="mstns:id" />
     </xs:unique>
     <xs:unique name="RootFontDirTable_Constraint1" msdata:ConstraintName="Constraint1">
       <xs:selector xpath=".//mstns:RootFontDirTable" />
       <xs:field xpath="mstns:path" />
+    </xs:unique>
+    <xs:unique name="TagGridViewTable_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:TagGridViewTable" />
+      <xs:field xpath="mstns:id" />
     </xs:unique>
   </xs:element>
 </xs:schema>

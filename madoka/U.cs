@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Data;
 using System.Threading;
 using System.Text.RegularExpressions;
 
@@ -28,6 +29,22 @@ namespace madoka
 			int current = this;
 			if (current != expect)
 				throw new TableVersionMismatchException(current, expect);
+		}
+	};
+
+	static class EX
+	{
+		public static R FindByidSafe<R>(this DataTable table, int id)
+			where R : DataRow
+		{
+			try
+			{
+				return (R)table.Rows.Find(id);
+			}
+			catch (IndexOutOfRangeException)
+			{
+				return default(R);
+			}
 		}
 	};
 

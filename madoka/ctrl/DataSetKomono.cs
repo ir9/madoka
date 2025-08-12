@@ -20,6 +20,9 @@ namespace madoka.ctrl
 			return dirPathList.Except(_dataSet.RootFontDirTable.Select((r) => r.path)).ToArray();
 		}
 
+		/* ----------------------------- *
+		 * font
+		 * ----------------------------- */
 		public void AppendNewRootFontDir(IEnumerable<string> dirPathList)
 		{
 			foreach (string dir in dirPathList)
@@ -51,6 +54,30 @@ namespace madoka.ctrl
 						 where r.state != 0
 						 select r.id;
 				return it.ToArray();
+			}
+		}
+
+		/* ------------------------- *
+		 * tag
+		 * ------------------------- */
+		public DataSet1.TagTableRow AddNewTag()
+		{
+			Tag newTag = new Tag(IDIssuer.TagID);
+			using (_dataSet.GetWriteLocker())
+			{
+				string name = $"New tag name {newTag.ID}";
+				var ret = _dataSet.TagTable.AddTagTableRow(newTag.ID, name, newTag);
+				_dataSet.TagTable.Version.Inc();
+				return ret;
+			}
+		}
+
+		public void UpdateTagLabel(int tagId, string newLabel)
+		{
+			using (_dataSet.GetWriteLocker())
+			{
+				DataSet1.TagTableRow row = _dataSet.TagTable.FindByid(tagId);
+				row.name = newLabel;
 			}
 		}
 	}
