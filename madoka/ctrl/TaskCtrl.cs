@@ -8,9 +8,9 @@ namespace madoka.ctrl
 {
 	class TaskCtrl
 	{
-		private readonly ModelMy _model;
+		private readonly ModelMain _model;
 
-		public TaskCtrl(ModelMy model)
+		public TaskCtrl(ModelMain model)
 		{
 			_model = model;
 		}

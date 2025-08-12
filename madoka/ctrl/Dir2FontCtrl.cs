@@ -8,7 +8,7 @@ namespace madoka.ctrl
 {
 	class Dir2FontCtrl : AbtractRelationCtrl
 	{
-		public Dir2FontCtrl(ModelMy model)
+		public Dir2FontCtrl(ModelMain model)
 			: base(model.dir2fontRelationModel, model.dir2fontRelationModelVersion)
 		{
 

@@ -8,7 +8,7 @@ namespace madoka.ctrl
 {
 	class TreeModelCtrl : AbtractRelationCtrl
 	{
-		public TreeModelCtrl(ModelMy model)
+		public TreeModelCtrl(ModelMain model)
 			: base(model.treeRelationModel, model.treeRelationModelVersion)
 		{
 

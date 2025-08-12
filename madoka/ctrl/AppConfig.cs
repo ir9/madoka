@@ -15,10 +15,10 @@ namespace madoka.ctrl
 	class AppConfigSaverCtrl
 	{
 		private readonly DataSet1 _dataSet;
-		private readonly ModelMy _model;
+		private readonly ModelMain _model;
 		private Task _prevTask = Task.FromResult(0);
 
-		public AppConfigSaverCtrl(DataSet1 dataSet, ModelMy model)
+		public AppConfigSaverCtrl(DataSet1 dataSet, ModelMain model)
 		{
 			_dataSet = dataSet;
 			_model = model;
@@ -82,9 +82,9 @@ namespace madoka.ctrl
 
 	class AppConfigLoaderCtrl
 	{
-		private readonly ModelMy _model;
+		private readonly ModelMain _model;
 
-		public AppConfigLoaderCtrl(ModelMy model)
+		public AppConfigLoaderCtrl(ModelMain model)
 		{
 			_model = model;
 		}

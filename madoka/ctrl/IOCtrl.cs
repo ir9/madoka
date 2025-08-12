@@ -43,7 +43,7 @@ namespace madoka.ctrl
 		private readonly List<FontFile> _tmpFontFileList = new List<FontFile>();
 		private readonly List<string> _tmpRootFontDirPathList = new List<string>();
 
-		private readonly ModelMy _model;
+		private readonly ModelMain _model;
 		private readonly DataSet1 _dataSet;
 		private readonly Dictionary<string, NodeID> _path2dirIDTemp;
 		private readonly Dictionary<string, FontFileID> _path2fontIDTemp;
@@ -53,7 +53,7 @@ namespace madoka.ctrl
 		private readonly int _treeRelationModelVersion;
 		private readonly int _dir2fontRelationModelVersion;
 
-		private ScanDirTask(ModelMy model, DataSet1 dataSet)
+		private ScanDirTask(ModelMain model, DataSet1 dataSet)
 		{
 			_model   = model;
 			_dataSet = dataSet;
@@ -71,7 +71,7 @@ namespace madoka.ctrl
 			}
 		}
 
-		static public Task<ScanDirTaskResult> Scan(string[] pathList, ModelMy model, DataSet1 dataSet)
+		static public Task<ScanDirTaskResult> Scan(string[] pathList, ModelMain model, DataSet1 dataSet)
 		{
 			foreach (string path in pathList)
 			{
@@ -106,7 +106,7 @@ namespace madoka.ctrl
 		/// </summary>
 		private ScanDirTaskResult RegisterDirs()
 		{
-			ModelMy model = _model;
+			ModelMain model = _model;
 
 			while (!model.cancelToken.IsCancellationRequested)
 			{

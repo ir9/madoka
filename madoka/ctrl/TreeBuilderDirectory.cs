@@ -10,12 +10,12 @@ namespace madoka.ctrl
 	class TreeBuilderDirectory
 	{
 		private readonly DataSet1 _dataSet;
-		private readonly ModelMy _model;
+		private readonly ModelMain _model;
 		private readonly ContextMenuStrip _ctxMenu;
 
 		private readonly TreeModelCtrl _treeModelCtrl;
 
-		public TreeBuilderDirectory(ModelMy model, DataSet1 dataSet, ContextMenuStrip ctxMenu)
+		public TreeBuilderDirectory(ModelMain model, DataSet1 dataSet, ContextMenuStrip ctxMenu)
 		{
 			_dataSet = dataSet;
 			_model = model;

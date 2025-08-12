@@ -23,7 +23,6 @@ namespace madoka.ctrl
 		private readonly InstallingDialogModel _model;
 		private readonly object _lockObject = new object();
 
-
 		public FontInstallationCtrl(InstallingDialogModel model)
 		{
 			_model = model;
