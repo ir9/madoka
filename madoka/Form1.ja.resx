@@ -209,19 +209,23 @@
     <value>フォントインストーラー 窓か☆マジか…</value>
   </data>
   <data name="menuGridViewAddFontToTag.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>131, 22</value>
   </data>
   <data name="menuGridViewAddFontToTag.Text" xml:space="preserve">
     <value>タグを付ける</value>
   </data>
   <data name="menuGridViewDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>131, 22</value>
   </data>
   <data name="menuGridViewDelete.Text" xml:space="preserve">
     <value>削除 (&amp;D)</value>
   </data>
   <data name="contextMenuStripGridView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 70</value>
+    <value>132, 48</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>フォントインストーラー 窓か☆マジか…</value>

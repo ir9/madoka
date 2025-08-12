@@ -187,7 +187,9 @@ namespace madoka
 
 		private void menuGridViewDelete_Click(object sender, EventArgs e)
 		{
-
+			TreeNode selectedTagNode = treeView1.SelectedNode;
+			RemoveFontFromTag(selectedTagNode);
+			SwitchDataGridView(selectedTagNode);
 		}
 
 		private void menuAddToTag_Submenu_Click(object sender, EventArgs e)

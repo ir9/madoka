@@ -75,6 +75,14 @@ namespace madoka.ctrl
 			return newItemList;
 		}
 
+		public int RemoveNode(int parentId)
+		{
+			SortedSet<RelationPair> range = GetChildIndexesRaw(parentId);
+			RelationPair[] removeItems = range.ToArray();
+			_relationPair.ExceptWith(removeItems);
+			return removeItems.Length;
+		}
+
 		public bool RemoveNode(int parentId, int childId)
 		{
 			RelationPair pair = new RelationPair(parentId, childId);

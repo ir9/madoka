@@ -215,6 +215,32 @@ namespace madoka
 			UpdateMenuForTagList();
 		}
 
+		/// <summary>
+		/// Tag の表示中しかこない
+		/// </summary>
+		private void RemoveFontFromTag(TreeNode selectedTagNode)
+		{
+			var gridViewRows = dataGridView1.SelectedRows;
+
+			Tag tag = selectedTagNode.Tag as Tag;
+			if (tag == null)
+				return;
+			DataSet1.TagGridViewTableDataTable table = gridViewDataTableBindingSource.DataSource as DataSet1.TagGridViewTableDataTable;
+			if (table == null)
+				return;
+
+			int[] rowIndexList = gridViewRows.Cast<DataGridViewRow>().Select((row) => row.Index).ToArray();
+			int[] selectedFontIdList = rowIndexList.Select((index) => table[index].fontId).ToArray();
+
+			// === commit ===
+			ctrl.Font2TagCtrl f2tCtrl = new ctrl.Font2TagCtrl(_model);
+			foreach (int fontId in selectedFontIdList)
+			{
+				f2tCtrl.RemoveNode(fontId);
+			}
+			tag.FontIdList.ExceptWith(selectedFontIdList);
+		}
+
 		private void UpdateTagLabel(TreeNode node, string newLabel)
 		{
 			if (newLabel == null)
@@ -324,10 +350,10 @@ namespace madoka
 			switch (selectTreeNode.Tag)
 			{
 			case Dir dir:
-				(headerList, dataTable) = SwitchToDirDataGridView(dir);
+				(headerList, dataTable) = GetDirDataGridView(dir);
 				break;
 			case Tag tag:
-				(headerList, dataTable) = SwitchToTagDataGridView(tag);
+				(headerList, dataTable) = GetTagDataGridView(tag);
 				break;
 			default:
 				dataTable = null;
@@ -343,7 +369,7 @@ namespace madoka
 			gridViewDataTableBindingSource.DataSource = dataTable;
 		}
 
-		private (DataGridViewTextBoxColumn[], DataTable) SwitchToDirDataGridView(Dir selectedDir)
+		private (DataGridViewTextBoxColumn[], DataTable) GetDirDataGridView(Dir selectedDir)
 		{
 			int width = dataGridView1.Size.Width - 4;
 			int fileNameWidth = width * 60 / 100;
@@ -371,7 +397,7 @@ namespace madoka
 			return (headerList, dataTable);
 		}
 
-		private (DataGridViewTextBoxColumn[], DataTable) SwitchToTagDataGridView(Tag selectedTag)
+		private (DataGridViewTextBoxColumn[], DataTable) GetTagDataGridView(Tag selectedTag)
 		{
 			int width = dataGridView1.Size.Width - 4;
 			int nameWidth = width * 30 / 100;
