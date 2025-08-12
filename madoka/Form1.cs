@@ -13,6 +13,8 @@ namespace madoka
 	public partial class Form1 : Form
 	{
 		private ModelMy _model = new ModelMy();
+		private FormWindowState _prevState;
+
 		private readonly ctrl.AppConfigSaverCtrl _configSaverCtrl;
 
 		public Form1()
@@ -34,7 +36,17 @@ namespace madoka
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
+			_prevState = this.WindowState;
+		}
 
+		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			ctrl.DataSetKomono dataSetCtrl = new ctrl.DataSetKomono(dataSet1);
+			if (dataSetCtrl.HasInstalledFont())
+			{
+				int[] fontIdList = dataSetCtrl.GetInstalledFontIDs();
+				OpenFontInstallDialog(InstallDialogActionType.UNINSTALL, fontIdList);
+			}
 		}
 
 		private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -51,6 +63,16 @@ namespace madoka
 			{
 				this.Hide();
 			}
+			else
+			{
+				_prevState = this.WindowState;
+			}
+		}
+
+		private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			this.Show();
+			this.WindowState = _prevState;
 		}
 
 		/* ==================================== *
@@ -109,17 +131,21 @@ namespace madoka
 
 		private void menuFolderInstall_Click(object sender, EventArgs e)
 		{
-			OpenFontInstallDialog(InstallDialogActionType.INSTALL);
+			TreeNode node       = treeView1.SelectedNode;
+			int[]    fontIdList = CollectFontIds(node);
+			OpenFontInstallDialog(InstallDialogActionType.INSTALL, fontIdList);
 		}
 
 		private void menuReleaseTemporaryInstallation_Click(object sender, EventArgs e)
 		{
-			OpenFontInstallDialog(InstallDialogActionType.UNINSTALL);
+			TreeNode node       = treeView1.SelectedNode;
+			int[]    fontIdList = CollectFontIds(node);
+			OpenFontInstallDialog(InstallDialogActionType.UNINSTALL, fontIdList);
 		}
 
 		private void menuNotifyFontInstallationChangeMessage_Click(object sender, EventArgs e)
 		{
-			OpenFontInstallDialog(InstallDialogActionType.NOTIFY_ONLY);
+			OpenFontInstallDialog(InstallDialogActionType.NOTIFY_ONLY, new int[] { });
 		}
 
 		private void menuFolderDeleteNode_Click(object sender, EventArgs e)

@@ -45,6 +45,7 @@
 			this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.dataSet1 = new madoka.DataSet1();
+			this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -173,12 +174,18 @@
 			this.dataSet1.DataSetName = "DataSet";
 			this.dataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
 			// 
+			// notifyIcon1
+			// 
+			resources.ApplyResources(this.notifyIcon1, "notifyIcon1");
+			this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+			// 
 			// Form1
 			// 
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.tableLayoutPanel1);
 			this.Name = "Form1";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
 			this.Load += new System.EventHandler(this.Form1_Load);
 			this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
@@ -214,6 +221,7 @@
 		private System.Windows.Forms.BindingSource gridViewDataTableBindingSource;
 		private System.Windows.Forms.ToolStripMenuItem menuReleaseTemporaryInstallation;
 		private System.Windows.Forms.ToolStripMenuItem menuNotifyFontInstallationChangeMessage;
+		private System.Windows.Forms.NotifyIcon notifyIcon1;
 	}
 }
 

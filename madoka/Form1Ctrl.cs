@@ -49,17 +49,8 @@ namespace madoka
 			}
 		}
 
-		private void OpenFontInstallDialog(InstallDialogActionType actionType)
+		private void OpenFontInstallDialog(InstallDialogActionType actionType, int[] fontIdList)
 		{
-			TreeNode selectedNode = treeView1.SelectedNode;
-			int[] fontIdList = { };
-			if (actionType != InstallDialogActionType.NOTIFY_ONLY)
-			{
-				fontIdList = CollectFontIds(selectedNode);
-				if (fontIdList == null)
-					return;
-			}
-
 			VerityFontIds(fontIdList);
 			InstallingDialog dlg = new InstallingDialog(
 				new FontInstallingAPI(),

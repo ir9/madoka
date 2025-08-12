@@ -34,5 +34,24 @@ namespace madoka.ctrl
 				}
 			}
 		}
+
+		public bool HasInstalledFont()
+		{
+			using (_dataSet.GetReadLocker())
+			{
+				return _dataSet.FontFileTable.AsParallel().Any((r) => r.state != 0);
+			}
+		}
+
+		public int[] GetInstalledFontIDs()
+		{
+			using (_dataSet.GetReadLocker())
+			{
+				var it = from r in _dataSet.FontFileTable.AsParallel()
+						 where r.state != 0
+						 select r.id;
+				return it.ToArray();
+			}
+		}
 	}
 }
