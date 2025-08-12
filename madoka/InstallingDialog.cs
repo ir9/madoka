@@ -25,6 +25,7 @@ namespace madoka
 
 		private readonly InstallingDialogModel _model;
 		private readonly ctrl.FontInstallationCtrl _fontInstallCtrl;
+		private readonly ctrl.FontChangeBroadcasterCtrl _eventBroadcasterCtrl;
 
 		public InstallingDialog(
 			IFontInstallingAPI api,
@@ -32,9 +33,6 @@ namespace madoka
 			int[] operationTargetFontIdList,
 			DataSet1 dataSet)
 		{
-			InitializeComponent();
-			Initialize();
-
 			_model = new InstallingDialogModel()
 			{
 				api = api,
@@ -44,7 +42,12 @@ namespace madoka
 				specialSuffix = GetSpecialSuffix(),
 			};
 
+			InitializeComponent();
+			Initialize();
+
 			_fontInstallCtrl = new ctrl.FontInstallationCtrl(_model);
+			_eventBroadcasterCtrl = new ctrl.FontChangeBroadcasterCtrl(_model);
+
 			Main();
 		}
 
@@ -65,6 +68,11 @@ namespace madoka
 				groupBoxNoNotify.Text = Properties.Resources.FontInstallationDialog_GroupBoxInstallLabel;
 				radioButtonNoAction.Text = Properties.Resources.FontInstallationDialog_GroupBoxInstallNoActionLabel;
 				radioButtonRequireNotify.Text = Properties.Resources.FontInstallationDialog_GroupBoxInstallRequireActionLabel;
+			}
+
+			if (_model.actionType == InstallDialogActionType.NOTIFY_ONLY)
+			{
+				radioButtonRequireNotify.Checked = true;
 			}
 		}
 

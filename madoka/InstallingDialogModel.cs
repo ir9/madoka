@@ -15,6 +15,8 @@ namespace madoka
 		public DataSet1 dataSet;
 		public int[] opFontIdList;
 
-		public volatile int completedCount;
+		// for progressBar
+		public volatile int progressCompletedCount;
+		public int progressMaxValue;
 	}
 }

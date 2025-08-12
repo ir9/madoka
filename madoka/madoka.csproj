@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ctrl\AppConfig.cs" />
+    <Compile Include="ctrl\FontChangeBroadcasterCtrl.cs" />
     <Compile Include="ctrl\Dir2FontCtrl.cs" />
     <Compile Include="ctrl\FontInstallationCtrl.cs" />
     <Compile Include="ctrl\IOCtrl.cs" />

@@ -58,7 +58,7 @@ namespace madoka.ctrl
 			}
 			finally
 			{
-				Interlocked.Increment(ref _model.completedCount);
+				Interlocked.Increment(ref _model.progressCompletedCount);
 			}
 		}
 
@@ -95,7 +95,7 @@ namespace madoka.ctrl
 			}
 			finally
 			{
-				Interlocked.Increment(ref _model.completedCount);
+				Interlocked.Increment(ref _model.progressCompletedCount);
 			}
 		}
 
