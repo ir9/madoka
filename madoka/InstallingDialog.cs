@@ -23,14 +23,8 @@ namespace madoka
 	{
 		private delegate int ResultAnalyzeFunc(int[] retList);
 
-		private readonly IFontInstallingAPI _api;
-		private readonly InstallDialogActionType _actionType;
-		private readonly CancellationTokenSource _cancelToken = new CancellationTokenSource();
-		private readonly string _specialSuffix = GetSpecialSuffix();
+		private readonly InstallingDialogModel _model;
 		private readonly ctrl.FontInstallationCtrl _fontInstallCtrl;
-
-		private readonly DataSet1 _dataSet;
-		private readonly int[] _opFontIdList;
 
 		public InstallingDialog(
 			IFontInstallingAPI api,
@@ -41,12 +35,16 @@ namespace madoka
 			InitializeComponent();
 			Initialize();
 
-			_api = api;
-			_dataSet = dataSet;
-			_actionType = type;
-			_opFontIdList = operationTargetFontIdList;
+			_model = new InstallingDialogModel()
+			{
+				api = api,
+				dataSet = dataSet,
+				actionType = type,
+				opFontIdList = operationTargetFontIdList,
+				specialSuffix = GetSpecialSuffix(),
+			};
 
-			_fontInstallCtrl = new ctrl.FontInstallationCtrl(api, dataSet, _cancelToken.Token);
+			_fontInstallCtrl = new ctrl.FontInstallationCtrl(_model);
 			Main();
 		}
 
@@ -56,7 +54,7 @@ namespace madoka
 			labelProgress.Text = "";
 			this.Text = Properties.Resources.FontInstallationDialog_Title;
 
-			if (_actionType == InstallDialogActionType.UNINSTALL)
+			if (_model.actionType == InstallDialogActionType.UNINSTALL)
 			{
 				groupBoxNoNotify.Text = Properties.Resources.FontInstallationDialog_GroupBoxUninstallLabel;
 				radioButtonNoAction.Text = Properties.Resources.FontInstallationDialog_GroupBoxUninstallNoActionLabel;
@@ -77,12 +75,12 @@ namespace madoka
 
 		private void InstallingDialog_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			_cancelToken.Dispose();
+			_model.cancelToken.Dispose();
 		}
 
 		private void buttonCancel_Click(object sender, EventArgs e)
 		{
-			_cancelToken.Cancel();
+			_model.cancelToken.Cancel();
 			buttonCancel.Enabled = false;
 		}
 

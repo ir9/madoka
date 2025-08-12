@@ -20,21 +20,14 @@ namespace madoka.ctrl
 		public const int NO_OP = -1;
 		private delegate int FontActionFunc(TargetRecord target);
 
-		private readonly DataSet1 _dataSet;
-		private readonly CancellationToken _cancelToken;
-		private readonly IFontInstallingAPI _api;
+		private readonly InstallingDialogModel _model;
 		private readonly object _lockObject = new object();
 
-		private int _completedCount = 0;
 
-		public FontInstallationCtrl(IFontInstallingAPI api, DataSet1 dataSet, CancellationToken cancelToken)
+		public FontInstallationCtrl(InstallingDialogModel model)
 		{
-			_api = api;
-			_dataSet = dataSet;
-			_cancelToken = cancelToken;
+			_model = model;
 		}
-
-		public int CompletedCount => _completedCount;
 
 		public Task<int[]> InstallFontsAsync(int[] fontIdList)
 		{
@@ -57,7 +50,7 @@ namespace madoka.ctrl
 				int ret;
 				using (MemoryMappedFile m = CreateFileMapping(fontPath))
 				{
-					ret = _api.AddFontResourceEx(fontPath, 0, IntPtr.Zero);
+					ret = _model.api.AddFontResourceEx(fontPath, 0, IntPtr.Zero);
 				}
 
 				target.state = ret > 0 ? K.FONTSTATE_INSTALLED : K.FONTSTATE_ERROR;
@@ -65,7 +58,7 @@ namespace madoka.ctrl
 			}
 			finally
 			{
-				Interlocked.Increment(ref _completedCount);
+				Interlocked.Increment(ref _model.completedCount);
 			}
 		}
 
@@ -77,7 +70,7 @@ namespace madoka.ctrl
 					return NO_OP;
 
 				string fontPath = target.fontPath;
-				int ret = _api.RemoveFontResourceEx(fontPath, 0, IntPtr.Zero);
+				int ret = _model.api.RemoveFontResourceEx(fontPath, 0, IntPtr.Zero);
 
 				if (target.state == K.FONTSTATE_INSTALLED)
 				{
@@ -102,13 +95,13 @@ namespace madoka.ctrl
 			}
 			finally
 			{
-				Interlocked.Increment(ref _completedCount);
+				Interlocked.Increment(ref _model.completedCount);
 			}
 		}
 
 		private Task<int[]> ApplyActionTolFontList(int[] fontIdList, FontActionFunc actionFunc)
 		{
-			DataSet1.FontFileTableDataTable fontTable = _dataSet.FontFileTable;
+			DataSet1.FontFileTableDataTable fontTable = _model.dataSet.FontFileTable;
 			TargetRecord Convert(int fontId)
 			{
 				DataSet1.FontFileTableRow row = fontTable.FindByid(fontId);
@@ -129,10 +122,10 @@ namespace madoka.ctrl
 
 			int[] Func()
 			{
-				using (_dataSet.GetWriteLocker())
+				using (_model.dataSet.GetWriteLocker())
 				{
 					// extract values
-					var it = from fontId in fontIdList.AsParallel().WithCancellation(_cancelToken)
+					var it = from fontId in fontIdList.AsParallel().WithCancellation(_model.cancelToken.Token)
 							 let ret = Convert(fontId)
 							 where ret != null
 							 select ret;
@@ -140,7 +133,7 @@ namespace madoka.ctrl
 
 					// action
 					int[] retList = targetRecordList.AsParallel()
-						.WithCancellation(_cancelToken)
+						.WithCancellation(_model.cancelToken.Token)
 						.Select((target) => actionFunc(target))
 						.ToArray();
 
@@ -155,7 +148,7 @@ namespace madoka.ctrl
 				}
 			}
 
-			Task<int[]> task = new Task<int[]>(Func, _cancelToken, TaskCreationOptions.LongRunning);
+			Task<int[]> task = new Task<int[]>(Func, _model.cancelToken.Token, TaskCreationOptions.LongRunning);
 			task.Start();
 			return task;
 		}

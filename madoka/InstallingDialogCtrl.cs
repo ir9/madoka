@@ -13,14 +13,14 @@ namespace madoka
 			bool hasErrorOnInstallPhase = false;
 			bool hasErrorOnNotifyPhase = false;
 
-			if (_actionType != InstallDialogActionType.NOTIFY_ONLY)
+			if (_model.actionType != InstallDialogActionType.NOTIFY_ONLY)
 			{
 				InitializeInstallPhase();
 				hasErrorOnInstallPhase = await _InstallOrUninstallFont();
 			}
 
 			bool requireNotifyChangeMessage =
-				_actionType == InstallDialogActionType.NOTIFY_ONLY ||
+				_model.actionType == InstallDialogActionType.NOTIFY_ONLY ||
 				GetFontChangeNotifyActionType();
 			if (requireNotifyChangeMessage)
 			{
@@ -33,7 +33,7 @@ namespace madoka
 
 		private void InitializeInstallPhase()
 		{
-			string text = _actionType == InstallDialogActionType.UNINSTALL
+			string text = _model.actionType == InstallDialogActionType.UNINSTALL
 				? Properties.Resources.FontInstallationDialog_MessageUninstall
 				: Properties.Resources.FontInstallationDialog_MessageInstall;
 
@@ -56,15 +56,15 @@ namespace madoka
 		private async Task<bool> _InstallOrUninstallFont()
 		{
 			int[] retInstallList;
-			progressBar1.Maximum = _opFontIdList.Length;
+			progressBar1.Maximum = _model.opFontIdList.Length;
 
-			if (_actionType == InstallDialogActionType.INSTALL)
+			if (_model.actionType == InstallDialogActionType.INSTALL)
 			{
-				retInstallList = await _fontInstallCtrl.InstallFontsAsync(_opFontIdList);
+				retInstallList = await _fontInstallCtrl.InstallFontsAsync(_model.opFontIdList);
 			}
-			else if (_actionType == InstallDialogActionType.UNINSTALL)
+			else if (_model.actionType == InstallDialogActionType.UNINSTALL)
 			{
-				retInstallList = await _fontInstallCtrl.UninstallFontsAsync(_opFontIdList);
+				retInstallList = await _fontInstallCtrl.UninstallFontsAsync(_model.opFontIdList);
 			}
 			else
 			{
@@ -75,20 +75,55 @@ namespace madoka
 			return hasErrorOnInstallPhase;
 		}
 
-		private Task<bool> _BroadCastFontChange()
+		private async Task<bool> _BroadCastFontChange()
 		{
-			bool Func()
+			IntPtr[] hWndList = await GetTopLevelWindowHandles();
+
+			// return: 失敗した hWnd
+			IntPtr func(IntPtr hWnd)
 			{
-				return _api.PostMessage(WinAPI.HWND_BROADCAST, WinAPI.WM_FONTCHANGE, IntPtr.Zero, IntPtr.Zero) == 0;
+				IntPtr Zero = IntPtr.Zero;
+				IntPtr ret = _model.api.SendMessageTimeout(
+					hWnd, WinAPI.WM_FONTCHANGE, Zero, Zero, WinAPI.SMTO_ABORTIFHUNG, 10000, Zero
+				);
+
+				return ret == Zero ? hWnd : Zero;
 			}
 
-			Task<bool> task = new Task<bool>(
-				Func,
-				_cancelToken.Token,
-				TaskCreationOptions.LongRunning
-			);
+			Task<bool> task = new Task<bool>(() =>
+			{
+				var it = from hWnd in hWndList.AsParallel().WithCancellation(_model.cancelToken.Token)
+						 let ret = func(hWnd)
+						 where ret != IntPtr.Zero
+						 select ret;
+				IntPtr[] failedhWndList = it.ToArray(); // 将来的に失敗した hWnd の情報を料理したい
+				return failedhWndList.Length == 0;
+			}, _model.cancelToken.Token);
 			task.Start();
 
+			return await task;
+		}
+
+		private Task<IntPtr[]> GetTopLevelWindowHandles()
+		{
+			List<IntPtr> hWndList = new List<IntPtr>();
+			int EnumProc(IntPtr hWnd, IntPtr lParam)
+			{
+				if (_model.cancelToken.IsCancellationRequested)
+					return 0;
+
+				hWndList.Add(hWnd);
+				return 1;
+			}
+
+			IntPtr[] func()
+			{
+				_model.api.EnumWindow(EnumProc, IntPtr.Zero);
+				return hWndList.ToArray();
+			}
+
+			Task<IntPtr[]> task = new Task<IntPtr[]>(func, _model.cancelToken.Token);
+			task.Start();
 			return task;
 		}
 
@@ -97,10 +132,10 @@ namespace madoka
 		 * ======================= */
 		private void UpdateProgressMessage()
 		{
-			int progress = _fontInstallCtrl.CompletedCount;
+			int progress = _model.completedCount;
 
 			progressBar1.Value = progress;
-			labelProgress.Text = $"{progress}/{_opFontIdList.Length}";
+			labelProgress.Text = $"{progress}/{_model.opFontIdList.Length}";
 		}
 
 		private void EnableGroupBox(bool enable)
@@ -130,7 +165,7 @@ namespace madoka
 			if (!U.CultureIsJaJp())
 				return msg;
 
-			return msg + _specialSuffix;
+			return msg + _model.specialSuffix;
 		}
 	}
 }

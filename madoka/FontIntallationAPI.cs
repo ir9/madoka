@@ -9,10 +9,9 @@ namespace madoka
 	interface IFontInstallingAPI
 	{
 		int AddFontResourceEx(string lpszFilename, uint fl, IntPtr pdv);
-
 		int RemoveFontResourceEx(string name, uint fl, IntPtr pdv);
-
-		int PostMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+		IntPtr SendMessageTimeout(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam, uint fuFlags, uint uTimeout, IntPtr lpdwResult);
+		int EnumWindow(WinAPI.EnumWindowsProc lpEnumFunc, IntPtr lParam);
 	};
 
 	class FontInstallingAPI : IFontInstallingAPI
@@ -27,10 +26,14 @@ namespace madoka
 			return WinAPI.RemoveFontResourceEx(name, fl, pdv);
 		}
 
-		public int PostMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
+		public IntPtr SendMessageTimeout(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam, uint fuFlags, uint uTimeout, IntPtr lpdwResult)
 		{
-			// return WinAPI.PostMessage(hWnd, msg, wParam, lParam);
-			return WinAPI.SendMessage(hWnd, msg, wParam, lParam);
+			return WinAPI.SendMessageTimeout(hWnd, msg, wParam, lParam, fuFlags, uTimeout, lpdwResult);
+		}
+
+		public int EnumWindow(WinAPI.EnumWindowsProc lpEnumFunc, IntPtr lParam)
+		{
+			return WinAPI.EnumWindows(lpEnumFunc, lParam);
 		}
 	}
 }

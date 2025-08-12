@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using madoka;
 
 namespace madoka_test
 {
@@ -20,9 +21,13 @@ namespace madoka_test
 			return 1;
 		}
 
-		public int PostMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
+		public IntPtr SendMessageTimeout(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam, uint fuFlags, uint uTimeout, IntPtr lpdwResult)
 		{
-			Thread.Sleep(4000);
+			return (IntPtr)1;
+		}
+
+		public int EnumWindow(WinAPI.EnumWindowsProc lpEnumFunc, IntPtr lParam)
+		{
 			return 1;
 		}
 	}
