@@ -128,7 +128,8 @@ namespace madoka
 
 		private void treeView1_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
 		{
-			UpdateTagLabel(e.Node, e.Label);
+			bool accept = UpdateTagLabel(e.Node, e.Label);
+			e.CancelEdit = !accept;
 		}
 
 		/* ==================================== *
@@ -175,7 +176,8 @@ namespace madoka
 
 		private void menuAddNewTag_Click(object sender, EventArgs e)
 		{
-			AddNewTag();
+			AddNewTag(null);
+			UpdateMenuForTagList();
 		}
 
 		// === grid view ===

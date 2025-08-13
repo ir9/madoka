@@ -35,6 +35,9 @@ namespace madoka
 			ctrl.AppConfig config = loaderTask.Result;
 			if (config != null)
 			{
+				ApplyConfigTag(config);
+
+				// === regsiter root dirs
 				if (!U.IsNullOrEmpty(config.RootFontDirList))
 				{
 					ReceivedFilePathList(config.RootFontDirList);
@@ -42,6 +45,35 @@ namespace madoka
 			}
 
 			_model.appState |= AppState.CONFIG_LOADED;
+			UpdateMenuForTagList();
+		}
+
+		private void ApplyConfigTag(ctrl.AppConfig config)
+		{
+			if (U.IsNullOrEmpty(config.TagList))
+				return;
+
+			// add font path
+			string[] filePathList = config.TagList.SelectMany((c) => c.FontPathList).Distinct().ToArray();
+			ctrl.DataSetKomono datasetCtrl = new ctrl.DataSetKomono(dataSet1);
+			datasetCtrl.RegisterFontList(filePathList);
+
+			// add tag / relation
+			ctrl.Font2TagCtrl       f2tCtrl     = new ctrl.Font2TagCtrl(_model);
+			Dictionary<string, int> path2fontID = dataSet1.CreatePath2FontFileID();
+			foreach (ctrl.AppConfigTag configTag in config.TagList)
+			{
+				string tagName = string.IsNullOrWhiteSpace(configTag.TagName) ? null : configTag.TagName;
+				TreeNode tagNode = AddNewTag(tagName);
+				Tag tag = tagNode.Tag as Tag;
+				if (tag == null)
+					continue;
+
+				// == commit ===
+				int[] fontIdList = configTag.FontPathList.Select((path) => path2fontID[path]).ToArray();
+				f2tCtrl.AddRelation(fontIdList.Select((id) => new ctrl.RelationPair(id, tag.ID)));
+				tag.FontIdList.UnionWith(fontIdList);
+			}
 		}
 
 		private void OnDeleteTreeNode(TreeNode selectedTreeNode)
@@ -140,9 +172,9 @@ namespace madoka
 		}
 
 
-		private void LaunchScanFontDirectoryTask(string[] pathList)
+		private void LaunchScanFontDirectoryTask(string[] dirPathList)
 		{
-			Task<ctrl.ScanDirTaskResult> task = ctrl.ScanDirTask.Scan(pathList, _model, dataSet1);
+			Task<ctrl.ScanDirTaskResult> task = ctrl.ScanDirTask.Scan(dirPathList, _model, dataSet1);
 			task?.ContinueWith((prevTask) => RebuildTreeDirectory());
 		}
 
@@ -197,22 +229,23 @@ namespace madoka
 		/* ------------------------------------------ *
 		 * tag
 		 * ------------------------------------------ */
-		private void AddNewTag()
+		/// <param name="label">null許容</param>
+		private TreeNode AddNewTag(string label)
 		{
 			ctrl.DataSetKomono dataSetCtrl = new ctrl.DataSetKomono(dataSet1);
-			DataSet1.TagTableRow newRow = dataSetCtrl.AddNewTag();
+			DataSet1.TagTableRow newRow = dataSetCtrl.AddNewTag(label);
 
 			TreeNode newNode = new TreeNode();
 			newNode.ImageIndex = K.IMAGELIST_INDEX_TAG_SOLO;
 			newNode.SelectedImageIndex = K.IMAGELIST_INDEX_TAG_SOLO;
 			newNode.Text = newRow.name;
-			newNode.Tag = newRow.tagObj;
+			newNode.Tag  = newRow.tagObj;
 
 			TreeNode tagRoot = FindRootTreeNode(K.TREENODE_NAME_TAG_ROOT);
 			tagRoot.Nodes.Add(newNode);
 			tagRoot.ExpandAll();
 
-			UpdateMenuForTagList();
+			return newNode;
 		}
 
 		/// <summary>
@@ -241,18 +274,21 @@ namespace madoka
 			tag.FontIdList.ExceptWith(selectedFontIdList);
 		}
 
-		private void UpdateTagLabel(TreeNode node, string newLabel)
+		private bool UpdateTagLabel(TreeNode node, string newLabel)
 		{
 			if (newLabel == null)
-				return;
+				return false;
+			if (string.IsNullOrWhiteSpace(newLabel))
+				return false;
 			Tag tag = node.Tag as Tag;
 			if (tag == null)
-				return;
+				return false;
 
 			ctrl.DataSetKomono dataSetCtrl = new ctrl.DataSetKomono(dataSet1);
 			dataSetCtrl.UpdateTagLabel(tag.ID, newLabel);
 
 			UpdateMenuForTagList();
+			return true;
 		}
 
 		private void UpdateMenuForTagList()

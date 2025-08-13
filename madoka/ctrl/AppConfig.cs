@@ -7,9 +7,17 @@ using System.Threading.Tasks;
 
 namespace madoka.ctrl
 {
+	public class AppConfigTag
+	{
+		public string TagName { get; set; }
+		public int TagID { get; set; }
+		public string[] FontPathList { get; set; }
+	};
+
 	public class AppConfig
 	{
 		public string[] RootFontDirList { get; set; }
+		public AppConfigTag[] TagList { get; set; } = new AppConfigTag[] { };
 	};
 
 	class AppConfigSaverCtrl
@@ -52,7 +60,8 @@ namespace madoka.ctrl
 			{
 				config = new AppConfig()
 				{
-					RootFontDirList = (from r in _dataSet.RootFontDirTable select r.path).ToArray()
+					RootFontDirList = (from r in _dataSet.RootFontDirTable select r.path).ToArray(),
+					TagList = BuildTagList(),
 				};
 			}
 
@@ -77,6 +86,27 @@ namespace madoka.ctrl
 			}
 			File.Move(tmpPath, mainPath);
 			File.Delete(backPath);
+		}
+
+		private AppConfigTag[] BuildTagList()
+		{
+			AppConfigTag BuildFromTag(DataSet1.TagTableRow row)
+			{
+				var it = from   fontId in row.tagObj.FontIdList.AsParallel()
+						 let    fontRow = _dataSet.FontFileTable.FindByidSafe<DataSet1.FontFileTableRow>(fontId)
+						 where  fontRow != null
+						 select fontRow.filepath;
+				string[] fontPathList = it.ToArray();
+
+				return new AppConfigTag()
+				{
+					TagName = row.name,
+					TagID = row.id,
+					FontPathList = fontPathList,
+				};
+			}
+
+			return _dataSet.TagTable.Select(BuildFromTag).ToArray();
 		}
 	}
 

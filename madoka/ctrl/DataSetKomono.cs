@@ -38,6 +38,19 @@ namespace madoka.ctrl
 			}
 		}
 
+		public void RegisterFontList(IEnumerable<string> fontPathList)
+		{
+			using (_dataSet.GetWriteLocker())
+			{
+				foreach (string path in fontPathList)
+				{
+					// System.Data.ConstraintException?
+					_dataSet.FontFileTable.AddFontFileTableRow(IDIssuer.FontFileID, path, 0);
+				}
+				_dataSet.FontFileTable.Version.Inc();
+			}
+		}
+
 		public bool HasInstalledFont()
 		{
 			using (_dataSet.GetReadLocker())
@@ -60,13 +73,14 @@ namespace madoka.ctrl
 		/* ------------------------- *
 		 * tag
 		 * ------------------------- */
-		public DataSet1.TagTableRow AddNewTag()
+		public DataSet1.TagTableRow AddNewTag(string label = null)
 		{
 			Tag newTag = new Tag(IDIssuer.TagID);
 			using (_dataSet.GetWriteLocker())
 			{
-				string name = $"New tag name {newTag.ID}";
-				var ret = _dataSet.TagTable.AddTagTableRow(newTag.ID, name, newTag);
+				if(label == null)
+					label = $"New tag name {newTag.ID}";
+				var ret = _dataSet.TagTable.AddTagTableRow(newTag.ID, label, newTag);
 				_dataSet.TagTable.Version.Inc();
 				return ret;
 			}

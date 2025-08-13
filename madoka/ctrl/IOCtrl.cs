@@ -131,7 +131,7 @@ namespace madoka.ctrl
 			{
 				// throw TableVersionMismatchException
 				_dataSet.DirectoryTable.Version.Test(_directoryTableVersion);
-				_dataSet.FontFileTable.Version.Test(_directoryTableVersion);
+				_dataSet.FontFileTable.Version.Test(_fontFileTableVersion);
 				_model.treeRelationModelVersion.Test(_treeRelationModelVersion);
 				_model.dir2fontRelationModelVersion.Test(_dir2fontRelationModelVersion);
 

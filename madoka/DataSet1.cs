@@ -93,10 +93,13 @@ namespace madoka
 
 		internal Dictionary<string, int> CreatePath2FontFileID()
 		{
-			return FontFileTable.ToDictionary(
-				(r) => r.filepath,
-				(r) => r.id
-			);
+			using (GetReadLocker())
+			{
+				return FontFileTable.ToDictionary(
+					(r) => r.filepath,
+					(r) => r.id
+				);
+			}
 		}
 
 		/* ========================================= *

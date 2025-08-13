@@ -1172,11 +1172,14 @@ namespace madoka {
                 base.Columns.Add(this.columnstate);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid}, true));
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint2", new global::System.Data.DataColumn[] {
+                                this.columnfilepath}, false));
                 this.columnid.AutoIncrementSeed = 1;
                 this.columnid.AllowDBNull = false;
                 this.columnid.ReadOnly = true;
                 this.columnid.Unique = true;
                 this.columnfilepath.ReadOnly = true;
+                this.columnfilepath.Unique = true;
                 this.columnstate.AllowDBNull = false;
             }
             
