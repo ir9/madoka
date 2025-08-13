@@ -232,7 +232,9 @@ namespace madoka
 
 		private void menuAddToTag_Submenu_Click(object sender, EventArgs e)
 		{
+			TreeNode selectedTagNode = treeView1.SelectedNode;
 			AddFontToTagGroup(sender);
+			SwitchDataGridView(selectedTagNode);
 		}
 	}
 }
