@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="ctrl\AppConfig.cs" />
     <Compile Include="ctrl\DirGridViewRecordBuilder.cs" />
-    <Compile Include="ctrl\Font2TagCtrl.cs" />
+    <Compile Include="ctrl\FontTagRelationCtrl.cs" />
     <Compile Include="ctrl\FontChangeBroadcasterCtrl.cs" />
     <Compile Include="ctrl\Dir2FontCtrl.cs" />
     <Compile Include="ctrl\FontInstallationCtrl.cs" />

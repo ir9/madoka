@@ -86,12 +86,24 @@ namespace madoka.ctrl
 			}
 		}
 
-		public void UpdateTagLabel(int tagId, string newLabel)
+		public void UpdateTagLabel(int tagID, string newLabel)
 		{
 			using (_dataSet.GetWriteLocker())
 			{
-				DataSet1.TagTableRow row = _dataSet.TagTable.FindByid(tagId);
+				DataSet1.TagTableRow row = _dataSet.TagTable.FindByid(tagID);
 				row.name = newLabel;
+			}
+		}
+
+		public void RemoveTag(int tagID)
+		{
+			using (_dataSet.GetWriteLocker())
+			{
+				DataSet1.TagTableDataTable tagTable = _dataSet.TagTable;
+
+				DataSet1.TagTableRow row = tagTable.FindByid(tagID);
+				tagTable.RemoveTagTableRow(row);
+				tagTable.Version.Inc();
 			}
 		}
 	}

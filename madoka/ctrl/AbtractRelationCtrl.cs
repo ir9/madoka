@@ -89,6 +89,11 @@ namespace madoka.ctrl
 			return _relationPair.Remove(pair);
 		}
 
+		public void RemoveNode(IEnumerable<RelationPair> pairList)
+		{
+			_relationPair.ExceptWith(pairList);
+		}
+
 		public bool Contain(RelationPair rv)
 		{
 			return _relationPair.Contains(rv);

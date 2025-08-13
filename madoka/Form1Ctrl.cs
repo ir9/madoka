@@ -59,8 +59,8 @@ namespace madoka
 			datasetCtrl.RegisterFontList(filePathList);
 
 			// add tag / relation
-			ctrl.Font2TagCtrl       f2tCtrl     = new ctrl.Font2TagCtrl(_model);
-			Dictionary<string, int> path2fontID = dataSet1.CreatePath2FontFileID();
+			ctrl.FontTagRelationCtrl ftCtrl      = new ctrl.FontTagRelationCtrl(_model, dataSet1);
+			Dictionary<string, int>  path2fontID = dataSet1.CreatePath2FontFileID();
 			foreach (ctrl.AppConfigTag configTag in config.TagList)
 			{
 				string tagName = string.IsNullOrWhiteSpace(configTag.TagName) ? null : configTag.TagName;
@@ -69,18 +69,8 @@ namespace madoka
 				if (tag == null)
 					continue;
 
-				// == commit ===
 				int[] fontIdList = configTag.FontPathList.Select((path) => path2fontID[path]).ToArray();
-				f2tCtrl.AddRelation(fontIdList.Select((id) => new ctrl.RelationPair(id, tag.ID)));
-				tag.FontIdList.UnionWith(fontIdList);
-			}
-		}
-
-		private void OnDeleteTreeNode(TreeNode selectedTreeNode)
-		{
-			if (selectedTreeNode.Tag is Dir)
-			{
-				DeleteRootFontDirectory(selectedTreeNode);
+				ftCtrl.AddRelation(tag, fontIdList);
 			}
 		}
 
@@ -192,31 +182,54 @@ namespace madoka
 			}));
 		}
 
-		private void DeleteRootFontDirectory(TreeNode node)
+		private void OnDeleteTreeNode(TreeNode selectedTreeNode)
 		{
-			Dir dir = node.Tag as Dir;
+			switch (selectedTreeNode.Tag)
+			{
+			case Dir dir:
+				DeleteRootFontDirectory(dir);
+				break;
+			case Tag tag:
+				DeleteTagNode(selectedTreeNode, tag);
+				break;
+			}
+		}
+
+		private void DeleteRootFontDirectory(Dir dir)
+		{
 			ctrl.TreeModelCtrl tree = new ctrl.TreeModelCtrl(_model);
 			tree.RemoveNode(_model.rootDirID, dir.ID);
+		}
+
+		private void DeleteTagNode(TreeNode targetNode, Tag tag)
+		{
+			ctrl.DataSetKomono       komono = new ctrl.DataSetKomono(dataSet1);
+			ctrl.FontTagRelationCtrl f2tCtrl = new ctrl.FontTagRelationCtrl(_model, dataSet1);
+
+			f2tCtrl.RemoveRelation(tag, tag.FontIdList);
+			komono.RemoveTag(tag.ID);
+
+			targetNode.Remove();
 		}
 
 		// ----
 		/// <returns>null が帰りえます</returns>
 		private int[] CollectFontIds(TreeNode node)
 		{
-			int dirId;
-			if (node.Tag is Dir dir)
+			switch (node.Tag)
 			{
-				dirId = dir.ID;
+			case Dir     dir:     return CollectFontIdsFromDirID(dir.ID);
+			case DirRoot dirRoot: return CollectFontIdsFromDirID(_model.rootDirID);
+			case Tag     tag:     return tag.FontIdList.ToArray();
+			case TagRoot tagRoot:
+			default:
+				break;
 			}
-			else if (node.Name == K.TREENODE_NAME_DIRECTORY_ROOT)
-			{
-				dirId = _model.rootDirID;
-			}
-			else
-			{
-				return null;
-			}
+			return null;
+		}
 
+		private int[] CollectFontIdsFromDirID(int dirId)
+		{
 			ctrl.TreeModelCtrl treeCtrl = new ctrl.TreeModelCtrl(_model);
 			int[] dirIdList = treeCtrl.GetChildIndexesRecuresive(dirId);
 
@@ -225,7 +238,6 @@ namespace madoka
 
 			return fontIdList;
 		}
-
 		/* ------------------------------------------ *
 		 * tag
 		 * ------------------------------------------ */
@@ -235,11 +247,12 @@ namespace madoka
 			ctrl.DataSetKomono dataSetCtrl = new ctrl.DataSetKomono(dataSet1);
 			DataSet1.TagTableRow newRow = dataSetCtrl.AddNewTag(label);
 
-			TreeNode newNode = new TreeNode();
+			TreeNode newNode   = new TreeNode();
 			newNode.ImageIndex = K.IMAGELIST_INDEX_TAG_SOLO;
 			newNode.SelectedImageIndex = K.IMAGELIST_INDEX_TAG_SOLO;
 			newNode.Text = newRow.name;
 			newNode.Tag  = newRow.tagObj;
+			newNode.ContextMenuStrip = contextMenuFolder;
 
 			TreeNode tagRoot = FindRootTreeNode(K.TREENODE_NAME_TAG_ROOT);
 			tagRoot.Nodes.Add(newNode);
@@ -265,13 +278,8 @@ namespace madoka
 			int[] rowIndexList = gridViewRows.Cast<DataGridViewRow>().Select((row) => row.Index).ToArray();
 			int[] selectedFontIdList = rowIndexList.Select((index) => table[index].fontId).ToArray();
 
-			// === commit ===
-			ctrl.Font2TagCtrl f2tCtrl = new ctrl.Font2TagCtrl(_model);
-			foreach (int fontId in selectedFontIdList)
-			{
-				f2tCtrl.RemoveNode(fontId);
-			}
-			tag.FontIdList.ExceptWith(selectedFontIdList);
+			ctrl.FontTagRelationCtrl ftCtrl = new ctrl.FontTagRelationCtrl(_model, dataSet1);
+			ftCtrl.RemoveRelation(tag, selectedFontIdList);
 		}
 
 		private bool UpdateTagLabel(TreeNode node, string newLabel)
@@ -352,9 +360,8 @@ namespace madoka
 				return;
 
 			// commit
-			ctrl.Font2TagCtrl f2tCtrl = new ctrl.Font2TagCtrl(_model);
-			f2tCtrl.AddRelation(fontIdList.Select((id) => new ctrl.RelationPair(id, tag.ID)));
-			tag.FontIdList.UnionWith(fontIdList);
+			ctrl.FontTagRelationCtrl f2tCtrl = new ctrl.FontTagRelationCtrl(_model, dataSet1);
+			f2tCtrl.AddRelation(tag, fontIdList);
 		}
 
 		private int[] GetFontIDsFromDirGridViewTable(
