@@ -71,18 +71,16 @@
 			// 
 			// splitContainer1.Panel1
 			// 
-			resources.ApplyResources(this.splitContainer1.Panel1, "splitContainer1.Panel1");
 			this.splitContainer1.Panel1.Controls.Add(this.treeView1);
 			// 
 			// splitContainer1.Panel2
 			// 
-			resources.ApplyResources(this.splitContainer1.Panel2, "splitContainer1.Panel2");
 			this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
 			// 
 			// treeView1
 			// 
-			resources.ApplyResources(this.treeView1, "treeView1");
 			this.treeView1.AllowDrop = true;
+			resources.ApplyResources(this.treeView1, "treeView1");
 			this.treeView1.ImageList = this.imageList1;
 			this.treeView1.LabelEdit = true;
 			this.treeView1.Name = "treeView1";
@@ -104,13 +102,13 @@
 			// 
 			// dataGridView1
 			// 
-			resources.ApplyResources(this.dataGridView1, "dataGridView1");
 			this.dataGridView1.AllowUserToAddRows = false;
 			this.dataGridView1.AllowUserToDeleteRows = false;
 			this.dataGridView1.AllowUserToResizeRows = false;
 			this.dataGridView1.AutoGenerateColumns = false;
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView1.DataSource = this.gridViewDataTableBindingSource;
+			resources.ApplyResources(this.dataGridView1, "dataGridView1");
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.ReadOnly = true;
 			this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
@@ -120,11 +118,12 @@
 			this.dataGridView1.ShowCellErrors = false;
 			this.dataGridView1.ShowEditingIcon = false;
 			this.dataGridView1.ShowRowErrors = false;
+			this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
 			this.dataGridView1.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDown);
+			this.dataGridView1.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridView1_CellPainting);
 			// 
 			// contextMenuFolder
 			// 
-			resources.ApplyResources(this.contextMenuFolder, "contextMenuFolder");
 			this.contextMenuFolder.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuFolderInstall,
             this.menuReleaseTemporaryInstallation,
@@ -134,6 +133,7 @@
             this.toolStripSeparator2,
             this.menuNotifyFontInstallationChangeMessage});
 			this.contextMenuFolder.Name = "contextMenuFolder";
+			resources.ApplyResources(this.contextMenuFolder, "contextMenuFolder");
 			this.contextMenuFolder.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuFolder_Opening);
 			// 
 			// menuFolderInstall
@@ -144,36 +144,36 @@
 			// 
 			// menuReleaseTemporaryInstallation
 			// 
-			resources.ApplyResources(this.menuReleaseTemporaryInstallation, "menuReleaseTemporaryInstallation");
 			this.menuReleaseTemporaryInstallation.Name = "menuReleaseTemporaryInstallation";
+			resources.ApplyResources(this.menuReleaseTemporaryInstallation, "menuReleaseTemporaryInstallation");
 			this.menuReleaseTemporaryInstallation.Click += new System.EventHandler(this.menuReleaseTemporaryInstallation_Click);
 			// 
 			// toolStripSeparator1
 			// 
-			resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
 			// 
 			// menuFolderDeleteNode
 			// 
-			resources.ApplyResources(this.menuFolderDeleteNode, "menuFolderDeleteNode");
 			this.menuFolderDeleteNode.Name = "menuFolderDeleteNode";
+			resources.ApplyResources(this.menuFolderDeleteNode, "menuFolderDeleteNode");
 			this.menuFolderDeleteNode.Click += new System.EventHandler(this.menuFolderDeleteNode_Click);
 			// 
 			// menuAddNewTag
 			// 
-			resources.ApplyResources(this.menuAddNewTag, "menuAddNewTag");
 			this.menuAddNewTag.Name = "menuAddNewTag";
+			resources.ApplyResources(this.menuAddNewTag, "menuAddNewTag");
 			this.menuAddNewTag.Click += new System.EventHandler(this.menuAddNewTag_Click);
 			// 
 			// toolStripSeparator2
 			// 
-			resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
 			this.toolStripSeparator2.Name = "toolStripSeparator2";
+			resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
 			// 
 			// menuNotifyFontInstallationChangeMessage
 			// 
-			resources.ApplyResources(this.menuNotifyFontInstallationChangeMessage, "menuNotifyFontInstallationChangeMessage");
 			this.menuNotifyFontInstallationChangeMessage.Name = "menuNotifyFontInstallationChangeMessage";
+			resources.ApplyResources(this.menuNotifyFontInstallationChangeMessage, "menuNotifyFontInstallationChangeMessage");
 			this.menuNotifyFontInstallationChangeMessage.Click += new System.EventHandler(this.menuNotifyFontInstallationChangeMessage_Click);
 			// 
 			// statusStrip1
@@ -185,8 +185,8 @@
 			// 
 			// toolStripProgressBar1
 			// 
-			resources.ApplyResources(this.toolStripProgressBar1, "toolStripProgressBar1");
 			this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+			resources.ApplyResources(this.toolStripProgressBar1, "toolStripProgressBar1");
 			this.toolStripProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
 			// 
 			// tableLayoutPanel1
@@ -203,22 +203,22 @@
 			// 
 			// contextMenuStripGridView
 			// 
-			resources.ApplyResources(this.contextMenuStripGridView, "contextMenuStripGridView");
 			this.contextMenuStripGridView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuGridViewAddFontToTag,
             this.menuGridViewDelete});
 			this.contextMenuStripGridView.Name = "contextMenuStripGridView";
+			resources.ApplyResources(this.contextMenuStripGridView, "contextMenuStripGridView");
 			this.contextMenuStripGridView.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripGridView_Opening);
 			// 
 			// menuGridViewAddFontToTag
 			// 
-			resources.ApplyResources(this.menuGridViewAddFontToTag, "menuGridViewAddFontToTag");
 			this.menuGridViewAddFontToTag.Name = "menuGridViewAddFontToTag";
+			resources.ApplyResources(this.menuGridViewAddFontToTag, "menuGridViewAddFontToTag");
 			// 
 			// menuGridViewDelete
 			// 
-			resources.ApplyResources(this.menuGridViewDelete, "menuGridViewDelete");
 			this.menuGridViewDelete.Name = "menuGridViewDelete";
+			resources.ApplyResources(this.menuGridViewDelete, "menuGridViewDelete");
 			this.menuGridViewDelete.Click += new System.EventHandler(this.menuGridViewDelete_Click);
 			// 
 			// dataSet1

@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.IO;
-using System.Threading;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -75,6 +75,46 @@ namespace madoka
 			this.WindowState = _prevState;
 		}
 
+		/* ==================================== *
+		 * DataGridView
+		 * ==================================== */
+		private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+		{
+			DataSet1.DirGridViewTableDataTable table = gridViewDataTableBindingSource.DataSource as DataSet1.DirGridViewTableDataTable;
+			if (table == null)
+				return;
+			DataSet1.DirGridViewTableRow row = table[e.RowIndex];
+			if (row.objectType != (int)GridViewDataType.DIRECTORY)
+				return;
+			e.CellStyle.BackColor = Color.SaddleBrown;
+			e.CellStyle.ForeColor = Color.FloralWhite;
+
+			// image の 領域分の margin を確保する
+			Padding padding = e.CellStyle.Padding;
+			padding.Left += K.IMAGE_WIDTH + 6;
+			e.CellStyle.Padding = padding;
+		}
+
+		private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+		{
+			DataSet1.DirGridViewTableDataTable table = gridViewDataTableBindingSource.DataSource as DataSet1.DirGridViewTableDataTable;
+			if (table == null)
+				return;
+			if (e.RowIndex < 0 || e.ColumnIndex != 0)
+				return;
+			DataSet1.DirGridViewTableRow row = table[e.RowIndex];
+			if (row.objectType != (int)GridViewDataType.DIRECTORY)
+				return;
+
+			e.Paint(e.ClipBounds, DataGridViewPaintParts.All);
+
+			Rectangle cellRect = e.CellBounds;
+			int drawTop  = cellRect.Top + (cellRect.Height - K.IMAGE_HEIGHT) / 2;
+			int drawLeft = e.CellBounds.Left + 4;
+			imageList1.Draw(e.Graphics, drawLeft, drawTop, K.IMAGELIST_INDEX_FOLDER);
+			e.Handled = true;
+		}
+
 		private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
 		{
 			if (e.Button == MouseButtons.Right)
@@ -114,11 +154,6 @@ namespace madoka
 		private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
 		{
 			SwitchDataGridView(e.Node);
-			/*
-			gridViewDataTableBindingSource.name
-			dataGridView1.DataSource = gridViewDataTableBindingSource;
-			dataGridView1.name
-			*/
 		}
 
 		private void treeView1_BeforeLabelEdit(object sender, NodeLabelEditEventArgs e)
@@ -198,7 +233,5 @@ namespace madoka
 		{
 			AddFontToTagGroup(sender);
 		}
-
-
 	}
 }

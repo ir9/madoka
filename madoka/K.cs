@@ -31,6 +31,9 @@ namespace madoka
 			134, // multi file
 			70, // solo file
 		};
+		public const int IMAGE_HEIGHT = 16;
+		public const int IMAGE_WIDTH  = 16;
+
 		public const int IMAGELIST_INDEX_DRIVE = 0;
 		public const int IMAGELIST_INDEX_FOLDER = 1;
 		public const int IMAGELIST_INDEX_TAG_MULTI = 2;

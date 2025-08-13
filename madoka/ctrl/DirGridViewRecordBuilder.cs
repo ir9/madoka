@@ -24,23 +24,21 @@ namespace madoka.ctrl
 
 		public DataSet1.DirGridViewTableDataTable Build(Dir selectedDir)
 		{
+			System.IO.DirectoryInfo parent = selectedDir.DirectoryInfo.Parent;
+			string rootPath;
+			if (parent != null)
+			{
+				rootPath = parent.FullName;
+				rootPath = rootPath.TrimEnd(System.IO.Path.DirectorySeparatorChar) + System.IO.Path.DirectorySeparatorChar;
+			}
+			else
+			{   // parent == null
+				rootPath = "::::::"; // use a dummy path
+			}
+
 			using (_dataSet.GetReadLocker())
 			{
-				Dir dirObj = _dataSet.GetDirectory(selectedDir.ID);
-				string rootPath;
-
-				System.IO.DirectoryInfo parent = dirObj.DirectoryInfo.Parent;
-				if (parent != null)
-				{
-					rootPath = parent.FullName;
-					rootPath = rootPath.TrimEnd(System.IO.Path.DirectorySeparatorChar) + System.IO.Path.DirectorySeparatorChar;
-				}
-				else
-				{   // parent == null
-					rootPath = "::::::"; // use a dummy path
-				}
-
-				Insert(_model.rootDirID, rootPath);
+				Insert(selectedDir.ID, rootPath);
 			}
 
 			return _table;
