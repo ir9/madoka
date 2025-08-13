@@ -29,6 +29,11 @@ namespace madoka.ctrl
 			_f2tCtrl = new Font2TagRelationCtrl(model);
 		}
 
+		public int[] GetTagIDs(int fontID)
+		{
+			return _f2tCtrl.GetChildIndexes(fontID);
+		}
+
 		public void AddRelation(Tag tag, IEnumerable<int> joinFontIdList)
 		{
 			_f2tCtrl.AddRelation(joinFontIdList.Select((id) => new RelationPair(id, tag.ID)));

@@ -84,15 +84,16 @@ namespace madoka
 			if (table == null)
 				return;
 			DataSet1.DirGridViewTableRow row = table[e.RowIndex];
-			if (row.objectType != (int)GridViewDataType.DIRECTORY)
-				return;
-			e.CellStyle.BackColor = Color.SaddleBrown;
-			e.CellStyle.ForeColor = Color.FloralWhite;
+			if (row.objectType == (int)GridViewDataType.DIRECTORY)
+			{
+				e.CellStyle.BackColor = Color.SaddleBrown;
+				e.CellStyle.ForeColor = Color.FloralWhite;
 
-			// image の 領域分の margin を確保する
-			Padding padding = e.CellStyle.Padding;
-			padding.Left += K.IMAGE_WIDTH + 6;
-			e.CellStyle.Padding = padding;
+				// image の 領域分の margin を確保する
+				Padding padding = e.CellStyle.Padding;
+				padding.Left += K.IMAGE_WIDTH + 6;
+				e.CellStyle.Padding = padding;
+			}
 		}
 
 		private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)

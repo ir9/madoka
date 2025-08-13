@@ -95,6 +95,20 @@ namespace madoka.ctrl
 			}
 		}
 
+		public string[] GetTagNames(IEnumerable<int> tagIDList)
+		{
+			using (_dataSet.GetReadLocker())
+			{
+				return tagIDList.Select(
+					(id) =>
+					{
+						DataSet1.TagTableRow row = _dataSet.TagTable.FindByid(id);
+						return row.name;
+					}
+				).ToArray();
+			}
+		}
+
 		public void RemoveTag(int tagID)
 		{
 			using (_dataSet.GetWriteLocker())

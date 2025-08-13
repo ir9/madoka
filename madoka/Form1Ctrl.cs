@@ -429,6 +429,7 @@ namespace madoka
 				new DataGridViewTextBoxColumn()
 				{
 					HeaderText = "Tag",
+					DataPropertyName = "tagNameList",
 					ContextMenuStrip = contextMenuStripGridView,
 					Width = tagWidth,
 				}

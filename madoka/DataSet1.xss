@@ -9,7 +9,7 @@
     <Shape ID="DesignTable:TagTable" ZOrder="3" X="535" Y="88" Height="86" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="82" />
     <Shape ID="DesignTable:DirectoryTable" ZOrder="6" X="147" Y="84" Height="67" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="63" />
     <Shape ID="DesignTable:FontFileTable" ZOrder="5" X="344" Y="85" Height="86" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="82" />
-    <Shape ID="DesignTable:DirGridViewTable" ZOrder="2" X="127" Y="226" Height="124" Width="173" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="120" />
+    <Shape ID="DesignTable:DirGridViewTable" ZOrder="2" X="127" Y="226" Height="143" Width="164" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="139" />
     <Shape ID="DesignTable:RootFontDirTable" ZOrder="4" X="103" Y="421" Height="48" Width="165" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="44" />
     <Shape ID="DesignTable:TagGridViewTable" ZOrder="1" X="357" Y="224" Height="105" Width="168" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="101" />
   </Shapes>

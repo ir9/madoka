@@ -1324,6 +1324,8 @@ namespace madoka {
             
             private global::System.Data.DataColumn columnobjectID;
             
+            private global::System.Data.DataColumn columntagNameList;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public DirGridViewTableDataTable() {
@@ -1399,6 +1401,14 @@ namespace madoka {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn tagNameListColumn {
+                get {
+                    return this.columntagNameList;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1434,14 +1444,15 @@ namespace madoka {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public DirGridViewTableRow AddDirGridViewTableRow(int id, string name, bool flag, int objectType, int objectID) {
+            public DirGridViewTableRow AddDirGridViewTableRow(int id, string name, bool flag, int objectType, int objectID, string tagNameList) {
                 DirGridViewTableRow rowDirGridViewTableRow = ((DirGridViewTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
                         name,
                         flag,
                         objectType,
-                        objectID};
+                        objectID,
+                        tagNameList};
                 rowDirGridViewTableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDirGridViewTableRow);
                 return rowDirGridViewTableRow;
@@ -1476,6 +1487,7 @@ namespace madoka {
                 this.columnflag = base.Columns["flag"];
                 this.columnobjectType = base.Columns["objectType"];
                 this.columnobjectID = base.Columns["objectID"];
+                this.columntagNameList = base.Columns["tagNameList"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1491,6 +1503,8 @@ namespace madoka {
                 base.Columns.Add(this.columnobjectType);
                 this.columnobjectID = new global::System.Data.DataColumn("objectID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnobjectID);
+                this.columntagNameList = new global::System.Data.DataColumn("tagNameList", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntagNameList);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid}, true));
                 this.columnid.AutoIncrementSeed = 1;
@@ -1500,6 +1514,8 @@ namespace madoka {
                 this.columnflag.AllowDBNull = false;
                 this.columnobjectType.AllowDBNull = false;
                 this.columnobjectID.AllowDBNull = false;
+                this.columntagNameList.ReadOnly = true;
+                this.columntagNameList.DefaultValue = ((string)(""));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2427,6 +2443,22 @@ namespace madoka {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string tagNameList {
+                get {
+                    if (this.IstagNameListNull()) {
+                        return string.Empty;
+                    }
+                    else {
+                        return ((string)(this[this.tableDirGridViewTable.tagNameListColumn]));
+                    }
+                }
+                set {
+                    this[this.tableDirGridViewTable.tagNameListColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsnameNull() {
                 return this.IsNull(this.tableDirGridViewTable.nameColumn);
             }
@@ -2435,6 +2467,18 @@ namespace madoka {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetnameNull() {
                 this[this.tableDirGridViewTable.nameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IstagNameListNull() {
+                return this.IsNull(this.tableDirGridViewTable.tagNameListColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SettagNameListNull() {
+                this[this.tableDirGridViewTable.tagNameListColumn] = global::System.Convert.DBNull;
             }
         }
         
