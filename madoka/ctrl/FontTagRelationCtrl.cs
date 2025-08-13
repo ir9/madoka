@@ -43,10 +43,9 @@ namespace madoka.ctrl
 		public void RemoveRelation(Tag tag, IEnumerable<int> removeFontIdList)
 		{
 			Font2TagRelationCtrl f2tCtrl = _f2tCtrl;
-			foreach (int fontId in removeFontIdList)
-			{
-				f2tCtrl.RemoveNode(fontId);
-			}
+			f2tCtrl.RemoveNode(
+				removeFontIdList.Select((id) => new RelationPair(id, tag.ID))
+			);
 			tag.FontIdList.ExceptWith(removeFontIdList);
 		}
 	}
